@@ -61,7 +61,7 @@ public class SpellRoot extends Spell{
 		new BukkitRunnable(){
 			public void run(){
 				for (LivingEntity e : BasicUtil.getInRadius(block.getLocation().add(0, 1, 0), 3)){
-					if (BasicUtil.isInTeam(e, p)){
+					if (!BasicUtil.isInTeam(e, p)){
 						BasicUtil.damage(e, p, 45, DamageType.GROUND);
 						BasicUtil.giveCondtition(e, Condition.SLOW, 3);
 						

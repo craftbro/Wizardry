@@ -82,7 +82,7 @@ public class SpellHotWater extends Spell{
 							}
 						}
 					}
-					loc = p.getEyeLocation().add(vec);
+					loc.add(vec);
 					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
 						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
@@ -98,7 +98,7 @@ public class SpellHotWater extends Spell{
 							}
 						}
 					}
-					loc = p.getEyeLocation().add(vec);
+					loc.add(vec);
 					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
 						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
@@ -114,7 +114,7 @@ public class SpellHotWater extends Spell{
 							}
 						}
 					}
-					loc = p.getEyeLocation().add(vec);
+					loc.add(vec);
 					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
 						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
@@ -130,7 +130,7 @@ public class SpellHotWater extends Spell{
 							}
 						}
 					}
-					loc = p.getEyeLocation().add(vec);
+					loc.add(vec);
 					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
 						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
@@ -146,7 +146,7 @@ public class SpellHotWater extends Spell{
 							}
 						}
 					}
-					loc = p.getEyeLocation().add(vec);
+					loc.add(vec);
 					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
 						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
@@ -162,7 +162,7 @@ public class SpellHotWater extends Spell{
 							}
 						}
 					}
-					loc = p.getEyeLocation().add(vec);
+					loc.add(vec);
 					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
 						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
@@ -178,7 +178,7 @@ public class SpellHotWater extends Spell{
 							}
 						}
 					}
-					loc = p.getEyeLocation().add(vec);
+					loc.add(vec);
 					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
 						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
@@ -194,7 +194,7 @@ public class SpellHotWater extends Spell{
 							}
 						}
 					}
-					loc = p.getEyeLocation().add(vec);
+					loc.add(vec);
 					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
 						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
@@ -210,7 +210,7 @@ public class SpellHotWater extends Spell{
 							}
 						}
 					}
-					loc = p.getEyeLocation().add(vec);
+					loc.add(vec);
 					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
 						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
@@ -226,7 +226,7 @@ public class SpellHotWater extends Spell{
 							}
 						}
 					}
-					loc = p.getEyeLocation().add(vec);
+					loc.add(vec);
 					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
 						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
@@ -242,7 +242,7 @@ public class SpellHotWater extends Spell{
 							}
 						}
 					}
-					loc = p.getEyeLocation().add(vec);
+					loc.add(vec);
 					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
 						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){

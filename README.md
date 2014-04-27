@@ -1,4 +1,4 @@
 Wizardry
 ========
 
-A Wizard PVP Bukkit Minigame
+Wizardry is a new Minigame for the Craftersland network.
