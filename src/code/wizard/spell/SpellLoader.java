@@ -33,6 +33,7 @@ public class SpellLoader {
 		spells.put("Clayball", new SpellClayBall(null));
 		spells.put("Levitate", new SpellLevitate(null));
 		spells.put("Hot Water", new SpellHotWater(null));
+		spells.put("Roots", new SpellRoot(null));
 		//spells.put("Mana Sponge", new SpellManaDrain(null));
 	}
 	
