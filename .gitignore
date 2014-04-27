@@ -14,3 +14,6 @@ hs_err_pid*
 # various other potential build files
 
 bin
+.settings
+.classpath
+.project
