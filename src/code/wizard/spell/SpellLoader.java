@@ -30,6 +30,7 @@ public class SpellLoader {
 		spells.put("Leap", new SpellLeap(null));
 		spells.put("Star Bomb", new SpellBombStar(null));
 		spells.put("Magical Gem", new SpellMagicalGem(null));
+		spells.put("Clayball", new SpellClayBall(null));
 		//spells.put("Mana Sponge", new SpellManaDrain(null));
 	}
 	

@@ -9,6 +9,7 @@ public enum Condition {
 	WEAK(ChatColor.GRAY+"Weakend", ChatColor.GRAY+"Weakend "+ChatColor.DARK_AQUA+"players take double damage"),
 	SLOW(ChatColor.DARK_PURPLE+"Slowed", ChatColor.DARK_PURPLE+"Slowed "+ChatColor.DARK_AQUA+"players walk half as fast"),
 	OIL(ChatColor.DARK_RED+"Oiled", ChatColor.DARK_RED+"Oiled "+ChatColor.DARK_AQUA+"players can't heal"),
+	TIRED(ChatColor.GRAY+"Tired", ChatColor.GRAY+"Tires "+ChatColor.DARK_AQUA+"players deal half damage"),
 	SUPER(ChatColor.RED+"S"+ChatColor.YELLOW+"u"+ChatColor.GREEN+"p"+ChatColor.AQUA+"e"+ChatColor.LIGHT_PURPLE+"r", 
 			ChatColor.RED+"S"+ChatColor.YELLOW+"u"+ChatColor.GREEN+"p"+ChatColor.AQUA+"e"+ChatColor.LIGHT_PURPLE+"r"+ChatColor.DARK_AQUA+" players deal double damage!");
 	
