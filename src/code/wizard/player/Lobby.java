@@ -273,13 +273,11 @@ public class Lobby implements Listener {
 
 	@EventHandler
 	public void MOTD(ServerListPingEvent event) {
-//		if (!started) {
-//			event.setMotd(Main.getPrefix() + "In Lobby");
-//		} else 
-//			event.setMotd(Main.getPrefix "In Game");
-//		}
-		
-		event.setMotd(Main.getPrefix() +ChatColor.RED+ "Under Maintenance");
+		if (!started) {
+			event.setMotd(Main.getPrefix() + "In Lobby");
+		} else {
+			event.setMotd(Main.getPrefix() + "In Game");
+		}
 
 	}
 

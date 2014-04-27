@@ -34,7 +34,7 @@ public class DStats {
 			
 			double part = BasicUtil.getPercent(percent, d);
 			
-			Main.print("Calculated this: "+d+", "+percent+", "+part+", "+stat.pos+", "+type.name());
+			
 			
 			if(stat.isPositive()){
 				ap+=part;
