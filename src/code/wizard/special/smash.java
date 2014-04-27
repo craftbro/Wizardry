@@ -35,7 +35,7 @@ public class smash implements Listener {
 		
 		s.setCustomName("jeb_");
 		s.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 2));
-		s.setBaby();
+		
 		
 		startUpdate();
 		
@@ -85,7 +85,9 @@ public class smash implements Listener {
 			double x = ((r.nextDouble()*10)-5)/10;
 			double z = ((r.nextDouble()*10)-5)/10;
 			
-			s.setVelocity(new Vector(x, 0.3, z));
+			s.setVelocity(new Vector(x, 0.35, z));
+			
+		
 			}
 			
 		};

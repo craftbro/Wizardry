@@ -3,6 +3,7 @@ package code.wizard.armor;
 import java.util.ArrayList;
 import java.util.List;
 
+import code.configtesting.config.Config;
 import code.wizard.main.Main;
 import code.wizard.util.BasicUtil;
 import code.wizard.util.DamageType;

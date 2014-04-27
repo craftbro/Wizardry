@@ -1,0 +1,13 @@
+name: Wizardry
+main: code.wizard.main.Main
+author: theCodeBro
+version: 1
+commands:
+  wizkit:
+  start:
+  condition:
+  fw:
+  getspells:
+  query:
+  smash:
+  health:
