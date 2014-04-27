@@ -111,7 +111,10 @@ public enum pants{
 			new DStat[]{new DStat(false, 30, DamageType.WATER), new DStat(true, 30, DamageType.LIGHTNING)}),
 	KINGS_LEGGINGS(new NamedStack(ChatColor.GRAY+"King's Leggings", Material.GOLD_LEGGINGS, 
 			new String[]{min+"30%"+lightning, plus+"30%"+water}),
-			new DStat[]{new DStat(false, 30, DamageType.LIGHTNING), new DStat(true, 30, DamageType.WATER)});
+			new DStat[]{new DStat(false, 30, DamageType.LIGHTNING), new DStat(true, 30, DamageType.WATER)}),
+	LOOSERS_PANTS(new NamedStack(ChatColor.GRAY+"Loosers Pants", Material.LEATHER_LEGGINGS, Color.fromBGR(60, 60, 60), 
+			new String[]{plus+"15%"+lightning, plus+"15%"+fire, plus+"10%"+light, min+"40%"+dark}),
+			new DStat[]{new DStat(true, 15, DamageType.LIGHTNING), new DStat(true, 15, DamageType.FIRE), new DStat(true, 10, DamageType.LIGHT), new DStat(false, 40, DamageType.DARK)});
 	
 
 ItemStack s = null;
