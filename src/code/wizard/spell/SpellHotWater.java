@@ -62,11 +62,12 @@ public class SpellHotWater extends Spell{
 		new BukkitRunnable(){
 			int times = 0;
 			Vector vec = p.getLocation().getDirection().normalize().multiply(0.4);
+			Location loc = p.getEyeLocation();
 			public void run(){
 				p.getWorld().playSound(p.getLocation(), Sound.ZOMBIE_REMEDY, 0.1F, 2);
 				if (times % 2 == 0){
 					List<LivingEntity> safes = new ArrayList<LivingEntity>();
-					Location loc = p.getEyeLocation().add(vec);
+					
 					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
 						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
