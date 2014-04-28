@@ -58,8 +58,10 @@ public class SpellRoot extends Spell{
 		particle.setId(Material.LEAVES.getId());
 		particle.animateAtLocation(block.getLocation().add(0, 0.6, 0), 10, 1);
 		particle.setId(1);
+		p.getWorld().playSound(p.getLocation(), Sound.ZOMBIE_WOOD, 0.6F, 1.3F);
 		new BukkitRunnable(){
 			public void run(){
+				p.getWorld().playSound(p.getLocation(), Sound.ZOMBIE_WOODBREAK, 0.6F, 1.3F);
 				for (LivingEntity e : BasicUtil.getInRadius(block.getLocation().add(0, 1, 0), 3)){
 					if (!BasicUtil.isInTeam(e, p)){
 						BasicUtil.damage(e, p, 45, DamageType.GROUND);
@@ -72,9 +74,7 @@ public class SpellRoot extends Spell{
 					}
 				}
 			}
-		}.runTaskLater(Main.getInstance(), 10);
-		
-		p.getWorld().playSound(p.getLocation(), Sound.ZOMBIE_WOOD, 0.6F, 1.3F);
+		}.runTaskLater(Main.getInstance(), (long) ((block.getLocation().distance(block.getLocation()) + 1) * 5));
 	
 		FireworkEffect effect = FireworkEffect.builder().withColor(Color.WHITE).withFade(Color.fromBGR(225, 225, 255)).with(Type.BURST).build();
 	
