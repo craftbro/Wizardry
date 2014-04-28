@@ -34,7 +34,7 @@ public class SpellHotWater extends Spell{
 		
 		des.add(ChatColor.DARK_AQUA+"Shoots a trail of hot water for "+ChatColor.WHITE+"2"+ChatColor.DARK_AQUA+" that");
 		des.add(ChatColor.DARK_AQUA+"deals "+ChatColor.WHITE+"5"+ChatColor.AQUA+" Water "+ChatColor.DARK_AQUA+"damage");
-		des.add(ChatColor.DARK_AQUA+"and"+ChatColor.RED+" Burns"+ChatColor.AQUA+" the emeny for "+ChatColor.WHITE+"4"+ChatColor.DARK_AQUA+"seconds");
+		des.add(ChatColor.DARK_AQUA+"and"+ChatColor.RED+" Burns"+ChatColor.DARK_AQUA+" the emeny for "+ChatColor.WHITE+"4"+ChatColor.DARK_AQUA+" seconds");
 
 		info.put("Range", ChatColor.GREEN+"2");
 		info.put("Distance", ChatColor.GREEN+"6");
@@ -57,9 +57,10 @@ public class SpellHotWater extends Spell{
 			public void run(){
 				if (times % 2 == 0){
 					
-					for(int i=0; i<8; i++){
+					for(int i=0; i<12; i++){
 					loc.add(vec);
-					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
+					ParticleEffect.SPLASH.animateAtLocation(loc, 5, 1);
+					ParticleEffect.SPLASH.animateAtLocation(loc, 5, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
 						if (!BasicUtil.isInTeam(e, p)){
 							BasicUtil.damage(e, p, 5, DamageType.WATER);
