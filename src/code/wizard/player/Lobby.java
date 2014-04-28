@@ -126,13 +126,16 @@ public class Lobby implements Listener {
 		
 		giveWin(p);
 		
+		for (Player pl : Bukkit.getOnlinePlayers()) {
+			if(pl != p) giveLose(pl);
+		}
+
 
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
 			@Override
 			public void run() {
 				for (Player pl : Bukkit.getOnlinePlayers()) {
-					if(pl != p) giveLose(pl);
 					pl.kickPlayer("Restarting...");
 				}
 
@@ -150,13 +153,15 @@ public class Lobby implements Listener {
 				+ ChatColor.DARK_PURPLE + " Won!");
 		
 		for(Player p : t.players) giveWin(p);
+		for (Player pl : Bukkit.getOnlinePlayers()) {
+			if(!t.players.contains(pl)) giveLose(pl);
+		}
 
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
 			@Override
 			public void run() {
 				for (Player p : Bukkit.getOnlinePlayers()) {
-					if(!t.players.contains(p)) giveLose(p);
 					p.kickPlayer("Restarting...");
 				}
 
@@ -440,15 +445,13 @@ public class Lobby implements Listener {
 			p.sendMessage(ChatColor.RED
 					+ "-----------------------------------------------------");
 			p.sendMessage(plugin.getPersonalPrefix()
-					+ "You'll be able to find and craft spells and armor");
-			p.sendMessage(plugin.getPersonalPrefix()
-					+ "You'll be able to get damage bonusses form those");
-			p.sendMessage(plugin.getPersonalPrefix()
-					+ "(Like +10% Fire damage)");
-			p.sendMessage(plugin.getPersonalPrefix()
 					+ "There will be 5V5 and 1V1 modes");
 			p.sendMessage(plugin.getPersonalPrefix()
 					+ "There will be Ranking and Global scores");
+			p.sendMessage(plugin.getPersonalPrefix()
+					+ "There will multiple servers running side-by-side");
+			p.sendMessage(plugin.getPersonalPrefix()
+					+ "There an advanced matchmaking system");
 			p.sendMessage(ChatColor.RED
 					+ "-----------------------------------------------------");
 		}

@@ -49,9 +49,9 @@ public class SpellLevitate extends Spell{
 			double side = 0.4;
 			public void run(){
 				p.setVelocity(p.getLocation().getDirection().normalize().multiply(side).setY(height));
-				height /= 1.12;
-				side /= 1.0063;
-				if (timer >= 60){
+				height /= 1.09;
+				side /= 1.0293;
+				if (timer >= 30){
 					cancel();
 				}
 				timer++;
