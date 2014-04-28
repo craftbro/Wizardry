@@ -118,6 +118,8 @@ public class Main extends JavaPlugin{
 					new smash().spawn(p.getLocation());
 				}else if(cmd.equalsIgnoreCase("health")){
 					KitManager.getKit(p).health = Integer.parseInt(args[0]);
+				}else if(cmd.equalsIgnoreCase("find")){
+					find.findSpell(p);
 				}
 		
 		

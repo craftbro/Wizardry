@@ -26,6 +26,7 @@ public class SpellClayBall extends Spell{
 		cost = 60;
 		
 		unlockable = true;
+		findable = true;
 		
 		des.add(ChatColor.DARK_AQUA+"Fires a ball of clay");
 		des.add(ChatColor.DARK_AQUA+"that, on impact, "+ChatColor.GRAY+"Tires "+ChatColor.DARK_AQUA+"enemies");

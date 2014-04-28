@@ -108,7 +108,10 @@ public static List<Location> getCircle(Location l, double radius){
 			
 			if(d != null){
 				Kit k1 = KitManager.getKit(d);
-				if(k1 != null) if(k1.conditions.containsKey(Condition.SUPER)) damage*=2; 
+				if(k1 != null){
+					if(k1.conditions.containsKey(Condition.SUPER)) damage*=2; 
+					if(k1.conditions.containsKey(Condition.TIRED)) damage/=2; 
+				}
 				
 				}
 			
