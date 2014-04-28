@@ -31,6 +31,7 @@ import code.wizard.armor.Armor.pants;
 import code.wizard.item.NamedStack;
 import code.wizard.main.Main;
 import code.wizard.main.Mode;
+import code.wizard.maps.Map;
 import code.wizard.special.smash;
 import code.wizard.spell.Spell;
 import code.wizard.spell.SpellLoader;
@@ -71,9 +72,10 @@ public class Lobby implements Listener {
 	public void tick() {
 		if (!started) {
 			int count = this.getPlayers();
-
-			ob.setDisplayName(ChatColor.LIGHT_PURPLE + "Starts in "
-					+ ChatColor.RED + cc);
+			
+			ob.getScore(
+					Bukkit.getOfflinePlayer(ChatColor.LIGHT_PURPLE + "Starts In"))
+					.setScore(cc);
 			ob.getScore(
 					Bukkit.getOfflinePlayer(ChatColor.LIGHT_PURPLE + "Players"))
 					.setScore(count);
@@ -119,7 +121,7 @@ public class Lobby implements Listener {
 		}
 	}
 
-	public void end(Player p) {
+	public void end(final Player p) {
 		Bukkit.broadcastMessage(plugin.getPrefix() + p.getName() + " Won!");
 		
 		giveWin(p);
@@ -129,8 +131,9 @@ public class Lobby implements Listener {
 
 			@Override
 			public void run() {
-				for (Player p : Bukkit.getOnlinePlayers()) {
-					p.kickPlayer("Restarting...");
+				for (Player pl : Bukkit.getOnlinePlayers()) {
+					if(pl != p) giveLose(pl);
+					pl.kickPlayer("Restarting...");
 				}
 
 				Bukkit.reload();
@@ -141,7 +144,7 @@ public class Lobby implements Listener {
 		ended = true;
 	}
 
-	public void end(WizTeam t) {
+	public void end(final WizTeam t) {
 
 		Bukkit.broadcastMessage(plugin.getPrefix() + "Team " + t.getName()
 				+ ChatColor.DARK_PURPLE + " Won!");
@@ -153,7 +156,7 @@ public class Lobby implements Listener {
 			@Override
 			public void run() {
 				for (Player p : Bukkit.getOnlinePlayers()) {
-
+					if(!t.players.contains(p)) giveLose(p);
 					p.kickPlayer("Restarting...");
 				}
 
@@ -239,11 +242,11 @@ public class Lobby implements Listener {
 
 	private void setup() {
 		lobby = new Location(Bukkit.getWorld("world"), 282, 86, -1059);
-		map = new Location(Bukkit.getWorld("world"), 232, 78, -919);
+		map = Map.battlefield.getSpawn();
 
 		ob = plugin.board.registerNewObjective("lobby", "lobby");
 
-		ob.setDisplayName(ChatColor.LIGHT_PURPLE + "Waiting...");
+		ob.setDisplayName(ChatColor.LIGHT_PURPLE+"Map "+Map.battlefield.getName());
 		ob.getScore(Bukkit.getOfflinePlayer(ChatColor.LIGHT_PURPLE + "Players"))
 				.setScore(getPlayers());
 
