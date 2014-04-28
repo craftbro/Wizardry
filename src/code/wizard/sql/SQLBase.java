@@ -107,9 +107,9 @@ public class SQLBase {
 				
 				try {
 					PreparedStatement sql = 
-							connection.prepareStatement("SELECT "+collum+" FROM `wdt` WHERE username=?;");
+							connection.prepareStatement("SELECT "+collum+" FROM `wdt` WHERE id=?;");
 					
-							sql.setString(1, p.getName());
+							sql.setString(1, p.getUniqueId().toString());
 					ResultSet result = sql.executeQuery();
 					
 					result.next();
@@ -140,9 +140,9 @@ openConnection();
 		
 		try {
 			PreparedStatement sql = 
-					connection.prepareStatement("SELECT spells FROM wdt WHERE username=?;");
+					connection.prepareStatement("SELECT spells FROM wdt WHERE id=?;");
 			
-			sql.setString(1, p.getName());
+			sql.setString(1,p.getUniqueId().toString());
 			ResultSet result = sql.executeQuery();
 			
 			result.next();
@@ -172,11 +172,11 @@ openConnection();
 			
 				try {
 					PreparedStatement sql = 
-							connection.prepareStatement("UPDATE `wdt` SET "+change+"=? WHERE username=?;");
+							connection.prepareStatement("UPDATE `wdt` SET "+change+"=? WHERE id=?;");
 					
 		
 					sql.setObject(1, nd);
-					sql.setString(2, p.getName());
+					sql.setString(2, p.getUniqueId().toString());
 					
 					sql.executeUpdate();
 					sql.close();
@@ -198,11 +198,12 @@ openConnection();
 		
 		try {
 			PreparedStatement sql = 
-					connection.prepareStatement("INSERT INTO `wdt` VALUES(?, ?, ?, 0, 0);");
+					connection.prepareStatement("INSERT INTO `wdt` VALUES(?, ?, ?, ?, 0, 0, 0);");
 			
 			sql.setString(1, p.getUniqueId().toString());
 			sql.setString(2, p.getName());
 			sql.setString(3, "none");
+			sql.setString(4, "none");
 			
 			sql.execute();
 			sql.close();

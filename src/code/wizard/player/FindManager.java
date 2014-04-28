@@ -7,6 +7,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import code.configtesting.config.Config;
+import code.wizard.armor.Armor;
 import code.wizard.main.Main;
 import code.wizard.spell.Spell;
 
@@ -46,7 +47,33 @@ public void giveSpell(Player p, String s, Spell spell){
 		
 		p.playSound(p.getEyeLocation(), Sound.LEVEL_UP, 100, 2);
 	}
-	
+
+public void giveHat(Player p, String s, Armor.hat hat){
+	if(plugin.sql.handler.hasHat(p, hat)) return;
+	p.sendMessage(ChatColor.GREEN+""+ChatColor.MAGIC+"H"+plugin.getPersonalPrefix()+ChatColor.LIGHT_PURPLE+"You got '"+hat.getStack().getItemMeta().getDisplayName()+ChatColor.LIGHT_PURPLE+"' for "+ChatColor.GREEN+s+ChatColor.LIGHT_PURPLE+"!"+ChatColor.GREEN+""+ChatColor.MAGIC+"H");	
+	plugin.sql.handler.giveHat(p, hat);	
+	p.playSound(p.getEyeLocation(), Sound.LEVEL_UP, 100, 2);
+}
+
+public void giveCape(Player p, String s, Armor.cape hat){
+	if(plugin.sql.handler.hasCape(p, hat)) return;
+	p.sendMessage(ChatColor.GREEN+""+ChatColor.MAGIC+"H"+plugin.getPersonalPrefix()+ChatColor.LIGHT_PURPLE+"You got '"+hat.getStack().getItemMeta().getDisplayName()+ChatColor.LIGHT_PURPLE+"' for "+ChatColor.GREEN+s+ChatColor.LIGHT_PURPLE+"!"+ChatColor.GREEN+""+ChatColor.MAGIC+"H");	
+	plugin.sql.handler.giveCape(p, hat);	
+	p.playSound(p.getEyeLocation(), Sound.LEVEL_UP, 100, 2);
+}
+
+public void givePants(Player p, String s, Armor.pants hat){
+	if(plugin.sql.handler.hasPants(p, hat)) return;
+	p.sendMessage(ChatColor.GREEN+""+ChatColor.MAGIC+"H"+plugin.getPersonalPrefix()+ChatColor.LIGHT_PURPLE+"You got '"+hat.getStack().getItemMeta().getDisplayName()+ChatColor.LIGHT_PURPLE+"' for "+ChatColor.GREEN+s+ChatColor.LIGHT_PURPLE+"!"+ChatColor.GREEN+""+ChatColor.MAGIC+"H");	
+	plugin.sql.handler.givePants(p, hat);	
+	p.playSound(p.getEyeLocation(), Sound.LEVEL_UP, 100, 2);
+}
+public void giveBoots(Player p, String s, Armor.boots hat){
+	if(plugin.sql.handler.hasBoots(p, hat)) return;
+	p.sendMessage(ChatColor.GREEN+""+ChatColor.MAGIC+"H"+plugin.getPersonalPrefix()+ChatColor.LIGHT_PURPLE+"You got '"+hat.getStack().getItemMeta().getDisplayName()+ChatColor.LIGHT_PURPLE+"' for "+ChatColor.GREEN+s+ChatColor.LIGHT_PURPLE+"!"+ChatColor.GREEN+""+ChatColor.MAGIC+"H");	
+	plugin.sql.handler.giveBoots(p, hat);	
+	p.playSound(p.getEyeLocation(), Sound.LEVEL_UP, 100, 2);
+}
 
 
 }

@@ -108,6 +108,16 @@ public class Lobby implements Listener {
 			plugin.find.giveSpell(p, "winning for the first time", new SpellVictoryBomb(null));
 		}
 	}
+	
+	private void giveLose(Player p){
+		int loses = (int) plugin.sql.getData(p, "loses");
+		loses++;
+		plugin.sql.alterData(p, "loses", loses);
+		
+		if(loses == 1){
+			plugin.find.givePants(p, "losing for the first time", Armor.pants.LOOSERS_PANTS);
+		}
+	}
 
 	public void end(Player p) {
 		Bukkit.broadcastMessage(plugin.getPrefix() + p.getName() + " Won!");
@@ -593,24 +603,28 @@ public class Lobby implements Listener {
 		switch (n) {
 		case 1: {
 			for (hat h : Armor.hat.values()) {
+				if(h.isUnlockable() && !plugin.sql.handler.hasHat(p, h)) continue;
 				i.addItem(h.getStack());
 			}
 		}
 			break;
 		case 2: {
 			for (cape h : Armor.cape.values()) {
+				if(h.isUnlockable() && !plugin.sql.handler.hasCape(p, h)) continue;
 				i.addItem(h.getStack());
 			}
 		}
 			break;
 		case 3: {
 			for (pants h : Armor.pants.values()) {
+				if(h.isUnlockable() && !plugin.sql.handler.hasPants(p, h)) continue;
 				i.addItem(h.getStack());
 			}
 		}
 			break;
 		case 4: {
 			for (boots h : Armor.boots.values()) {
+				if(h.isUnlockable() && !plugin.sql.handler.hasBoots(p, h)) continue;
 				i.addItem(h.getStack());
 			}
 		}

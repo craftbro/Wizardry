@@ -38,14 +38,25 @@ final static String lightning = ChatColor.YELLOW+" Lightning Damage";
 
 	ItemStack s = null;
 	List<DStat> stats = null;
+	boolean unlockable = false;
 	
 	hat(ItemStack stack, DStat[] stats){
 		s = stack;
 	this.stats = Arrays.asList(stats);
 	}
 	
+	hat(ItemStack stack, DStat[] stats , boolean un){
+		s = stack;
+	this.stats = Arrays.asList(stats);
+	unlockable = un;
+	}
+	
 	public ItemStack getStack(){
 		return s;
+	}
+	
+	public boolean isUnlockable(){
+		return unlockable;
 	}
 	
 	public List<DStat> getStats(){
@@ -77,14 +88,25 @@ public enum cape{
 
 	ItemStack s = null;
 	List<DStat> stats = null;
+	boolean unlockable = false;
 	
 	cape(ItemStack stack, DStat[] stats){
 		s = stack;
 	this.stats = Arrays.asList(stats);
 	}
 	
+	cape(ItemStack stack, DStat[] stats , boolean un){
+		s = stack;
+	this.stats = Arrays.asList(stats);
+	unlockable = un;
+	}
+	
 	public ItemStack getStack(){
 		return s;
+	}
+	
+	public boolean isUnlockable(){
+		return unlockable;
 	}
 	
 	public List<DStat> getStats(){
@@ -114,19 +136,31 @@ public enum pants{
 			new DStat[]{new DStat(false, 30, DamageType.LIGHTNING), new DStat(true, 30, DamageType.WATER)}),
 	LOOSERS_PANTS(new NamedStack(ChatColor.GRAY+"Loosers Pants", Material.LEATHER_LEGGINGS, Color.fromBGR(60, 60, 60), 
 			new String[]{plus+"15%"+lightning, plus+"15%"+fire, plus+"10%"+light, min+"40%"+dark}),
-			new DStat[]{new DStat(true, 15, DamageType.LIGHTNING), new DStat(true, 15, DamageType.FIRE), new DStat(true, 10, DamageType.LIGHT), new DStat(false, 40, DamageType.DARK)});
+			new DStat[]{new DStat(true, 15, DamageType.LIGHTNING), new DStat(true, 15, DamageType.FIRE), new DStat(true, 10, DamageType.LIGHT), new DStat(false, 40, DamageType.DARK)},
+			true);
 	
 
 ItemStack s = null;
 List<DStat> stats = null;
+boolean unlockable = false;
 
 pants(ItemStack stack, DStat[] stats){
 	s = stack;
 this.stats = Arrays.asList(stats);
 }
 
+pants(ItemStack stack, DStat[] stats , boolean un){
+	s = stack;
+this.stats = Arrays.asList(stats);
+unlockable = un;
+}
+
 public ItemStack getStack(){
 	return s;
+}
+
+public boolean isUnlockable(){
+	return unlockable;
 }
 
 public List<DStat> getStats(){
@@ -158,14 +192,25 @@ public enum boots{
 
 ItemStack s = null;
 List<DStat> stats = null;
+boolean unlockable = false;
 
 boots(ItemStack stack, DStat[] stats){
 	s = stack;
 this.stats = Arrays.asList(stats);
 }
 
+boots(ItemStack stack, DStat[] stats , boolean un){
+	s = stack;
+this.stats = Arrays.asList(stats);
+unlockable = un;
+}
+
 public ItemStack getStack(){
 	return s;
+}
+
+public boolean isUnlockable(){
+	return unlockable;
 }
 
 public List<DStat> getStats(){
