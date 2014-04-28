@@ -47,7 +47,9 @@ public class smash implements Listener {
 	@EventHandler
 	public void hit(EntityDamageByEntityEvent event){
 		if(s != null && event.getEntity() == s && event.getDamager() instanceof Player){
-			Player p = (Player)event.getDamager();			
+			Player p = (Player)event.getDamager();		
+			
+			if(Main.getInstance().lobby.spec.contains(p)) return;
 			event.setCancelled(true);
 			
 			health--;

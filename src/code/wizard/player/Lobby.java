@@ -58,7 +58,7 @@ public class Lobby implements Listener {
 	public int cc = 60;
 	int req = 2;
 	
-	List<Player> spec = new ArrayList<Player>();
+	public List<Player> spec = new ArrayList<Player>();
 
 	public boolean ended = false;
 

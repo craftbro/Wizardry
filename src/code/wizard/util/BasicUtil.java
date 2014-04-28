@@ -130,7 +130,7 @@ public static List<Location> getCircle(Location l, double radius){
 		}
 		
 		
-		HoloAPI.getManager().createSimpleHologram(e.getEyeLocation().subtract(new Random().nextDouble()*1.0, new Random().nextDouble()*1.0, new Random().nextDouble()*1.0), 2, type.getColor()+"-"+damage);
+		HoloAPI.getManager().createSimpleHologram(e.getEyeLocation().subtract(new Random().nextDouble()*1.0, new Random().nextDouble()*1.0, new Random().nextDouble()*1.0), 2, true, type.getColor()+"-"+damage);
 		
 		return damage;
 	}
@@ -172,7 +172,7 @@ public static List<Location> getCircle(Location l, double radius){
 			
 		}	
 		
-		HoloAPI.getManager().createSimpleHologram(e.getEyeLocation().subtract(0, new Random().nextDouble()*1.0, 0), 2, c.getName());
+		HoloAPI.getManager().createSimpleHologram(e.getEyeLocation().subtract(0, new Random().nextDouble()*1.0, 0), 2, true, c.getName());
 	}
 	
 	/**

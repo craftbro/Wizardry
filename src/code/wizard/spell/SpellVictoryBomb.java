@@ -36,7 +36,7 @@ public class SpellVictoryBomb extends Spell{
 		des.add(ChatColor.DARK_AQUA+"Fires a bomb that explodes after");
 		des.add(ChatColor.WHITE+"0.25"+ChatColor.DARK_AQUA+" seconds, dealing"+ChatColor.WHITE+"30 ");
 		des.add(ChatColor.GOLD+"Light "+ChatColor.DARK_AQUA+"damage to enemies if they have less health");
-		des.add(ChatColor.DARK_AQUA+"then you, else it deals "+ChatColor.WHITE+"100 "+"damage");
+		des.add(ChatColor.DARK_AQUA+"then you, else it deals "+ChatColor.WHITE+"70 "+"damage");
 		
 		info.put("Range", ChatColor.GREEN+"3");
 		
@@ -67,7 +67,7 @@ public class SpellVictoryBomb extends Spell{
 						if(k.health >= k1.health){
 							BasicUtil.damage(e, p, 30, DamageType.LIGHT);
 						}else{
-							BasicUtil.damage(e, p, 100, DamageType.LIGHT);
+							BasicUtil.damage(e, p, 70, DamageType.LIGHT);
 							HoloAPI.getManager().createSimpleHologram(e.getEyeLocation().subtract(0, new Random().nextDouble()*1.0, 0), 2, ChatColor.YELLOW+"VICTORY!");
 						}
 					}
