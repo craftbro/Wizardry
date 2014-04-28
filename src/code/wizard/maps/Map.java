@@ -10,7 +10,7 @@ public class Map {
 	
 
 	public static final Map battlefield = new Map(ChatColor.DARK_GREEN+"Battlefield", new Location(Bukkit.getWorld("world"), 232, 78, -919));
-	public static final Map bridge = new Map(ChatColor.AQUA+"Bridge", new Location(Bukkit.getWorld("world"), 232, 78, -919));
+	public static final Map bridge = new Map(ChatColor.AQUA+"Sryer", new Location(Bukkit.getWorld("world"), 304, 64, -1175));
 
 	
 	Location spawn;

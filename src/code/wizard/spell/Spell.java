@@ -34,8 +34,11 @@ public class Spell implements Comparable<Spell>, Cloneable{
 	//The slot teh spell needs to be in
 	protected SpellSlot slot = SpellSlot.PRIMARY_MELEE;
 	
-	//Says if the spell is owned from begining (false = free from begin)
+	//Says if the spell is owned from beginning (false = free from begin)
 	protected boolean unlockable = false;
+
+	//Says if the spell is awarded by an achievement (true = not achievable)
+	protected boolean findable = false;
 	
 	
 	public Spell(Player p){
@@ -69,6 +72,13 @@ public class Spell implements Comparable<Spell>, Cloneable{
      */
 	public boolean isUnlockable(){
 		return unlockable;
+	}
+	
+	/**
+     * Returns if the spell is findable
+     */
+	public boolean isFindable(){
+		return findable;
 	}
 	
 	/**

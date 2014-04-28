@@ -33,12 +33,16 @@ final static String lightning = ChatColor.YELLOW+" Lightning Damage";
 				new DStat[]{new DStat(false, 25, DamageType.LIGHT), new DStat(true, 25, DamageType.DARK)}),
 		KNIGHT_HAT(new NamedStack(ChatColor.GRAY+"Knight's Hat", Material.CHAINMAIL_HELMET, 
 				new String[]{min+"20%"+light, min+"20%"+dark, plus+"40%"+ground,}),
+				new DStat[]{new DStat(false, 20, DamageType.LIGHT), new DStat(false, 20, DamageType.DARK), new DStat(true, 40, DamageType.GROUND)}),
+	    SHINY_HELMET(new NamedStack(ChatColor.AQUA+"Shiny Helmet", Material.DIAMOND_HELMET, 
+				new String[]{min+"20%"+light, min+"20%"+dark, plus+"40%"+ground,}),
 				new DStat[]{new DStat(false, 20, DamageType.LIGHT), new DStat(false, 20, DamageType.DARK), new DStat(true, 40, DamageType.GROUND)});
 		
 
 	ItemStack s = null;
 	List<DStat> stats = null;
 	boolean unlockable = false;
+	boolean findable = false;
 	
 	hat(ItemStack stack, DStat[] stats){
 		s = stack;
@@ -51,12 +55,23 @@ final static String lightning = ChatColor.YELLOW+" Lightning Damage";
 	unlockable = un;
 	}
 	
+
+	hat(ItemStack stack, DStat[] stats , boolean un, boolean fn){
+		s = stack;
+	this.stats = Arrays.asList(stats);
+	unlockable = un;
+	}
+	
 	public ItemStack getStack(){
 		return s;
 	}
 	
 	public boolean isUnlockable(){
 		return unlockable;
+	}
+	
+	public boolean isFindable(){
+		return findable;
 	}
 	
 	public List<DStat> getStats(){
@@ -89,6 +104,7 @@ public enum cape{
 	ItemStack s = null;
 	List<DStat> stats = null;
 	boolean unlockable = false;
+	boolean findable = false;
 	
 	cape(ItemStack stack, DStat[] stats){
 		s = stack;
@@ -101,12 +117,22 @@ public enum cape{
 	unlockable = un;
 	}
 	
+	cape(ItemStack stack, DStat[] stats , boolean un, boolean fn){
+		s = stack;
+	this.stats = Arrays.asList(stats);
+	unlockable = un;
+	}
+	
 	public ItemStack getStack(){
 		return s;
 	}
 	
 	public boolean isUnlockable(){
 		return unlockable;
+	}
+	
+	public boolean isFindable(){
+		return findable;
 	}
 	
 	public List<DStat> getStats(){
@@ -143,6 +169,7 @@ public enum pants{
 ItemStack s = null;
 List<DStat> stats = null;
 boolean unlockable = false;
+boolean findable = false;
 
 pants(ItemStack stack, DStat[] stats){
 	s = stack;
@@ -155,12 +182,24 @@ this.stats = Arrays.asList(stats);
 unlockable = un;
 }
 
+pants(ItemStack stack, DStat[] stats , boolean un, boolean fn){
+	s = stack;
+this.stats = Arrays.asList(stats);
+unlockable = un;
+}
+
+
+
 public ItemStack getStack(){
 	return s;
 }
 
 public boolean isUnlockable(){
 	return unlockable;
+}
+
+public boolean isFindable(){
+	return findable;
 }
 
 public List<DStat> getStats(){
@@ -193,6 +232,7 @@ public enum boots{
 ItemStack s = null;
 List<DStat> stats = null;
 boolean unlockable = false;
+boolean findable = false;
 
 boots(ItemStack stack, DStat[] stats){
 	s = stack;
@@ -205,12 +245,22 @@ this.stats = Arrays.asList(stats);
 unlockable = un;
 }
 
+boots(ItemStack stack, DStat[] stats , boolean un, boolean fn){
+	s = stack;
+this.stats = Arrays.asList(stats);
+unlockable = un;
+}
+
 public ItemStack getStack(){
 	return s;
 }
 
 public boolean isUnlockable(){
 	return unlockable;
+}
+
+public boolean isFindable(){
+	return findable;
 }
 
 public List<DStat> getStats(){

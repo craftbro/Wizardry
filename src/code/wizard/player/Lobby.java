@@ -1,6 +1,8 @@
 package code.wizard.player;
 
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
@@ -55,6 +57,8 @@ public class Lobby implements Listener {
 
 	public int cc = 60;
 	int req = 2;
+	
+	public List<Player> spec = new ArrayList<Player>();
 
 	public boolean ended = false;
 
@@ -127,7 +131,7 @@ public class Lobby implements Listener {
 		giveWin(p);
 		
 		for (Player pl : Bukkit.getOnlinePlayers()) {
-			if(pl != p) giveLose(pl);
+			if(pl != p && !spec.contains(pl)) giveLose(pl);
 		}
 
 
@@ -154,7 +158,7 @@ public class Lobby implements Listener {
 		
 		for(Player p : t.players) giveWin(p);
 		for (Player pl : Bukkit.getOnlinePlayers()) {
-			if(!t.players.contains(pl)) giveLose(pl);
+			if(!t.players.contains(pl) && !spec.contains(pl)) giveLose(pl);
 		}
 
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -247,11 +251,11 @@ public class Lobby implements Listener {
 
 	private void setup() {
 		lobby = new Location(Bukkit.getWorld("world"), 282, 86, -1059);
-		map = Map.battlefield.getSpawn();
+		map = Map.bridge.getSpawn();
 
 		ob = plugin.board.registerNewObjective("lobby", "lobby");
 
-		ob.setDisplayName(ChatColor.LIGHT_PURPLE+"Map "+Map.battlefield.getName());
+		ob.setDisplayName(ChatColor.LIGHT_PURPLE+"Map "+Map.bridge.getName());
 		ob.getScore(Bukkit.getOfflinePlayer(ChatColor.LIGHT_PURPLE + "Players"))
 				.setScore(getPlayers());
 
@@ -505,6 +509,8 @@ public class Lobby implements Listener {
 			p.sendMessage(plugin.getPersonalPrefix() + p.getName()
 					+ " please wait for this game to end...");
 			kill(p);
+			
+			spec.add(p);
 
 			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin,
 					new Runnable() {
