@@ -13,7 +13,7 @@ import code.wizard.item.NamedStack;
 
 public class Spell implements Comparable<Spell>, Cloneable{
 
-	//The player that owns the spell (Might be null!)
+	//The player that owns the spell (Might be null!)*/
 	protected Player p;
 	//The spell name, as shown in the inventory and saved in SQL database
 	protected String name = "Basic Spell";

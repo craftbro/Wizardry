@@ -25,14 +25,14 @@ public class SpellRoot extends Spell{
 		super(p);
 		
 		name = ChatColor.GREEN+"Roots";
-		stack = new ItemStack(Material.INK_SACK, 1, (short) 9);
+		stack = new ItemStack(Material.LOG);
 		cost = 55;
 		
 		des.add(ChatColor.DARK_AQUA+"Smashes roots up from the ground");
 		des.add(ChatColor.DARK_AQUA+"Dealing "+ChatColor.WHITE+"45"+ChatColor.GREEN+" Ground"+ChatColor.DARK_AQUA+" damage");
 		des.add(ChatColor.DARK_AQUA+"And "+ChatColor.DARK_PURPLE+"Slowing"+ChatColor.DARK_AQUA+" them for "+ChatColor.WHITE+"6"+ChatColor.DARK_AQUA+" Seconds");
 
-		info.put("Range", ChatColor.GREEN+"3");
+		info.put("Range", ChatColor.GREEN+"15");
 		
 		rem.add(Condition.SLOW.getReminder());
 		
@@ -44,7 +44,7 @@ public class SpellRoot extends Spell{
 		float xp = p.getExp();
 		float xpCost = cost/100;
 		
-		if(xp >= xpCost && p.getLastTwoTargetBlocks(null, 15).get(1).getType() != Material.AIR){
+		if(xp >= xpCost &&  p.getTargetBlock(null, 15).getType() != Material.AIR){
 			p.setExp(xp - xpCost);
 			cast();
 		}
@@ -52,7 +52,7 @@ public class SpellRoot extends Spell{
 	
 	@Override
 	public void cast(){
-		final Block block = p.getLastTwoTargetBlocks(null, 15).get(1);
+		final Block block = p.getTargetBlock(null, 15);
 		
 		ParticleEffect particle = ParticleEffect.TILECRACK;
 		particle.setId(Material.LEAVES.getId());

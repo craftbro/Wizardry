@@ -29,12 +29,12 @@ public class SpellHotWater extends Spell{
 		super(p);
 		
 		name = ChatColor.RED+"Hot Water";
-		stack = new ItemStack(Material.INK_SACK, 1, (short) 9);
+		stack = new ItemStack(Material.LAVA_BUCKET);
 		cost = 65;
 		
 		des.add(ChatColor.DARK_AQUA+"Shoots a trail of hot water for "+ChatColor.WHITE+"2"+ChatColor.DARK_AQUA+" that");
-		des.add("deals "+ChatColor.WHITE+"5"+ChatColor.AQUA+" Water "+ChatColor.DARK_AQUA+"damage");
-		des.add("and"+ChatColor.RED+" Burns"+ChatColor.AQUA+" the emeny for "+ChatColor.WHITE+"4"+ChatColor.DARK_AQUA+"seconds");
+		des.add(ChatColor.DARK_AQUA+"deals "+ChatColor.WHITE+"5"+ChatColor.AQUA+" Water "+ChatColor.DARK_AQUA+"damage");
+		des.add(ChatColor.DARK_AQUA+"and"+ChatColor.RED+" Burns"+ChatColor.AQUA+" the emeny for "+ChatColor.WHITE+"4"+ChatColor.DARK_AQUA+"seconds");
 
 		info.put("Range", ChatColor.GREEN+"2");
 		info.put("Distance", ChatColor.GREEN+"6");
@@ -44,16 +44,6 @@ public class SpellHotWater extends Spell{
 		slot = SpellSlot.PRIMARY_STICK;
 	}
 
-	@Override
-	public void use(){
-		float xp = p.getExp();
-		float xpCost = cost/100;
-		
-		if(xp >= xpCost){
-			p.setExp(xp - xpCost);
-			cast();
-		}
-	}
 	
 	@Override
 	public void cast(){
@@ -63,16 +53,17 @@ public class SpellHotWater extends Spell{
 			int times = 0;
 			Vector vec = p.getLocation().getDirection().normalize().multiply(0.4);
 			Location loc = p.getEyeLocation();
+			List<LivingEntity> safes = new ArrayList<LivingEntity>();
 			public void run(){
-				p.getWorld().playSound(p.getLocation(), Sound.ZOMBIE_REMEDY, 0.1F, 2);
 				if (times % 2 == 0){
-					List<LivingEntity> safes = new ArrayList<LivingEntity>();
 					
+					for(int i=0; i<8; i++){
+					loc.add(vec);
 					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
-						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
+						if (!BasicUtil.isInTeam(e, p)){
 							BasicUtil.damage(e, p, 5, DamageType.WATER);
-							BasicUtil.giveCondtition(e, Condition.BURN, 2/*2 here = 4 seconds... right?*/);
+						if(!safes.contains(e))	BasicUtil.giveCondtition(e, Condition.BURN, 2/*2 here = 4 seconds... right?*/);
 							safes.add(e);
 						
 							try {
@@ -83,188 +74,16 @@ public class SpellHotWater extends Spell{
 							}
 						}
 					}
-					loc.add(vec);
-					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
-					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
-						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
-							BasicUtil.damage(e, p, 5, DamageType.WATER);
-							BasicUtil.giveCondtition(e, Condition.BURN, 2);
-							safes.add(e);
-						
-							try {
-								CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-					}
-					loc.add(vec);
-					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
-					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
-						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
-							BasicUtil.damage(e, p, 5, DamageType.WATER);
-							BasicUtil.giveCondtition(e, Condition.BURN, 2);
-							safes.add(e);
-						
-							try {
-								CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-					}
-					loc.add(vec);
-					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
-					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
-						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
-							BasicUtil.damage(e, p, 5, DamageType.WATER);
-							BasicUtil.giveCondtition(e, Condition.BURN, 2);
-							safes.add(e);
-						
-							try {
-								CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-					}
-					loc.add(vec);
-					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
-					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
-						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
-							BasicUtil.damage(e, p, 5, DamageType.WATER);
-							BasicUtil.giveCondtition(e, Condition.BURN, 2);
-							safes.add(e);
-						
-							try {
-								CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-					}
-					loc.add(vec);
-					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
-					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
-						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
-							BasicUtil.damage(e, p, 5, DamageType.WATER);
-							BasicUtil.giveCondtition(e, Condition.BURN, 2);
-							safes.add(e);
-						
-							try {
-								CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-					}
-					loc.add(vec);
-					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
-					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
-						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
-							BasicUtil.damage(e, p, 5, DamageType.WATER);
-							BasicUtil.giveCondtition(e, Condition.BURN, 2);
-							safes.add(e);
-						
-							try {
-								CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-					}
-					loc.add(vec);
-					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
-					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
-						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
-							BasicUtil.damage(e, p, 5, DamageType.WATER);
-							BasicUtil.giveCondtition(e, Condition.BURN, 2);
-							safes.add(e);
-						
-							try {
-								CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-					}
-					loc.add(vec);
-					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
-					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
-						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
-							BasicUtil.damage(e, p, 5, DamageType.WATER);
-							BasicUtil.giveCondtition(e, Condition.BURN, 2);
-							safes.add(e);
-						
-							try {
-								CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-					}
-					loc.add(vec);
-					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
-					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
-						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
-							BasicUtil.damage(e, p, 5, DamageType.WATER);
-							BasicUtil.giveCondtition(e, Condition.BURN, 2);
-							safes.add(e);
-						
-							try {
-								CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-					}
-					loc.add(vec);
-					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
-					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
-						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
-							BasicUtil.damage(e, p, 5, DamageType.WATER);
-							BasicUtil.giveCondtition(e, Condition.BURN, 2);
-							safes.add(e);
-						
-							try {
-								CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-					}
-					loc.add(vec);
-					ParticleEffect.SPLASH.animateAtLocation(loc, 2, 1);
-					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
-						if (!BasicUtil.isInTeam(e, p) && !safes.contains(e)){
-							BasicUtil.damage(e, p, 5, DamageType.WATER);
-							BasicUtil.giveCondtition(e, Condition.BURN, 2);
-							safes.add(e);
-						
-							try {
-								CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
 					}
 				}
+				
 				if (times >= 40){
 					cancel();
 				}
 				times++;
 			}
 		}.runTaskTimer(Main.getInstance(), 0, 1);
+		
+		p.getWorld().playSound(p.getLocation(), Sound.FIZZ, 0.1F, 2);
 	}
 }
