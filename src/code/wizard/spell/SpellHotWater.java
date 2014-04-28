@@ -51,15 +51,17 @@ public class SpellHotWater extends Spell{
 		
 		new BukkitRunnable(){
 			int times = 0;
-			Vector vec = p.getLocation().getDirection().normalize().multiply(0.4);
 			Location loc = p.getEyeLocation();
 			List<LivingEntity> safes = new ArrayList<LivingEntity>();
 			int length = 0;
 			public void run(){
-				if (times % 2 == 0){
+					Vector vec = p.getLocation().getDirection().normalize().multiply(0.4);
 					
 					for(int i=0; i<length; i++){
 					loc.add(vec);
+					if (loc.getBlock().getType().isSolid()){
+						break;
+					}
 					ParticleEffect.SPLASH.animateAtLocation(loc, 5, 1);
 					ParticleEffect.DRIP_WATER.animateAtLocation(loc, 1, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
@@ -77,19 +79,18 @@ public class SpellHotWater extends Spell{
 						}
 					}
 					}
-					if (length < 12){
-						length++;
+					if (length + 2 < 12){
+						length += 2;
 					} else {
 						length = 12;
 					}
-				}
 				
 				if (times >= 60){
 					cancel();
 				}
 				times++;
 			}
-		}.runTaskTimer(Main.getInstance(), 0, 1);
+		}.runTaskTimer(Main.getInstance(), 0, 2);
 		
 		p.getWorld().playSound(p.getLocation(), Sound.FIZZ, 0.1F, 2);
 	}
