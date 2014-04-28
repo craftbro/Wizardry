@@ -32,7 +32,7 @@ public class SpellHotWater extends Spell{
 		stack = new ItemStack(Material.LAVA_BUCKET);
 		cost = 65;
 		
-		des.add(ChatColor.DARK_AQUA+"Shoots a trail of hot water for "+ChatColor.WHITE+"2"+ChatColor.DARK_AQUA+" that");
+		des.add(ChatColor.DARK_AQUA+"Shoots a trail of hot water for "+ChatColor.WHITE+"3"+ChatColor.DARK_AQUA+" that");
 		des.add(ChatColor.DARK_AQUA+"deals "+ChatColor.WHITE+"5"+ChatColor.AQUA+" Water "+ChatColor.DARK_AQUA+"damage");
 		des.add(ChatColor.DARK_AQUA+"and"+ChatColor.RED+" Burns"+ChatColor.DARK_AQUA+" the emeny for "+ChatColor.WHITE+"4"+ChatColor.DARK_AQUA+" seconds");
 
@@ -54,13 +54,14 @@ public class SpellHotWater extends Spell{
 			Vector vec = p.getLocation().getDirection().normalize().multiply(0.4);
 			Location loc = p.getEyeLocation();
 			List<LivingEntity> safes = new ArrayList<LivingEntity>();
+			int length = 0;
 			public void run(){
 				if (times % 2 == 0){
 					
-					for(int i=0; i<12; i++){
+					for(int i=0; i<length; i++){
 					loc.add(vec);
 					ParticleEffect.SPLASH.animateAtLocation(loc, 5, 1);
-					ParticleEffect.SPLASH.animateAtLocation(loc, 5, 1);
+					ParticleEffect.DRIP_WATER.animateAtLocation(loc, 1, 1);
 					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
 						if (!BasicUtil.isInTeam(e, p)){
 							BasicUtil.damage(e, p, 5, DamageType.WATER);
@@ -76,9 +77,14 @@ public class SpellHotWater extends Spell{
 						}
 					}
 					}
+					if (length < 12){
+						length++;
+					} else {
+						length = 12;
+					}
 				}
 				
-				if (times >= 40){
+				if (times >= 60){
 					cancel();
 				}
 				times++;
