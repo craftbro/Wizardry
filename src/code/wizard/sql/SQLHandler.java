@@ -60,7 +60,7 @@ public void giveHat(Player p, Armor.hat hat){
 		}		
 		}
 		back+=ChatColor.stripColor(hat.name());
-		sql.alterData(p, "spells", back);		
+		sql.alterData(p, "armor", back);		
 	}
 
 public void giveCape(Player p, Armor.cape hat){	
@@ -76,7 +76,7 @@ public void giveCape(Player p, Armor.cape hat){
 	}		
 	}
 	back+=ChatColor.stripColor(hat.name());
-	sql.alterData(p, "spells", back);		
+	sql.alterData(p, "armor", back);		
 }
 
 public void givePants(Player p, Armor.pants hat){	
@@ -92,7 +92,7 @@ public void givePants(Player p, Armor.pants hat){
 	}		
 	}
 	back+=ChatColor.stripColor(hat.name());
-	sql.alterData(p, "spells", back);		
+	sql.alterData(p, "armor", back);		
 }
 
 public void giveBoots(Player p, Armor.boots hat){	
@@ -108,7 +108,7 @@ public void giveBoots(Player p, Armor.boots hat){
 	}		
 	}
 	back+=ChatColor.stripColor(hat.name());
-	sql.alterData(p, "spells", back);		
+	sql.alterData(p, "armor", back);		
 }
 	
 	public boolean hasSpell(Player p, Spell spell){
