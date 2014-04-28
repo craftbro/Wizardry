@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import code.wizard.effect.CodeEffect;
+import code.wizard.effect.ParticleEffect;
 import code.wizard.main.Main;
 
 public class SpellLevitate extends Spell{
@@ -55,6 +56,7 @@ public class SpellLevitate extends Spell{
 					cancel();
 				}
 				timer++;
+				ParticleEffect.WITCH_MAGIC.animateAtLocation(p.getLocation(), 1 , 1);
 			}
 		}.runTaskTimer(Main.getInstance(), 0, 1);
 	
