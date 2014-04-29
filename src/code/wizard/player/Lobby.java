@@ -99,7 +99,10 @@ public class Lobby implements Listener {
 			timeRan++; 
 			if (timeRan == 72000){
 				for (Player p : Bukkit.getOnlinePlayers()){
-					BasicUtil.giveCondtition(p, Condition.ENDGAME, Integer.MAX_VALUE);
+					if (!spec.contains(p)){
+						BasicUtil.giveCondtition(p, Condition.ENDGAME, Integer.MAX_VALUE);
+						plugin.find.giveHat(p, "survived untill endgame", Armor.hat.PATIENCE_MASK);
+					}
 				}
 				Bukkit.broadcastMessage(Main.getPrefix()+"The Endgame phase has Started! This match is getting too long");
 				Bukkit.broadcastMessage(Main.getPrefix()+Condition.ENDGAME.getReminder());
@@ -128,6 +131,12 @@ public class Lobby implements Listener {
 		if(wins >= 1){
 			plugin.find.giveSpell(p, "winning for the first time", new SpellVictoryBomb(null));
 		}
+		if(wins + (int) plugin.sql.getData(p, "loses") >= 10){
+			plugin.find.giveBoots(p, "played 10 matches", Armor.boots.WINDFUR_SANDALES);
+		}
+		if(wins >= 15){
+			plugin.find.giveCape(p, "won more than 15 times", Armor.cape.SKILL_CAPE);
+		}
 	}
 	
 	private void giveLose(Player p){
@@ -137,6 +146,9 @@ public class Lobby implements Listener {
 		
 		if(loses >= 1){
 			plugin.find.givePants(p, "losing for the first time", Armor.pants.LOOSERS_PANTS);
+		}
+		if(loses + (int) plugin.sql.getData(p, "wins") >= 10){
+			plugin.find.giveBoots(p, "played 10 matches", Armor.boots.WINDFUR_SANDALES);
 		}
 	}
 
