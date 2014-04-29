@@ -1,13 +1,8 @@
 package code.wizard.util;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
@@ -16,6 +11,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.util.Vector;
 
 import code.wizard.effect.ParticleEffect;
 import code.wizard.main.Main;
@@ -130,7 +126,7 @@ public static List<Location> getCircle(Location l, double radius){
 		}
 		
 		
-		HoloAPI.getManager().createSimpleHologram(e.getEyeLocation().subtract(new Random().nextDouble()*1.0, new Random().nextDouble()*1.0, new Random().nextDouble()*1.0), 2, true, type.getColor()+"-"+damage);
+		HoloAPI.getManager().createSimpleHologram(e.getEyeLocation().subtract(new Random().nextDouble()*1.0, new Random().nextDouble()*1.0, new Random().nextDouble()*1.0), 2, new Vector(0, 0.02, 0), type.getColor()+"-"+damage);
 		
 		return damage;
 	}
@@ -172,7 +168,7 @@ public static List<Location> getCircle(Location l, double radius){
 			
 		}	
 		
-		HoloAPI.getManager().createSimpleHologram(e.getEyeLocation().subtract(0, new Random().nextDouble()*1.0, 0), 2, true, c.getName());
+		HoloAPI.getManager().createSimpleHologram(e.getEyeLocation().subtract(0, new Random().nextDouble()*1.0, 0), 2, new Vector(0, 0.02, 0), c.getName());
 	}
 	
 	/**
