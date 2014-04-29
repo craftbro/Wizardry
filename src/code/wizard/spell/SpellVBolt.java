@@ -115,7 +115,7 @@ public class SpellVBolt extends Spell{
 					}
 				}
 			}
-		}.runTaskTimer(Main.getInstance(), 0, 1);
+		}.runTaskTimer(Main.getInstance(), 1, 1);
 	
 		p.getWorld().playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 5, 1);
 	

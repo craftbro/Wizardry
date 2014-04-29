@@ -69,6 +69,7 @@ public class Lobby implements Listener {
 	Objective ob;
 	
 	public int timeRan = 0; //part of Endgame code
+	public boolean endgame = false; //part of Endgame code
 
 	public Lobby(Main instance) {
 		plugin = instance;
@@ -97,7 +98,8 @@ public class Lobby implements Listener {
 		} else {
 			//part of Endgame code - start
 			timeRan++; 
-			if (timeRan == 72000){
+			if (!endgame && timeRan == (Bukkit.getOnlinePlayers().length * 5 > 40 ? 40 : Bukkit.getOnlinePlayers().length * 5) * 20 * 60){
+				endgame = true;
 				for (Player p : Bukkit.getOnlinePlayers()){
 					if (!spec.contains(p)){
 						BasicUtil.giveCondtition(p, Condition.ENDGAME, Integer.MAX_VALUE);
