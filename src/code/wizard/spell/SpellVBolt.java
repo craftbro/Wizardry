@@ -53,7 +53,7 @@ public class SpellVBolt extends Spell{
 
 		new BukkitRunnable(){
 			final Hologram bolt = HoloAPI.getManager().createSimpleHologram(p.getLocation(), 380, new String[]{
-				ChatColor.AQUA+"■"
+				ChatColor.AQUA+"██"
 			});
 			Vector vec = p.getLocation().getDirection().normalize().multiply(0.06);
 			int times = 0;
