@@ -53,6 +53,7 @@ public class SpellHotWater extends Spell{
 			List<LivingEntity> safes = new ArrayList<LivingEntity>();
 			double length = 0;
 			public void run(){
+					List<LivingEntity> ticksafe = new ArrayList<LivingEntity>();
 					Location loc = p.getEyeLocation();
 					Vector vec = p.getLocation().getDirection().normalize().multiply(0.5);
 					
@@ -65,8 +66,9 @@ public class SpellHotWater extends Spell{
 						if (times % 2 == 0){
 							ParticleEffect.LAVA.animateAtLocation(loc, 1, 1);
 							for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
-								if (!BasicUtil.isInTeam(e, p)){
+								if (!BasicUtil.isInTeam(e, p) && !ticksafe.contains(e)){
 									BasicUtil.damage(e, p, 5, DamageType.WATER);
+									ticksafe.add(e);
 								if(!safes.contains(e))	BasicUtil.giveCondtition(e, Condition.BURN, 2/*2 here = 4 seconds... right?*/);
 									safes.add(e);
 								
