@@ -37,7 +37,6 @@ public class SpellHotWater extends Spell{
 		des.add(ChatColor.DARK_AQUA+"and"+ChatColor.RED+" Burns"+ChatColor.DARK_AQUA+" the emeny for "+ChatColor.WHITE+"4"+ChatColor.DARK_AQUA+" seconds");
 
 		info.put("Range", ChatColor.GREEN+"2");
-		info.put("Distance", ChatColor.GREEN+"6");
 		
 		rem.add(Condition.BURN.getReminder());
 		
@@ -52,10 +51,10 @@ public class SpellHotWater extends Spell{
 		new BukkitRunnable(){
 			int times = 0;
 			List<LivingEntity> safes = new ArrayList<LivingEntity>();
-			int length = 0;
+			double length = 0;
 			public void run(){
 					Location loc = p.getEyeLocation();
-					Vector vec = p.getLocation().getDirection().normalize().multiply(0.2);
+					Vector vec = p.getLocation().getDirection().normalize().multiply(0.5);
 					
 					for(int i=0; i<length; i++){
 					loc.add(vec);
@@ -63,7 +62,9 @@ public class SpellHotWater extends Spell{
 						break;
 					} else {
 						ParticleEffect.SPLASH.animateAtLocation(loc, 5, 1);
-						ParticleEffect.DRIP_WATER.animateAtLocation(loc, 1, 1);
+						if (times % 4 == 0){
+							ParticleEffect.LAVA.animateAtLocation(loc, 1, 1);
+						}
 						for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
 							if (!BasicUtil.isInTeam(e, p)){
 								BasicUtil.damage(e, p, 5, DamageType.WATER);
@@ -80,13 +81,13 @@ public class SpellHotWater extends Spell{
 						}
 					}
 					}
-					if (length + 2 < 12){
-						length += 2;
+					if (length + 1.5 < 12){
+						length += 1.5;
 					} else {
 						length = 12;
 					}
 				
-				if (times >= 60){
+				if (times >= 30){
 					cancel();
 				}
 				times++;

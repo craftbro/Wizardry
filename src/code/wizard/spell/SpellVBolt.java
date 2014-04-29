@@ -36,8 +36,8 @@ public class SpellVBolt extends Spell{
 		cost = 80;
 		
 		des.add(ChatColor.DARK_AQUA+"Shoots a virtual bolt that");
-		des.add(ChatColor.DARK_AQUA+"deals "+ChatColor.WHITE+"70-120"+ChatColor.GREEN+" Ground"+ChatColor.DARK_AQUA+" damage on impact");
-		des.add(ChatColor.DARK_AQUA+"and damage nearby emenies "+ChatColor.WHITE+"20-30"+ChatColor.GREEN+" Ground damage");
+		des.add(ChatColor.DARK_AQUA+"deals "+ChatColor.WHITE+"75-110"+ChatColor.GREEN+" Ground"+ChatColor.DARK_AQUA+" damage on impact");
+		des.add(ChatColor.DARK_AQUA+"and damage nearby emenies "+ChatColor.WHITE+"20-25"+ChatColor.GREEN+" Ground damage");
 
 		info.put("Primary Range", "2");
 		info.put("Nearby Range", "5");
@@ -52,10 +52,10 @@ public class SpellVBolt extends Spell{
 	public void cast(){
 
 		new BukkitRunnable(){
-			final Hologram bolt = HoloAPI.getManager().createSimpleHologram(p.getLocation(), 60, new String[]{
+			final Hologram bolt = HoloAPI.getManager().createSimpleHologram(p.getLocation(), 380, new String[]{
 				ChatColor.AQUA+"■"
 			});
-			Vector vec = p.getLocation().getDirection().normalize().multiply(0.2);
+			Vector vec = p.getLocation().getDirection().normalize().multiply(0.06);
 			int times = 0;
 			Location currLoc = p.getEyeLocation();
 			public void run(){
@@ -63,14 +63,15 @@ public class SpellVBolt extends Spell{
 					cancel();
 					try {
 						HoloAPI.getManager().stopTracking(bolt);
+						bolt.clearAllPlayerViews();
 					} catch (Exception e){
-						
+						e.printStackTrace();
 					}
 					ParticleEffect.ANGRY_VILLAGER.animateAtLocation(currLoc, 1, 1);
 					currLoc.getWorld().playSound(currLoc, Sound.CHICKEN_EGG_POP, 4, 0);
 				} else {
-					vec.multiply(1.04);
-					currLoc.add(vec);
+					vec.multiply(1.08);
+					currLoc = currLoc.add(vec);
 					bolt.move(currLoc);
 					List<LivingEntity> list = BasicUtil.getInRadius(currLoc, 2);
 					for (LivingEntity e : new ArrayList<LivingEntity>(list)){
@@ -82,7 +83,9 @@ public class SpellVBolt extends Spell{
 						for (LivingEntity e : list){
 							BasicUtil.damage(e, p, new Random().nextInt(51) + 70, DamageType.GROUND);
 						}
-						for (LivingEntity e : BasicUtil.getInRadius(currLoc, 5)){
+						List<LivingEntity> list2 = BasicUtil.getInRadius(currLoc, 5);
+						list2.removeAll(list);
+						for (LivingEntity e : list2){
 							if (!BasicUtil.isInTeam(e, p)){
 								BasicUtil.damage(e, p, new Random().nextInt(11) + 20, DamageType.GROUND);
 							}
@@ -92,17 +95,18 @@ public class SpellVBolt extends Spell{
 						currLoc.getWorld().playSound(currLoc, Sound.CHICKEN_EGG_POP, 4, 1);
 						try {
 							HoloAPI.getManager().stopTracking(bolt);
+							bolt.clearAllPlayerViews();
 						} catch (Exception e){
 							
 						}
 					} else {
-						
-						if (bolt.getPlayerViews().isEmpty() || times >= 360){
+						if (times >= 360){
 							cancel();
 							ParticleEffect.EXPLODE.animateAtLocation(currLoc, 5, 1);
 							currLoc.getWorld().playSound(currLoc, Sound.CHICKEN_EGG_POP, 4, 1);
 							try {
 								HoloAPI.getManager().stopTracking(bolt);
+								bolt.clearAllPlayerViews();
 							} catch (Exception e){
 								
 							}
