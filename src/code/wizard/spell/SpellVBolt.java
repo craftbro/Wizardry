@@ -53,9 +53,9 @@ public class SpellVBolt extends Spell{
 
 		new BukkitRunnable(){
 			final Hologram bolt = HoloAPI.getManager().createSimpleHologram(p.getLocation(), 380, new String[]{
-				ChatColor.AQUA+"██"
+				ChatColor.AQUA+"█"
 			});
-			Vector vec = p.getLocation().getDirection().normalize().multiply(0.06);
+			Vector vec = p.getLocation().getDirection().normalize().multiply(0.1);
 			int times = 0;
 			Location currLoc = p.getEyeLocation();
 			public void run(){
@@ -70,7 +70,7 @@ public class SpellVBolt extends Spell{
 					ParticleEffect.ANGRY_VILLAGER.animateAtLocation(currLoc, 1, 1);
 					currLoc.getWorld().playSound(currLoc, Sound.CHICKEN_EGG_POP, 4, 0);
 				} else {
-					vec.multiply(1.08);
+					vec.multiply(1.09);
 					currLoc = currLoc.add(vec);
 					bolt.move(currLoc);
 					List<LivingEntity> list = BasicUtil.getInRadius(currLoc, 2);
