@@ -190,7 +190,7 @@ public class Kit {
 		//	p.setFoodLevel(20);
 			if(!plugin.lobby.pperiod){
 		if(p.getExp() < 1){
-			p.setExp(p.getExp()+regen);
+			p.setExp(p.getExp()+regen /*part of Endgame code - start*/ * (conditions.containsKey(Condition.ENDGAME) ? 2 : 1)) /*part of Endgame code - end*/;
 		}
 	
 		p.setLevel((int) (p.getExp()*100));
@@ -328,6 +328,10 @@ switch(slot2){
 			break;
 			case BURN: BasicUtil.damage(p, null, 10, DamageType.FIRE);
 			break;
+			//part of Endgame code - start
+			case ENDGAME: BasicUtil.damage(p, null, 5, DamageType.PHYSICAL);
+			break;
+			//part of Endgame code - end
 			case SUPER:{
 				for(Location l : BasicUtil.getCircle(p.getEyeLocation().subtract(0, 0.6, 0), 1.5)) ParticleEffect.RED_DUST.animateAtLocation(l, 1, 1);				
 			}

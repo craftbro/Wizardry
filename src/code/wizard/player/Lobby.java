@@ -40,6 +40,7 @@ import code.wizard.spell.SpellLoader;
 import code.wizard.spell.SpellSlot;
 import code.wizard.spell.SpellVictoryBomb;
 import code.wizard.util.BasicUtil;
+import code.wizard.util.Condition; //endgame import
 
 public class Lobby implements Listener {
 
@@ -66,6 +67,8 @@ public class Lobby implements Listener {
 	boolean pperiod = false;
 
 	Objective ob;
+	
+	public int timeRan = 0; //part of Endgame code
 
 	public Lobby(Main instance) {
 		plugin = instance;
@@ -92,6 +95,14 @@ public class Lobby implements Listener {
 				}
 			}
 		} else {
+			//part of Endgame code - start
+			timeRan++; 
+			if (timeRan == 72000){
+				for (Player p : Bukkit.getOnlinePlayers()){
+					BasicUtil.giveCondtition(p, Condition.ENDGAME, Integer.MAX_VALUE);
+				}
+			}
+			//part of Endgame code - start
 			if (!pperiod)
 				return;
 			if (peace > 0) {

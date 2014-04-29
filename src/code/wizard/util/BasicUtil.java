@@ -107,6 +107,7 @@ public static List<Location> getCircle(Location l, double radius){
 				if(k1 != null){
 					if(k1.conditions.containsKey(Condition.SUPER)) damage*=2; 
 					if(k1.conditions.containsKey(Condition.TIRED)) damage/=2; 
+					if(k1.conditions.containsKey(Condition.ENDGAME)) damage*=2; //part of Endgame code 
 				}
 				
 				}
