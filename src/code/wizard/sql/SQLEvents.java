@@ -35,7 +35,7 @@ public class SQLEvents implements Listener {
 		
 		plugin.sql.alterData(p, "logins", logins);
 		
-		if(logins == 3){
+		if(logins >= 3){
 			plugin.find.giveSpell(p, "logging in three times", new SpellCharCharge(null));
 		}
 		

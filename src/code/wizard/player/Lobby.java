@@ -101,6 +101,8 @@ public class Lobby implements Listener {
 				for (Player p : Bukkit.getOnlinePlayers()){
 					BasicUtil.giveCondtition(p, Condition.ENDGAME, Integer.MAX_VALUE);
 				}
+				Bukkit.broadcastMessage(Main.getPrefix()+"The Endgame phase has Started! This match is getting too long");
+				Bukkit.broadcastMessage(Main.getPrefix()+Condition.ENDGAME.getReminder());
 			}
 			//part of Endgame code - start
 			if (!pperiod)
@@ -123,7 +125,7 @@ public class Lobby implements Listener {
 		
 		if(new Random().nextInt(2) == 0) plugin.find.findItem(p);
 		
-		if(wins == 1){
+		if(wins >= 1){
 			plugin.find.giveSpell(p, "winning for the first time", new SpellVictoryBomb(null));
 		}
 	}
@@ -133,7 +135,7 @@ public class Lobby implements Listener {
 		loses++;
 		plugin.sql.alterData(p, "loses", loses);
 		
-		if(loses == 1){
+		if(loses >= 1){
 			plugin.find.givePants(p, "losing for the first time", Armor.pants.LOOSERS_PANTS);
 		}
 	}
