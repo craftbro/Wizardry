@@ -128,14 +128,8 @@ public class Lobby implements Listener {
 		
 		if(new Random().nextInt(2) == 0) plugin.find.findItem(p);
 		
-		if(wins >= 1){
+		if(wins == 1){
 			plugin.find.giveSpell(p, "winning for the first time", new SpellVictoryBomb(null));
-		}
-		if(wins + (int) plugin.sql.getData(p, "loses") >= 10){
-			plugin.find.giveBoots(p, "played 10 matches", Armor.boots.WINDFUR_SANDALES);
-		}
-		if(wins >= 15){
-			plugin.find.giveCape(p, "won more than 15 times", Armor.cape.SKILL_CAPE);
 		}
 	}
 	
@@ -144,11 +138,8 @@ public class Lobby implements Listener {
 		loses++;
 		plugin.sql.alterData(p, "loses", loses);
 		
-		if(loses >= 1){
+		if(loses == 1){
 			plugin.find.givePants(p, "losing for the first time", Armor.pants.LOOSERS_PANTS);
-		}
-		if(loses + (int) plugin.sql.getData(p, "wins") >= 10){
-			plugin.find.giveBoots(p, "played 10 matches", Armor.boots.WINDFUR_SANDALES);
 		}
 	}
 

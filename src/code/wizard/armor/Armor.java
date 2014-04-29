@@ -112,7 +112,7 @@ public enum cape{
 		SKILL_CAPE(new NamedStack(ChatColor.GOLD+"Skill Cape", Material.GOLD_CHESTPLATE, 
 				new String[]{min+"25%"+light, min+"15%"+ground, plus+"10%"+air, plus+"30%"+dark}),
 				new DStat[]{new DStat(false, 25, DamageType.LIGHT), new DStat(false, 15, DamageType.GROUND), new DStat(true, 10, DamageType.AIR), new DStat(true, 30, DamageType.DARK)},
-				true);
+				true, true);
 		
 
 	ItemStack s = null;
@@ -182,7 +182,7 @@ public enum pants{
 	ARCHERS_PYJAMAS(new NamedStack(ChatColor.GRAY+"Archer's Pyjamas", Material.LEATHER_LEGGINGS, Color.GRAY,
 			new String[]{min+"30%"+ground, plus+"30%"+fire}), 
 			new DStat[]{new DStat(false, 30, DamageType.GROUND), new DStat(true, 30, DamageType.FIRE)}, 
-			true);
+			true, true);
 	
 
 ItemStack s = null;
