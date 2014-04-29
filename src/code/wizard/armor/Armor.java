@@ -7,8 +7,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-
 import code.wizard.item.NamedStack;
+import code.wizard.util.BasicUtil;
 import code.wizard.util.DamageType;
 
 public class Armor {
@@ -37,7 +37,11 @@ final static String lightning = ChatColor.YELLOW+" Lightning Damage";
 	    SHINY_HELMET(new NamedStack(ChatColor.AQUA+"Shiny Helmet", Material.DIAMOND_HELMET, 
 				new String[]{min+"25%"+light, plus+"25%"+water,}),
 				new DStat[]{new DStat(false, 25, DamageType.LIGHT),  new DStat(true, 25, DamageType.WATER)},
-				true, true);
+				true, true),
+		PATIENCE_MASK(BasicUtil.setSkullOwner("MHF_Villager", new NamedStack(ChatColor.AQUA+"Patience Mask", Material.SKULL_ITEM, 1, (byte) 3, 
+				new String[]{min+"15%"+dark, min+"15%"+air, plus+"10%"+water, plus+"10%"+light, plus+"10%"+fire})),
+				new DStat[]{new DStat(false, 15, DamageType.DARK),  new DStat(false, 15, DamageType.AIR), new DStat(true, 10, DamageType.WATER), new DStat(true, 10, DamageType.LIGHT), new DStat(true, 10, DamageType.FIRE)},
+				true);
 		
 
 	ItemStack s = null;
@@ -104,6 +108,10 @@ public enum cape{
 		BATCAPE(new NamedStack(ChatColor.DARK_GRAY+"Batcape", Material.LEATHER_CHESTPLATE, Color.BLACK, 
 				new String[]{min+"20%"+fire, min+"20%"+dark,   plus+"40%"+light,}),
 				new DStat[]{new DStat(false, 20, DamageType.FIRE), new DStat(false, 20, DamageType.DARK), new DStat(true, 40, DamageType.LIGHT)},
+				true, true),
+		SKILL_CAPE(new NamedStack(ChatColor.GOLD+"Skill Cape", Material.GOLD_CHESTPLATE, 
+				new String[]{min+"25%"+light, min+"15%"+ground, plus+"10%"+air, plus+"30%"+dark}),
+				new DStat[]{new DStat(false, 25, DamageType.LIGHT), new DStat(false, 15, DamageType.GROUND), new DStat(true, 10, DamageType.AIR), new DStat(true, 30, DamageType.DARK)},
 				true, true);
 		
 
@@ -242,6 +250,10 @@ public enum boots{
 	PANTSER_BOOTS(new NamedStack(ChatColor.GRAY+"Pantser Boots", Material.IRON_BOOTS, 
 			new String[]{min+"50%"+ground,  plus+"50%"+lightning,}),
 			new DStat[]{new DStat(false, 50, DamageType.GROUND),  new DStat(true, 50, DamageType.LIGHTNING)},
+			true, true),
+	WINDFUR_SANDALES(new NamedStack(ChatColor.WHITE+"Windfur Sandales", Material.LEATHER_BOOTS, Color.fromBGR(255, 250, 240), 
+			new String[]{min+"30%"+ground,  min+"25%"+air, plus+"35%"+lightning, plus+"20%"+fire}),
+			new DStat[]{new DStat(false, 30, DamageType.GROUND),  new DStat(false, 25, DamageType.AIR), new DStat(true, 35, DamageType.LIGHTNING), new DStat(true, 20, DamageType.FIRE)},
 			true, true);
 	
 

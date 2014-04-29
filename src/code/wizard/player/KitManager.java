@@ -105,7 +105,7 @@ public class KitManager implements Listener {
     		if(getKit(p).health <= 500) low.add(p);
     	}
     	
-    	if(low.size() == kits.size() ){
+    	if(low.size() == kits.size() && !plugin.lobby.ended && !spawned){
     		new smash().spawn(plugin.lobby.map);
     		spawned = true;
     	}

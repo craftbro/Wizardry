@@ -32,7 +32,7 @@ public class SpellHotWater extends Spell{
 		stack = new ItemStack(Material.LAVA_BUCKET);
 		cost = 65;
 		
-		des.add(ChatColor.DARK_AQUA+"Shoots a trail of hot water for "+ChatColor.WHITE+"3"+ChatColor.DARK_AQUA+" that");
+		des.add(ChatColor.DARK_AQUA+"Shoots a trail of hot water for "+ChatColor.WHITE+"1"+ChatColor.DARK_AQUA+" second that");
 		des.add(ChatColor.DARK_AQUA+"deals "+ChatColor.WHITE+"5"+ChatColor.AQUA+" Water "+ChatColor.DARK_AQUA+"damage");
 		des.add(ChatColor.DARK_AQUA+"and"+ChatColor.RED+" Burns"+ChatColor.DARK_AQUA+" the emeny for "+ChatColor.WHITE+"4"+ChatColor.DARK_AQUA+" seconds");
 
@@ -62,20 +62,20 @@ public class SpellHotWater extends Spell{
 						break;
 					} else {
 						ParticleEffect.SPLASH.animateAtLocation(loc, 5, 1);
-						if (times % 4 == 0){
+						if (times % 2 == 0){
 							ParticleEffect.LAVA.animateAtLocation(loc, 1, 1);
-						}
-						for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
-							if (!BasicUtil.isInTeam(e, p)){
-								BasicUtil.damage(e, p, 5, DamageType.WATER);
-							if(!safes.contains(e))	BasicUtil.giveCondtition(e, Condition.BURN, 2/*2 here = 4 seconds... right?*/);
-								safes.add(e);
-							
-								try {
-									CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
-								} catch (Exception e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
+							for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
+								if (!BasicUtil.isInTeam(e, p)){
+									BasicUtil.damage(e, p, 5, DamageType.WATER);
+								if(!safes.contains(e))	BasicUtil.giveCondtition(e, Condition.BURN, 2/*2 here = 4 seconds... right?*/);
+									safes.add(e);
+								
+									try {
+										CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
+									} catch (Exception e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
 								}
 							}
 						}
@@ -87,7 +87,7 @@ public class SpellHotWater extends Spell{
 						length = 12;
 					}
 				
-				if (times >= 30){
+				if (times >= 10){
 					cancel();
 				}
 				times++;

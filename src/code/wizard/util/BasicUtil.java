@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.server.v1_7_R3.ItemSkull;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.util.Vector;
 
 import code.wizard.effect.ParticleEffect;
@@ -281,6 +286,15 @@ public static List<Location> getCircle(Location l, double radius){
 		
 		t.run();
 	
+	}
+	
+	public static ItemStack setSkullOwner(String owner, ItemStack skull){
+		skull.setType(Material.SKULL_ITEM);
+		skull.setDurability((byte) 3);
+		SkullMeta meta = (SkullMeta) skull.getItemMeta();
+		meta.setOwner(owner);
+		skull.setItemMeta(meta);
+		return skull;
 	}
 	
 }
