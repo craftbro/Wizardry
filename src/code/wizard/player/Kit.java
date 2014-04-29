@@ -221,6 +221,8 @@ public class Kit {
 			
 			
 			KitManager.unregister(p);
+			
+			plugin.lobby.spec.add(p);
 		}
 	}
 	

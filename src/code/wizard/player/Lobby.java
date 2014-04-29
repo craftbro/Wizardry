@@ -69,6 +69,7 @@ public class Lobby implements Listener {
 	Objective ob;
 	
 	public int timeRan = 0; //part of Endgame code
+	public boolean endgame = false; //part of Endgame code
 
 	public Lobby(Main instance) {
 		plugin = instance;
@@ -97,9 +98,13 @@ public class Lobby implements Listener {
 		} else {
 			//part of Endgame code - start
 			timeRan++; 
-			if (timeRan == 72000){
+			if (!endgame && timeRan == (Bukkit.getOnlinePlayers().length * 5 > 40 ? 40 : Bukkit.getOnlinePlayers().length * 5) * 20 * 60){
+				endgame = true;
 				for (Player p : Bukkit.getOnlinePlayers()){
-					BasicUtil.giveCondtition(p, Condition.ENDGAME, Integer.MAX_VALUE);
+					if (!spec.contains(p)){
+						BasicUtil.giveCondtition(p, Condition.ENDGAME, Integer.MAX_VALUE);
+						plugin.find.giveHat(p, "survived untill endgame", Armor.hat.PATIENCE_MASK);
+					}
 				}
 				Bukkit.broadcastMessage(Main.getPrefix()+"The Endgame phase has Started! This match is getting too long");
 				Bukkit.broadcastMessage(Main.getPrefix()+Condition.ENDGAME.getReminder());
@@ -125,17 +130,19 @@ public class Lobby implements Listener {
 		
 		if(new Random().nextInt(2) == 0) plugin.find.findItem(p);
 		
-		if(wins >= 1){
+		if(wins == 1){
 			plugin.find.giveSpell(p, "winning for the first time", new SpellVictoryBomb(null));
 		}
 	}
+		
+	
 	
 	private void giveLose(Player p){
 		int loses = (int) plugin.sql.getData(p, "loses");
 		loses++;
 		plugin.sql.alterData(p, "loses", loses);
 		
-		if(loses >= 1){
+		if(loses == 1){
 			plugin.find.givePants(p, "losing for the first time", Armor.pants.LOOSERS_PANTS);
 		}
 	}
@@ -250,17 +257,19 @@ public class Lobby implements Listener {
 			p.sendMessage(plugin.getPrefix() + "the " + peace
 					+ " seconds of peace have begun!");
 			
-			int delay = (new Random().nextInt(3)+3)*20*60;
 			
-			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
-
-				@Override
-				public void run() {
-					new smash().spawn(map);
-				}
-				
-			}, delay);
 		}
+		
+		int delay = (new Random().nextInt(3)+3)*20*60;
+		
+		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
+
+			@Override
+			public void run() {
+				new smash().spawn(map);
+			}
+			
+		}, delay);
 
 	}
 

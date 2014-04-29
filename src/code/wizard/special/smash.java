@@ -12,6 +12,7 @@ import org.bukkit.entity.Sheep;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -45,12 +46,23 @@ public class smash implements Listener {
 	}
 	
 	@EventHandler
+	public void hit(EntityDamageEvent event){
+		if(s != null && event.getEntity() == s){
+			
+					event.setCancelled(true);
+					
+			
+		}
+	}
+	
+	@EventHandler
 	public void hit(EntityDamageByEntityEvent event){
 		if(s != null && event.getEntity() == s && event.getDamager() instanceof Player){
 			Player p = (Player)event.getDamager();		
 			
-			if(Main.getInstance().lobby.spec.contains(p)) return;
 			event.setCancelled(true);
+			
+			if(Main.getInstance().lobby.spec.contains(p)) return;
 			
 			health--;
 			
