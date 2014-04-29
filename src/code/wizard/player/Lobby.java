@@ -110,6 +110,8 @@ public class Lobby implements Listener {
 		wins++;
 		plugin.sql.alterData(p, "wins", wins);
 		
+		if(new Random().nextInt(2) == 0) plugin.find.findItem(p);
+		
 		if(wins == 1){
 			plugin.find.giveSpell(p, "winning for the first time", new SpellVictoryBomb(null));
 		}

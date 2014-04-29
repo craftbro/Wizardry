@@ -29,10 +29,15 @@ public class FindManager {
 		
 		int change = r.nextInt(100)+1;
 		
-		if(change <= 50){
+	
+		
+		if(change <= 50){			
 			findSpell(p);
 		}else{
+	
 			int change2 = r.nextInt(100)+1;
+			
+			
 			
 			if(change2 <= 25){
 				findHat(p);

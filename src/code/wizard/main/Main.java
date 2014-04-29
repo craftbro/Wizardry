@@ -119,7 +119,7 @@ public class Main extends JavaPlugin{
 				}else if(cmd.equalsIgnoreCase("health")){
 					KitManager.getKit(p).health = Integer.parseInt(args[0]);
 				}else if(cmd.equalsIgnoreCase("find")){
-					find.findSpell(p);
+					find.findItem(p);
 				}
 		
 		

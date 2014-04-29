@@ -35,8 +35,9 @@ final static String lightning = ChatColor.YELLOW+" Lightning Damage";
 				new String[]{min+"20%"+light, min+"20%"+dark, plus+"40%"+ground,}),
 				new DStat[]{new DStat(false, 20, DamageType.LIGHT), new DStat(false, 20, DamageType.DARK), new DStat(true, 40, DamageType.GROUND)}),
 	    SHINY_HELMET(new NamedStack(ChatColor.AQUA+"Shiny Helmet", Material.DIAMOND_HELMET, 
-				new String[]{min+"20%"+light, min+"20%"+dark, plus+"40%"+ground,}),
-				new DStat[]{new DStat(false, 20, DamageType.LIGHT), new DStat(false, 20, DamageType.DARK), new DStat(true, 40, DamageType.GROUND)});
+				new String[]{min+"25%"+light, plus+"25%"+water,}),
+				new DStat[]{new DStat(false, 25, DamageType.LIGHT),  new DStat(true, 25, DamageType.WATER)},
+				true, true);
 		
 
 	ItemStack s = null;
@@ -60,6 +61,7 @@ final static String lightning = ChatColor.YELLOW+" Lightning Damage";
 		s = stack;
 	this.stats = Arrays.asList(stats);
 	unlockable = un;
+	findable = fn;
 	}
 	
 	public ItemStack getStack(){
@@ -98,7 +100,11 @@ public enum cape{
 				new DStat[]{new DStat(false, 20, DamageType.LIGHT), new DStat(false, 20, DamageType.DARK), new DStat(true, 20, DamageType.WATER), new DStat(true, 20, DamageType.GROUND)}),
 		ELEMENTAL_CAPE(new NamedStack(ChatColor.GREEN+"Elemental Cape", Material.LEATHER_CHESTPLATE, Color.GREEN, 
 				new String[]{min+"25%"+fire, min+"25%"+ground, min+"25%"+water, min+"25%"+air,  plus+"50%"+light,  plus+"50%"+dark}),
-				new DStat[]{new DStat(false, 25, DamageType.FIRE), new DStat(false, 25, DamageType.GROUND), new DStat(false, 25, DamageType.WATER), new DStat(false, 25, DamageType.AIR), new DStat(true, 50, DamageType.DARK), new DStat(true, 50, DamageType.WATER)});
+				new DStat[]{new DStat(false, 25, DamageType.FIRE), new DStat(false, 25, DamageType.GROUND), new DStat(false, 25, DamageType.WATER), new DStat(false, 25, DamageType.AIR), new DStat(true, 50, DamageType.DARK), new DStat(true, 50, DamageType.LIGHT)}),
+		BATCAPE(new NamedStack(ChatColor.DARK_GRAY+"Batcape", Material.LEATHER_CHESTPLATE, Color.BLACK, 
+				new String[]{min+"20%"+fire, min+"20%"+dark,   plus+"40%"+light,}),
+				new DStat[]{new DStat(false, 20, DamageType.FIRE), new DStat(false, 20, DamageType.DARK), new DStat(true, 40, DamageType.LIGHT)},
+				true, true);
 		
 
 	ItemStack s = null;
@@ -121,6 +127,7 @@ public enum cape{
 		s = stack;
 	this.stats = Arrays.asList(stats);
 	unlockable = un;
+	findable = fn;
 	}
 	
 	public ItemStack getStack(){
@@ -163,7 +170,11 @@ public enum pants{
 	LOOSERS_PANTS(new NamedStack(ChatColor.GRAY+"Loosers Pants", Material.LEATHER_LEGGINGS, Color.fromBGR(60, 60, 60), 
 			new String[]{plus+"15%"+lightning, plus+"15%"+fire, plus+"10%"+light, min+"40%"+dark}),
 			new DStat[]{new DStat(true, 15, DamageType.LIGHTNING), new DStat(true, 15, DamageType.FIRE), new DStat(true, 10, DamageType.LIGHT), new DStat(false, 40, DamageType.DARK)},
-			true);
+			true),	
+	ARCHERS_PYJAMAS(new NamedStack(ChatColor.GRAY+"Archer's Pyjamas", Material.LEATHER_LEGGINGS, Color.GRAY,
+			new String[]{min+"30%"+ground, plus+"30%"+fire}), 
+			new DStat[]{new DStat(false, 30, DamageType.GROUND), new DStat(true, 30, DamageType.FIRE)}, 
+			true, true);
 	
 
 ItemStack s = null;
@@ -186,6 +197,7 @@ pants(ItemStack stack, DStat[] stats , boolean un, boolean fn){
 	s = stack;
 this.stats = Arrays.asList(stats);
 unlockable = un;
+findable = fn;
 }
 
 
@@ -226,7 +238,11 @@ public enum boots{
 			new DStat[]{new DStat(false, 20, DamageType.WATER), new DStat(true, 20, DamageType.LIGHTNING)}),
 	UGLIES(new NamedStack(ChatColor.GOLD+"Uglies", Material.LEATHER_BOOTS, Color.NAVY,
 			new String[]{min+"15%"+ground, min+"15%"+water, plus+"30%"+light,}),
-			new DStat[]{new DStat(false, 15, DamageType.GROUND), new DStat(false, 15, DamageType.WATER), new DStat(true, 30, DamageType.LIGHT)});
+			new DStat[]{new DStat(false, 15, DamageType.GROUND), new DStat(false, 15, DamageType.WATER), new DStat(true, 30, DamageType.LIGHT)}),
+	PANTSER_BOOTS(new NamedStack(ChatColor.GRAY+"Pantser Boots", Material.IRON_BOOTS, 
+			new String[]{min+"50%"+ground,  plus+"50%"+lightning,}),
+			new DStat[]{new DStat(false, 50, DamageType.GROUND),  new DStat(true, 50, DamageType.LIGHTNING)},
+			true, true);
 	
 
 ItemStack s = null;
@@ -243,12 +259,14 @@ boots(ItemStack stack, DStat[] stats , boolean un){
 	s = stack;
 this.stats = Arrays.asList(stats);
 unlockable = un;
+
 }
 
 boots(ItemStack stack, DStat[] stats , boolean un, boolean fn){
 	s = stack;
 this.stats = Arrays.asList(stats);
 unlockable = un;
+findable = fn;
 }
 
 public ItemStack getStack(){
