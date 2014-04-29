@@ -34,6 +34,7 @@ public class SpellLoader {
 		spells.put("Levitate", new SpellLevitate(null));
 		spells.put("Hot Water", new SpellHotWater(null));
 		spells.put("Compresion Blast", new SpellCompresionBlast(null));
+		spells.put("Virtual Bolt", new SpellVBolt(null));
 	//	spells.put("Roots", new SpellRoot(null));
 		//spells.put("Mana Sponge", new SpellManaDrain(null));
 	}
