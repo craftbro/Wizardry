@@ -98,7 +98,7 @@ public class Lobby implements Listener {
 		} else {
 			//part of Endgame code - start
 			timeRan++; 
-			if (!endgame && timeRan == (Bukkit.getOnlinePlayers().length * 5 > 40 ? 40 : Bukkit.getOnlinePlayers().length * 5) * 20 * 60){
+			if (!endgame && timeRan >= (Bukkit.getOnlinePlayers().length * 5 > 40 ? 40 : Bukkit.getOnlinePlayers().length * 5) * 20 * 60){
 				endgame = true;
 				for (Player p : Bukkit.getOnlinePlayers()){
 					if (!spec.contains(p)){
