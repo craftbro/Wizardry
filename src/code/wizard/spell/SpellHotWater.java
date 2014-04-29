@@ -51,30 +51,31 @@ public class SpellHotWater extends Spell{
 		
 		new BukkitRunnable(){
 			int times = 0;
-			Location loc = p.getEyeLocation();
 			List<LivingEntity> safes = new ArrayList<LivingEntity>();
 			int length = 0;
 			public void run(){
-					Vector vec = p.getLocation().getDirection().normalize().multiply(0.4);
+					Location loc = p.getEyeLocation();
+					Vector vec = p.getLocation().getDirection().normalize().multiply(0.2);
 					
 					for(int i=0; i<length; i++){
 					loc.add(vec);
 					if (loc.getBlock().getType().isSolid()){
 						break;
-					}
-					ParticleEffect.SPLASH.animateAtLocation(loc, 5, 1);
-					ParticleEffect.DRIP_WATER.animateAtLocation(loc, 1, 1);
-					for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
-						if (!BasicUtil.isInTeam(e, p)){
-							BasicUtil.damage(e, p, 5, DamageType.WATER);
-						if(!safes.contains(e))	BasicUtil.giveCondtition(e, Condition.BURN, 2/*2 here = 4 seconds... right?*/);
-							safes.add(e);
-						
-							try {
-								CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
+					} else {
+						ParticleEffect.SPLASH.animateAtLocation(loc, 5, 1);
+						ParticleEffect.DRIP_WATER.animateAtLocation(loc, 1, 1);
+						for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
+							if (!BasicUtil.isInTeam(e, p)){
+								BasicUtil.damage(e, p, 5, DamageType.WATER);
+							if(!safes.contains(e))	BasicUtil.giveCondtition(e, Condition.BURN, 2/*2 here = 4 seconds... right?*/);
+								safes.add(e);
+							
+								try {
+									CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 							}
 						}
 					}
