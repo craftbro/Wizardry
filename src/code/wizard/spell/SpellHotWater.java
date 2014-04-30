@@ -53,11 +53,11 @@ public class SpellHotWater extends Spell{
 			List<LivingEntity> safes = new ArrayList<LivingEntity>();
 			double length = 0;
 			public void run(){
-					List<LivingEntity> ticksafe = new ArrayList<LivingEntity>();
-					Location loc = p.getEyeLocation();
-					Vector vec = p.getLocation().getDirection().normalize().multiply(0.5);
-					
-					for(int i=0; i<length; i++){
+				List<LivingEntity> ticksafe = new ArrayList<LivingEntity>();
+				Location loc = p.getEyeLocation();
+				Vector vec = p.getLocation().getDirection().normalize().multiply(0.5);
+				
+				for(int i=0; i<length; i++){
 					loc.add(vec);
 					if (loc.getBlock().getType().isSolid()){
 						break;
@@ -70,30 +70,34 @@ public class SpellHotWater extends Spell{
 								if (!BasicUtil.isInTeam(e, p) && !ticksafe.contains(e)){
 									BasicUtil.damage(e, p, 5, DamageType.WATER);
 									ticksafe.add(e);
-								if(!safes.contains(e))	BasicUtil.giveCondtition(e, Condition.BURN, 2/*2 here = 4 seconds... right?*/);
-									safes.add(e);
-								
-									try {
-										CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
-									} catch (Exception e1) {
-										// TODO Auto-generated catch block
-										e1.printStackTrace();
+									if(!safes.contains(e)){
+										BasicUtil.giveCondtition(e, Condition.BURN, 2);
+										safes.add(e);
+										
+										if (times % 4 == 0){
+											try {
+												CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
+											} catch (Exception e1) {
+												// TODO Auto-generated catch block
+												e1.printStackTrace();
+											}
+										}
 									}
 								}
 							}
 						}
-					}
 					}
 					if (length + 1.5 < 14){
 						length += 1.5;
 					} else {
 						length = 14;
 					}
-				
-				if (times >= 15){
-					cancel();
+					
+					if (times >= 15){
+						cancel();
+					}
+					times++;
 				}
-				times++;
 			}
 		}.runTaskTimer(Main.getInstance(), 0, 2);
 		

@@ -76,18 +76,19 @@ public class SpellVBolt extends Spell{
 					currLoc = currLoc.add(vec);
 					bolt.move(currLoc);
 					List<LivingEntity> list = new ArrayList<LivingEntity>();
-					for (LivingEntity e : currLoc.getWorld().getLivingEntities()) if(e.getEyeLocation().distance(currLoc) <= 2);
-					for (LivingEntity e : new ArrayList<LivingEntity>(list)){
-						if (BasicUtil.isInTeam(e, p)){
-							list.remove(e);
+					for (LivingEntity e : currLoc.getWorld().getLivingEntities()) if(e.getEyeLocation().distance(currLoc) <= 2){
+						if (!BasicUtil.isInTeam(e, p)){
+							list.add(e);
 						}
 					}
 					if (!list.isEmpty()){
 						for (LivingEntity e : list){
 							BasicUtil.damage(e, p, new Random().nextInt(51) + 70, DamageType.GROUND);
 						}
-						List<LivingEntity> list2 = new ArrayList<LivingEntity>();
-						for (LivingEntity e : currLoc.getWorld().getLivingEntities()) if(e.getEyeLocation().distance(currLoc) <= 2);
+						List<LivingEntity> list2 = new ArrayList<LivingEntity>(list);
+						for (LivingEntity e : currLoc.getWorld().getLivingEntities()) if(e.getEyeLocation().distance(currLoc) <= 5){
+							list2.add(e);
+						}
 						list2.removeAll(list);
 						for (LivingEntity e : list2){
 							if (!BasicUtil.isInTeam(e, p)){
