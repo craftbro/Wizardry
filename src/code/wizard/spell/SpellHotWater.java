@@ -87,10 +87,10 @@ public class SpellHotWater extends Spell{
 							}
 						}
 					}
-					if (length + 1.5 < 14){
+					if (length + 1.5 < 15){
 						length += 1.5;
 					} else {
-						length = 14;
+						length = 15;
 					}
 					
 					if (times >= 15){
