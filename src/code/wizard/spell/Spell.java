@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import code.wizard.item.NamedStack;
+import code.wizard.main.Main;
 
 public class Spell implements Comparable<Spell>, Cloneable{
 
@@ -40,6 +41,7 @@ public class Spell implements Comparable<Spell>, Cloneable{
 	//Says if the spell is awarded by an achievement (true = not achievable)
 	protected boolean findable = false;
 	
+	protected int cooldown = 0;
 	
 	public Spell(Player p){
 		this.p = p;
@@ -110,6 +112,7 @@ public class Spell implements Comparable<Spell>, Cloneable{
 		float xpCost = cost/100;
 		
 		if(xp >= xpCost){
+			if(cooldown > 0){ p.sendMessage(Main.getPersonalPrefix()+"This spell is still cooling down");return;}
 			p.setExp(xp - xpCost);
 			
 			cast();
@@ -159,7 +162,15 @@ public class Spell implements Comparable<Spell>, Cloneable{
      * Returns the spells itemstack (including lore)
      */
 	public ItemStack getStack(){
+	if(cooldown == 0){
 		return new NamedStack(name, stack.getType(), 1, stack.getData().getData(),  format());
+	}else{
+		return new NamedStack(name, stack.getType(), cooldown, stack.getData().getData(),  format());
+	}
+	}
+	
+	public void tick(){
+		if(cooldown > 0) cooldown--;
 	}
 	
 	

@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.EntityEffect;
 import org.bukkit.FireworkEffect;
+import org.bukkit.Sound;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -20,6 +21,7 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+import org.bukkit.util.Vector;
 
 import code.wizard.armor.Armor;
 import code.wizard.armor.DStats;
@@ -156,7 +158,7 @@ public class Kit {
 		if(p.isSprinting()){
 			p.setFoodLevel(p.getFoodLevel()-1);
 		}else{
-		if(p.getFoodLevel()<=20)	p.setFoodLevel(p.getFoodLevel()+1);
+		if(p.getFoodLevel()<20)	p.setFoodLevel(p.getFoodLevel()+1);
 		}
 		
 		if(conditions.containsKey(Condition.SLOW)){
@@ -177,6 +179,15 @@ public class Kit {
 			}
 		}
 		
+		mspell1.tick();
+		mspell2.tick();
+		sspell1.tick();
+		sspell2.tick();
+		wspell1.tick();
+		wspell2.tick();
+		
+		loadSlot(p.getInventory().getHeldItemSlot(), p.getInventory());
+		
 	}
 	
 	public void tick(){
@@ -184,6 +195,12 @@ public class Kit {
 			
 		
 			loadBoard();
+			
+			if(p.getLocation().getBlockY() >= 73 && !p.isOnGround()){
+				p.setVelocity(new Vector(0, -1,0));
+				ParticleEffect.WITCH_MAGIC.animateAtLocation(p.getEyeLocation().add(0, 0.4, 0), 4, 1);
+				p.getWorld().playSound(p.getEyeLocation(), Sound.FIZZ, 2, 2);
+			}
 			
 			
 			

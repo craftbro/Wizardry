@@ -56,8 +56,8 @@ public class SpellCompresionBlast extends Spell{
 			boolean end = false;
 			Location loc = p.getEyeLocation();
 			public void run(){
-					Vector vec = p.getLocation().getDirection().normalize().multiply(0.4);
-					
+				//	Vector vec = p.getLocation().getDirection().normalize().multiply(0.04);
+				Vector vec = p.getTargetBlock(null, 100).getLocation().toVector().subtract(loc.toVector()).normalize().multiply(0.5);
 					
 					
 					for(int i=0; i<length; i++){
@@ -72,7 +72,7 @@ public class SpellCompresionBlast extends Spell{
 							e1.printStackTrace();
 						}
 					
-						for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
+						for (LivingEntity e : BasicUtil.getInRadius(loc, 3)){
 							if (!BasicUtil.isInTeam(e, p)){
 								BasicUtil.damage(e, p, 100, DamageType.AIR);
 						}

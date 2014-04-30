@@ -70,6 +70,7 @@ public class Lobby implements Listener {
 	
 	public int timeRan = 0; //part of Endgame code
 	public boolean endgame = false; //part of Endgame code
+	int endDelay = 5;
 
 	public Lobby(Main instance) {
 		plugin = instance;
@@ -80,6 +81,10 @@ public class Lobby implements Listener {
 	public void tick() {
 		if (!started) {
 			int count = this.getPlayers();
+			
+			for(Player p : Bukkit.getOnlinePlayers()){
+				p.setFoodLevel(20);
+			}
 			
 			ob.getScore(
 					Bukkit.getOfflinePlayer(ChatColor.LIGHT_PURPLE + "Starts In"))
@@ -93,12 +98,13 @@ public class Lobby implements Listener {
 					cc--;
 				} else {
 					start();
+					endDelay = (getPlayers() * 3 > 12 ? 12 : getPlayers() * 3) * 20 * 60;
 				}
 			}
 		} else {
 			//part of Endgame code - start
 			timeRan++; 
-			if (!endgame && timeRan >= (Bukkit.getOnlinePlayers().length * 5 > 40 ? 40 : Bukkit.getOnlinePlayers().length * 5) * 20 * 60){
+			if (!endgame && timeRan >= (getPlayers() * 3 > 12 ? 12 : getPlayers() * 3) * 20 * 60){
 				endgame = true;
 				for (Player p : Bukkit.getOnlinePlayers()){
 					if (!spec.contains(p)){
@@ -561,7 +567,7 @@ public class Lobby implements Listener {
 		int pl = 0;
 
 		for (Player p : Bukkit.getWorld("world").getPlayers()) {
-			p.setFoodLevel(20);
+		//	p.setFoodLevel(20);
 
 			if (p.getGameMode() != GameMode.CREATIVE) {
 				pl++;
