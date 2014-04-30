@@ -104,16 +104,16 @@ public class Lobby implements Listener {
 		} else {
 			//part of Endgame code - start
 			timeRan++; 
-			if (!endgame && timeRan >= (getPlayers() * 3 > 12 ? 12 : getPlayers() * 3) * 20 * 60){
+			if (!endgame && timeRan >= (getPlayers() * 3.5 > 21 ? 21 : getPlayers() * 3.5) * 20 * 60){
 				endgame = true;
+				Bukkit.broadcastMessage(Main.getPrefix()+"The Endgame phase has Started! This match is getting too long");
+				Bukkit.broadcastMessage(Main.getPrefix()+Condition.ENDGAME.getReminder());
 				for (Player p : Bukkit.getOnlinePlayers()){
 					if (!spec.contains(p)){
-						BasicUtil.giveCondtition(p, Condition.ENDGAME, Integer.MAX_VALUE);
+						BasicUtil.giveCondtition(p, Condition.ENDGAME, 999999);
 						plugin.find.giveHat(p, "survived untill endgame", Armor.hat.PATIENCE_MASK);
 					}
 				}
-				Bukkit.broadcastMessage(Main.getPrefix()+"The Endgame phase has Started! This match is getting too long");
-				Bukkit.broadcastMessage(Main.getPrefix()+Condition.ENDGAME.getReminder());
 			}
 			//part of Endgame code - start
 			if (!pperiod)
