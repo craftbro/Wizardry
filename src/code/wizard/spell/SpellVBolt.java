@@ -70,10 +70,13 @@ public class SpellVBolt extends Spell{
 					ParticleEffect.ANGRY_VILLAGER.animateAtLocation(currLoc, 1, 1);
 					currLoc.getWorld().playSound(currLoc, Sound.CHICKEN_EGG_POP, 4, 0);
 				} else {
-					vec.multiply(1.09);
+					if (Math.abs(vec.getX()) < 7.5 && Math.abs(vec.getY()) < 7.5 && Math.abs(vec.getZ()) < 7.5){
+						vec.multiply(1.09);
+					}
 					currLoc = currLoc.add(vec);
 					bolt.move(currLoc);
-					List<LivingEntity> list = BasicUtil.getInRadius(currLoc, 2);
+					List<LivingEntity> list = new ArrayList<LivingEntity>();
+					for (LivingEntity e : currLoc.getWorld().getLivingEntities()) if(e.getEyeLocation().distance(currLoc) <= 2);
 					for (LivingEntity e : new ArrayList<LivingEntity>(list)){
 						if (BasicUtil.isInTeam(e, p)){
 							list.remove(e);
@@ -83,7 +86,8 @@ public class SpellVBolt extends Spell{
 						for (LivingEntity e : list){
 							BasicUtil.damage(e, p, new Random().nextInt(51) + 70, DamageType.GROUND);
 						}
-						List<LivingEntity> list2 = BasicUtil.getInRadius(currLoc, 5);
+						List<LivingEntity> list2 = new ArrayList<LivingEntity>();
+						for (LivingEntity e : currLoc.getWorld().getLivingEntities()) if(e.getEyeLocation().distance(currLoc) <= 2);
 						list2.removeAll(list);
 						for (LivingEntity e : list2){
 							if (!BasicUtil.isInTeam(e, p)){

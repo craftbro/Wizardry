@@ -30,9 +30,9 @@ public class SpellHotWater extends Spell{
 		
 		name = ChatColor.RED+"Hot Water";
 		stack = new ItemStack(Material.LAVA_BUCKET);
-		cost = 65;
+		cost = 60;
 		
-		des.add(ChatColor.DARK_AQUA+"Shoots a trail of hot water for "+ChatColor.WHITE+"1"+ChatColor.DARK_AQUA+" second that");
+		des.add(ChatColor.DARK_AQUA+"Shoots a trail of hot water for "+ChatColor.WHITE+"1.5"+ChatColor.DARK_AQUA+" second that");
 		des.add(ChatColor.DARK_AQUA+"deals "+ChatColor.WHITE+"5"+ChatColor.AQUA+" Water "+ChatColor.DARK_AQUA+"damage");
 		des.add(ChatColor.DARK_AQUA+"and"+ChatColor.RED+" Burns"+ChatColor.DARK_AQUA+" the emeny for "+ChatColor.WHITE+"4"+ChatColor.DARK_AQUA+" seconds");
 
@@ -65,7 +65,8 @@ public class SpellHotWater extends Spell{
 						ParticleEffect.SPLASH.animateAtLocation(loc, 5, 1);
 						if (times % 2 == 0){
 							ParticleEffect.LAVA.animateAtLocation(loc, 1, 1);
-							for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
+							
+							for (LivingEntity e : loc.getWorld().getLivingEntities()) if(e.getEyeLocation().distance(loc) <= 2){
 								if (!BasicUtil.isInTeam(e, p) && !ticksafe.contains(e)){
 									BasicUtil.damage(e, p, 5, DamageType.WATER);
 									ticksafe.add(e);
@@ -83,13 +84,13 @@ public class SpellHotWater extends Spell{
 						}
 					}
 					}
-					if (length + 1.5 < 12){
+					if (length + 1.5 < 14){
 						length += 1.5;
 					} else {
-						length = 12;
+						length = 14;
 					}
 				
-				if (times >= 10){
+				if (times >= 15){
 					cancel();
 				}
 				times++;
