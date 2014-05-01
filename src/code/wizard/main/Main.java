@@ -19,11 +19,11 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import code.configtesting.config.Config;
 import code.wizard.effect.CodeEffect;
-import code.wizard.effect.FireworkExplosionPlayer;
+import code.wizard.lobby.Lobby;
+import code.wizard.lobby.LobbyRandom;
 import code.wizard.player.Cancels;
 import code.wizard.player.FindManager;
 import code.wizard.player.KitManager;
-import code.wizard.player.Lobby;
 import code.wizard.player.WizTeam;
 import code.wizard.special.smash;
 import code.wizard.spell.SpellLoader;
@@ -136,7 +136,7 @@ public class Main extends JavaPlugin{
 		board = Bukkit.getScoreboardManager().getNewScoreboard();
 		
 		km = new KitManager(this);
-		lobby = new Lobby(this);
+		lobby = new LobbyRandom(this);
 		sql = new SQLBase(this);
 		find = new FindManager(this);
 		

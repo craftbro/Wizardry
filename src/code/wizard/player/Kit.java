@@ -28,6 +28,7 @@ import code.wizard.armor.DStats;
 import code.wizard.effect.CodeEffect;
 import code.wizard.effect.ParticleEffect;
 import code.wizard.item.NamedStack;
+import code.wizard.lobby.LobbyRandom;
 import code.wizard.main.Main;
 import code.wizard.main.Mode;
 import code.wizard.spell.Spell;
@@ -171,11 +172,11 @@ public class Kit {
 		}
 		
 		if(p.getLocation().getBlockY() <= 10){
-			if(!plugin.lobby.pperiod){
+			if(plugin.lobby.started){
 				health = 0;
 			}else{
 				p.sendMessage(plugin.getPersonalPrefix()+"Nope, not today!");
-				p.teleport(plugin.lobby.map);
+				p.teleport(plugin.lobby.getSpawn(p));
 			}
 		}
 		
@@ -213,6 +214,7 @@ public class Kit {
 		p.setLevel((int) (p.getExp()*100));
 		
 			}else{
+				
 				p.setLevel(plugin.lobby.peace);
 			}
 		
@@ -234,7 +236,7 @@ public class Kit {
 			}
 			
 		ob.unregister();
-		plugin.lobby.kill(p);
+		((LobbyRandom) plugin.lobby).kill(p);
 			
 			
 			KitManager.unregister(p);

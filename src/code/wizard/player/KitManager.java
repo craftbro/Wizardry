@@ -12,6 +12,8 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.kitteh.tag.PlayerReceiveNameTagEvent;
 
+import code.wizard.lobby.Lobby;
+import code.wizard.lobby.LobbyRandom;
 import code.wizard.main.Main;
 import code.wizard.main.Mode;
 import code.wizard.special.smash;
@@ -83,14 +85,14 @@ public class KitManager implements Listener {
 			if(plugin.lobby.mode == Mode.FFA){
 			if(kits.size() == 1){
 				for(Player p : kits.keySet()){
-				plugin.lobby.end(p);
+				((LobbyRandom) plugin.lobby).end(p);
 				}
 			}
 			}else{
 				if(team1.players.size() == 0){
-				plugin.lobby.end(team2);
+					((LobbyRandom) plugin.lobby).end(team2);
 				}else if(team2.players.size() == 0){
-					plugin.lobby.end(team1);
+					((LobbyRandom) plugin.lobby).end(team1);
 				}
 			}
 		}
@@ -106,7 +108,7 @@ public class KitManager implements Listener {
     	}
     	
     	if(low.size() == kits.size() && !plugin.lobby.ended && !spawned){
-    		new smash().spawn(plugin.lobby.map);
+    		new smash().spawn(plugin.lobby.getSmashSpawn());
     		spawned = true;
     	}
     	}

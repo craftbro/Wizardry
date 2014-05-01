@@ -1,4 +1,4 @@
-package code.wizard.player;
+package code.wizard.lobby;
 
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -34,6 +34,9 @@ import code.wizard.item.NamedStack;
 import code.wizard.main.Main;
 import code.wizard.main.Mode;
 import code.wizard.maps.Map;
+import code.wizard.player.KitManager;
+import code.wizard.player.PlayerDataLoader;
+import code.wizard.player.WizTeam;
 import code.wizard.special.smash;
 import code.wizard.spell.Spell;
 import code.wizard.spell.SpellLoader;
@@ -42,29 +45,19 @@ import code.wizard.spell.SpellVictoryBomb;
 import code.wizard.util.BasicUtil;
 import code.wizard.util.Condition; //endgame import
 
-public class Lobby implements Listener {
+public class LobbyRandom extends Lobby{
+
+	
 
 	Main plugin;
 
-	Location lobby;
+
 	Location map;
 
-	static boolean started = false;
+	
 
 	Inventory shop;
 	Inventory aShop;
-
-	public Mode mode;
-
-	public int cc = 60;
-	int req = 2;
-	
-	public List<Player> spec = new ArrayList<Player>();
-
-	public boolean ended = false;
-
-	int peace = 15;
-	boolean pperiod = false;
 
 	Objective ob;
 	
@@ -72,12 +65,12 @@ public class Lobby implements Listener {
 	public boolean endgame = false; //part of Endgame code
 	int endDelay = 5;
 
-	public Lobby(Main instance) {
-		plugin = instance;
-
-		setup();
+	public LobbyRandom(Main instance) {
+		super(instance);
 	}
+	
 
+	@Override
 	public void tick() {
 		if (!started) {
 			int count = this.getPlayers();
@@ -279,7 +272,8 @@ public class Lobby implements Listener {
 
 	}
 
-	private void setup() {
+	@Override
+	protected void setup() {
 		lobby = new Location(Bukkit.getWorld("world"), 282, 86, -1059);
 		map = Map.bridge.getSpawn();
 
@@ -318,10 +312,17 @@ public class Lobby implements Listener {
 				Material.LEATHER_BOOTS));
 
 	}
-
-	public static boolean hasStarted() {
-		return started;
+	
+	@Override
+	public Location getSpawn(Player p){
+		return map;
 	}
+
+	@Override
+	public Location getSmashSpawn(){
+		return map;
+	}
+
 
 	@EventHandler
 	public void MOTD(ServerListPingEvent event) {

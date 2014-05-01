@@ -14,6 +14,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 
+import code.wizard.lobby.Lobby;
 import code.wizard.main.Main;
 import code.wizard.util.BasicUtil;
 import code.wizard.util.DamageType;
