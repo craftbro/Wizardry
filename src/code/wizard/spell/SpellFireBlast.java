@@ -44,7 +44,7 @@ public class SpellFireBlast extends Spell{
 		des.add(ChatColor.DARK_AQUA+"and "+ChatColor.RED+"Burns"+ChatColor.DARK_AQUA+" them for "+ChatColor.WHITE+"12"+ChatColor.DARK_AQUA+" seconds");
 
 		info.put("Range", ChatColor.GREEN+"5");
-		info.put(ChatColor.RED+"Note:", "Charging up makes you weak for 6 seconds");
+		info.put(ChatColor.RED+"Note:", "Charging up makes you weak for 8 seconds");
 		
 		rem.add(Condition.BURN.getReminder());
 		rem.add(Condition.WEAK.getReminder());
@@ -110,7 +110,7 @@ public class SpellFireBlast extends Spell{
 			}.runTaskTimer(Main.getInstance(), 1, 1);
 		} else {
 			list.add(p.getName());
-			BasicUtil.giveCondtition(p, Condition.WEAK, 3);
+			BasicUtil.giveCondtition(p, Condition.WEAK, 4);
 			try{
 				CodeEffect.playFirework(p.getEyeLocation().add(0, 0.75, 0), effectS);
 			}catch(Exception e1){
