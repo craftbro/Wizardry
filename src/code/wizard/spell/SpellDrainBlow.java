@@ -38,7 +38,6 @@ public class SpellDrainBlow extends Spell{
 		des.add(ChatColor.DARK_AQUA+"when it hits it flies back with the drained life");
 
 		info.put("Range", ChatColor.GREEN+"2.5");
-		info.put("Cooldown", ChatColor.AQUA+"25 Seconds");
 		
 		slot = SpellSlot.SECUNDAIRY_WAND;
 	}
@@ -49,9 +48,6 @@ public class SpellDrainBlow extends Spell{
 		Builder b = FireworkEffect.builder().withColor(Color.WHITE).withFade(Color.LIME).withTrail();
 		final FireworkEffect effect = b.with(Type.BALL).build();
 		final FireworkEffect effectB = b.with(Type.BURST).build();
-		
-		cooldown = 25;
-
 
 		new BukkitRunnable(){
 			public Location currLoc = p.getEyeLocation();

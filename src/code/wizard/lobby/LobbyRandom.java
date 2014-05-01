@@ -49,7 +49,7 @@ public class LobbyRandom extends Lobby{
 
 	
 
-
+	Main plugin;
 
 	Location map;
 
@@ -247,8 +247,7 @@ public class LobbyRandom extends Lobby{
 				p.sendMessage(" ");
 			}
 
-			WizTeam team;
-			team = plugin.km.putOnTeam(p);
+			WizTeam team = plugin.km.putOnTeam(p);
 			TagAPI.refreshPlayer(p);
 
 			plugin.km.giveKit(p, team);
