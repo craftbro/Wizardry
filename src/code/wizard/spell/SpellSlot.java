@@ -7,7 +7,8 @@ public enum SpellSlot {
 	PRIMARY_STICK("ps"),
 	SECUNDAIRY_STICK("ss"),
 	PRIMARY_WAND("pw"),
-	SECUNDAIRY_WAND("sw");
+	SECUNDAIRY_WAND("sw"),
+	SPECIAL("s");
 	
 	String name;
 	
