@@ -3,14 +3,13 @@ package code.wizard.spell;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Builder;
+import org.bukkit.FireworkEffect.Type;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.FireworkEffect.Type;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -21,6 +20,8 @@ import code.wizard.effect.CodeEffect;
 import code.wizard.effect.ParticleEffect;
 import code.wizard.main.Main;
 import code.wizard.player.KitManager;
+import code.wizard.spell.Spell;
+import code.wizard.spell.SpellSlot;
 import code.wizard.util.BasicUtil;
 import code.wizard.util.DamageType;
 
