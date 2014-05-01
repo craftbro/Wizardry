@@ -52,7 +52,7 @@ public class SpellVBolt extends Spell{
 	public void cast(){
 
 		new BukkitRunnable(){
-			final Hologram bolt = HoloAPI.getManager().createSimpleHologram(p.getLocation(), 380, new String[]{
+			final Hologram bolt = HoloAPI.getManager().createSimpleHologram(p.getLocation(), 380 / 19, new String[]{
 				ChatColor.AQUA+"█"
 			});
 			Vector vec = p.getLocation().getDirection().normalize().multiply(0.1);
@@ -96,7 +96,7 @@ public class SpellVBolt extends Spell{
 							}
 						}
 						cancel();
-						ParticleEffect.EXPLODE.animateAtLocation(currLoc, 5, 1);
+						ParticleEffect.LARGE_EXPLODE.animateAtLocation(currLoc, 5, 1);
 						currLoc.getWorld().playSound(currLoc, Sound.CHICKEN_EGG_POP, 4, 1);
 						try {
 							HoloAPI.getManager().stopTracking(bolt);
@@ -107,7 +107,7 @@ public class SpellVBolt extends Spell{
 					} else {
 						if (times >= 360){
 							cancel();
-							ParticleEffect.EXPLODE.animateAtLocation(currLoc, 5, 1);
+							ParticleEffect.LARGE_EXPLODE.animateAtLocation(currLoc, 5, 1);
 							currLoc.getWorld().playSound(currLoc, Sound.CHICKEN_EGG_POP, 4, 1);
 							try {
 								HoloAPI.getManager().stopTracking(bolt);

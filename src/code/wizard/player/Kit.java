@@ -1,6 +1,7 @@
 package code.wizard.player;
 
 import java.util.HashMap;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -146,9 +147,9 @@ public class Kit {
 			if(health+h > maxHealth) h = maxHealth - health;
 		health+=h;
 		
-		HoloAPI.getManager().createSimpleHologram(p.getEyeLocation().subtract(0, 0.36, 0), 2, ChatColor.GREEN+"+"+h);
+		HoloAPI.getManager().createSimpleHologram(p.getEyeLocation().subtract(new Random().nextDouble()*2.0 - 1, 0.36, new Random().nextDouble()*2.0 - 1), 2, new Vector(0, 0.02, 0), ChatColor.GREEN+"+"+h);
 		}else{
-			HoloAPI.getManager().createSimpleHologram(p.getEyeLocation().subtract(0, 0.36, 0), 2, ChatColor.DARK_RED+"Heal Blocked!");
+			HoloAPI.getManager().createSimpleHologram(p.getEyeLocation().subtract(new Random().nextDouble()*2.0 - 1, 0.36, new Random().nextDouble()*2.0 - 1), 2, ChatColor.DARK_RED+"Heal Blocked!");
 		}
 	}
 	
