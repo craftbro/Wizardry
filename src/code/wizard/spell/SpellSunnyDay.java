@@ -30,9 +30,9 @@ public class SpellSunnyDay extends Spell{
 	public SpellSunnyDay(Player p) {
 		super(p);
 		
-		name = ChatColor.GREEN+"Draining Blow";
-		stack = new ItemStack(Material.QUARTZ);
-		cost = 75;
+		name = ChatColor.RED+"Sunny Day";
+		stack = new ItemStack(Material.GOLDEN_APPLE);
+		cost = 0;
 		
 		des.add(ChatColor.DARK_AQUA+"Turns the sun very harsh damaging");
 		des.add(ChatColor.WHITE+"5"+ChatColor.GOLD+" Light"+ChatColor.DARK_AQUA+" damage to every emeny");
