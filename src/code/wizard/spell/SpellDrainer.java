@@ -35,8 +35,8 @@ public class SpellDrainer extends Spell{
 		des.add(ChatColor.DARK_AQUA+"Fires a gem that, for 4 seconds steals health");
 		des.add(ChatColor.DARK_AQUA+"from surrounding enemies every second");
 		
-		info.put("Range", ChatColor.GREEN+"6");
-		info.put("Damage", ChatColor.GREEN+"40");
+		info.put("Range", ChatColor.GREEN+"4");
+		info.put("Damage", ChatColor.GREEN+"30");
 		info.put("Cooldown", ChatColor.AQUA+"40 seconds");
 		
 	
@@ -104,16 +104,16 @@ public class SpellDrainer extends Spell{
 					if(times >= 0){
 					int heal = 0;
 					
-					for(LivingEntity e : BasicUtil.getInRadius(item.getLocation(), 6)){
+					for(LivingEntity e : BasicUtil.getInRadius(item.getLocation(), 4)){
 						if(BasicUtil.isInTeam(e, p)) continue;
-						heal+=BasicUtil.damage(e, p, 40, DamageType.POISON);
+						heal+=BasicUtil.damage(e, p, 30, DamageType.POISON);
 						
 					}
 					
 					if(heal > 0) sendHealRay(heal, item.getLocation());
 					
 					BasicUtil.playEffectInCircle(item.getLocation(), 6, ParticleEffect.WITCH_MAGIC, 2);
-					p.getWorld().playSound(item.getLocation(), Sound.CAT_HISS, 4, -2);
+					p.getWorld().playSound(item.getLocation(), Sound.CAT_HISS, 4, 2);
 					
 					times--;
 					}else{

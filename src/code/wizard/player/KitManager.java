@@ -23,7 +23,7 @@ public class KitManager implements Listener {
 	private static HashMap<Player, Kit> kits = new HashMap<Player, Kit>();
 	private static HashMap<Player, WizTeam> teams = new HashMap<>();
 	
-	Main plugin;
+	static Main plugin;
 	
 	
 	static WizTeam team1;
@@ -55,12 +55,20 @@ public class KitManager implements Listener {
 		
 	}
 	
-	public WizTeam putOnTeam(Player p){
+	public static WizTeam putOnTeam(Player p){
 
+		if(p != null){
+			plugin.print("Puttin on team: "+p.getName());
+		}else{
+			plugin.print("It's Null!");
+			return null;
+		}
 		
 		if(plugin.lobby.mode == Mode.TEAM){
 			int l1 = team1.players.size();
 			int l2 = team2.players.size();
+			
+		
 			
 		if(l2 > l1){
 			team1.addPlayer(p);
@@ -72,6 +80,8 @@ public class KitManager implements Listener {
 			return team2;
 		}
 		}else{
+			
+			plugin.print("FFA");
 			return new WizTeam(p.getName());
 		}
 		

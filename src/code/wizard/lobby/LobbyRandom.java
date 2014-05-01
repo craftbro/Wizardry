@@ -49,7 +49,6 @@ public class LobbyRandom extends Lobby{
 
 	
 
-	Main plugin;
 
 
 	Location map;
@@ -96,14 +95,14 @@ public class LobbyRandom extends Lobby{
 			}
 		} else {
 			//part of Endgame code - start
-			timeRan++; 
+			timeRan = timeRan + 1; 
 			if (!endgame && timeRan >= (getPlayers() * 3.5 > 21 ? 21 : getPlayers() * 3.5) * 20 * 60){
 				endgame = true;
 				Bukkit.broadcastMessage(Main.getPrefix()+"The Endgame phase has Started! This match is getting too long");
 				Bukkit.broadcastMessage(Main.getPrefix()+Condition.ENDGAME.getReminder());
 				for (Player p : Bukkit.getOnlinePlayers()){
+					BasicUtil.giveCondtition(p, Condition.ENDGAME, 999999);
 					if (!spec.contains(p)){
-						BasicUtil.giveCondtition(p, Condition.ENDGAME, 999999);
 						plugin.find.giveHat(p, "survived untill endgame", Armor.hat.PATIENCE_MASK);
 					}
 				}
@@ -216,7 +215,7 @@ public class LobbyRandom extends Lobby{
 			if (p.getGameMode() == GameMode.CREATIVE)
 				continue;
 
-			p.teleport(map);
+			p.teleport(getSpawn(p));
 
 			if (mode == Mode.FFA) {
 				p.sendMessage(ChatColor.GREEN
@@ -248,7 +247,8 @@ public class LobbyRandom extends Lobby{
 				p.sendMessage(" ");
 			}
 
-			WizTeam team = plugin.km.putOnTeam(p);
+			WizTeam team;
+			team = plugin.km.putOnTeam(p);
 			TagAPI.refreshPlayer(p);
 
 			plugin.km.giveKit(p, team);
@@ -334,111 +334,23 @@ public class LobbyRandom extends Lobby{
 
 	}
 
-	@EventHandler
-	public void click(InventoryClickEvent event) {
-		Player p = (Player) event.getWhoClicked();
+	
 
-		if (p.getGameMode() == GameMode.CREATIVE)
-			return;
 
-		event.setCancelled(true);
+	public int getPlayers() {
+		int pl = 0;
 
-		Inventory inv = event.getInventory();
-		ItemStack i = event.getCurrentItem();
+		for (Player p : Bukkit.getWorld("world").getPlayers()) {
+		//	p.setFoodLevel(20);
 
-		if (inv.getTitle().contains(ChatColor.GOLD + "Switch Spells")) {
-			int slot = event.getSlot();
-
-			switch (slot) {
-			case 0:
-				openSwitchSpells(p, SpellSlot.PRIMARY_MELEE);
-				break;
-			case 9:
-				openSwitchSpells(p, SpellSlot.SECUNDAIRY_MELEE);
-				break;
-			case 4:
-				openSwitchSpells(p, SpellSlot.PRIMARY_STICK);
-				break;
-			case 13:
-				openSwitchSpells(p, SpellSlot.SECUNDAIRY_STICK);
-				break;
-			case 8:
-				openSwitchSpells(p, SpellSlot.PRIMARY_WAND);
-				break;
-			case 17:
-				openSwitchSpells(p, SpellSlot.SECUNDAIRY_WAND);
-				break;
+			if (p.getGameMode() != GameMode.CREATIVE) {
+				pl++;
 			}
-		} else if (inv.getTitle().contains(ChatColor.AQUA + "Spells")) {
-			if (i.getType() == Material.AIR)
-				return;
-
-			Spell s = SpellLoader.loadSpell(p, i);
-			Config.setData(p, s.getSlot().getConfigName(),
-					ChatColor.stripColor(s.getName()));
-
-			p.sendMessage(plugin.getPersonalPrefix() + s.getName()
-					+ ChatColor.GOLD + " Selected!");
-		} else if (inv.getTitle().contains(ChatColor.GOLD + "Switch Armor")) {
-			int slot = event.getSlot();
-
-			switch (slot) {
-			case 4:
-				openSwitchArmor(p, 1, "Hats");
-				break;
-			case 13:
-				openSwitchArmor(p, 2, "Capes");
-				break;
-			case 22:
-				openSwitchArmor(p, 3, "Pants");
-				break;
-			case 31:
-				openSwitchArmor(p, 4, "Boots");
-				break;
-			}
-		} else if (inv.getTitle().contains(ChatColor.AQUA + "Hats")) {
-			if (i.getType() == Material.AIR)
-				return;
-
-			hat h = Armor.hat.getFromStack(i);
-			Config.setData(p, "hat", h.name());
-
-			p.sendMessage(plugin.getPersonalPrefix()
-					+ i.getItemMeta().getDisplayName() + ChatColor.GOLD
-					+ " Selected!");
-		} else if (inv.getTitle().contains(ChatColor.AQUA + "Capes")) {
-			if (i.getType() == Material.AIR)
-				return;
-
-			cape h = Armor.cape.getFromStack(i);
-			Config.setData(p, "cape", h.name());
-
-			p.sendMessage(plugin.getPersonalPrefix()
-					+ i.getItemMeta().getDisplayName() + ChatColor.GOLD
-					+ " Selected!");
-		} else if (inv.getTitle().contains(ChatColor.AQUA + "Pants")) {
-			if (i.getType() == Material.AIR)
-				return;
-
-			pants h = Armor.pants.getFromStack(i);
-			Config.setData(p, "pants", h.name());
-
-			p.sendMessage(plugin.getPersonalPrefix()
-					+ i.getItemMeta().getDisplayName() + ChatColor.GOLD
-					+ " Selected!");
-		} else if (inv.getTitle().contains(ChatColor.AQUA + "Boots")) {
-			if (i.getType() == Material.AIR)
-				return;
-
-			boots h = Armor.boots.getFromStack(i);
-			Config.setData(p, "boots", h.name());
-
-			p.sendMessage(plugin.getPersonalPrefix()
-					+ i.getItemMeta().getDisplayName() + ChatColor.GOLD
-					+ " Selected!");
 		}
-	}
 
+		return pl;
+	}
+	
 	@EventHandler
 	public void click(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
@@ -455,42 +367,6 @@ public class LobbyRandom extends Lobby{
 		int slot = p.getInventory().getHeldItemSlot();
 
 		switch (slot) {
-		case 1:
-			this.showSpells(p);
-			break;
-		case 0: {
-			p.sendMessage(ChatColor.GOLD
-					+ "-----------------------------------------------------");
-			p.sendMessage(plugin.getPersonalPrefix()
-					+ "Wizardry is a Wizard PVP game");
-			p.sendMessage(plugin.getPersonalPrefix()
-					+ "There are 3 kinds of spells:");
-			p.sendMessage(plugin.getPersonalPrefix() + "Melee, Stick and Wand");
-			p.sendMessage(plugin.getPersonalPrefix()
-					+ "Switch between those spells using Q");
-			p.sendMessage(plugin.getPersonalPrefix()
-					+ "Press 1 or 2 to cast the spell in that slot");
-			p.sendMessage(plugin.getPersonalPrefix()
-					+ "In FFA, the last (wo)man standing wins");
-			p.sendMessage(ChatColor.GOLD
-					+ "-----------------------------------------------------");
-		}
-			break;
-		case 2: {
-			p.sendMessage(ChatColor.RED
-					+ "-----------------------------------------------------");
-			p.sendMessage(plugin.getPersonalPrefix()
-					+ "There will be 5V5 and 1V1 modes");
-			p.sendMessage(plugin.getPersonalPrefix()
-					+ "There will be Ranking and Global scores");
-			p.sendMessage(plugin.getPersonalPrefix()
-					+ "There will multiple servers running side-by-side");
-			p.sendMessage(plugin.getPersonalPrefix()
-					+ "There an advanced matchmaking system");
-			p.sendMessage(ChatColor.RED
-					+ "-----------------------------------------------------");
-		}
-			break;
 		case 8: {
 			p.openInventory(shop);
 		}
@@ -502,204 +378,7 @@ public class LobbyRandom extends Lobby{
 		}
 	}
 
-	@EventHandler
-	public void join(final PlayerJoinEvent event) {
-		final Player p = event.getPlayer();
 
-		// File sound = new File(plugin.getDataFolder(), "Join.mp3");
-		// BasicUtil.playSound(sound);
 
-		Toolkit.getDefaultToolkit().beep();
-
-		new PlayerDataLoader(p).loadData();
-
-		if (!started) {
-
-			if (!p.isOp()) {
-				event.setJoinMessage(plugin.getPrefix() + p.getName()
-						+ " joined the lobby");
-			} else {
-				event.setJoinMessage(plugin.getPrefix() + ChatColor.GOLD
-						+ ChatColor.BOLD + "(Admin)" + p.getName()
-						+ " joined the lobby");
-			}
-
-			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin,
-					new Runnable() {
-
-						@Override
-						public void run() {
-							handleJoin(p);
-						}
-
-					}, 1);
-
-		} else {
-			// if(p.isOp()) return;
-			event.setJoinMessage("");
-			p.sendMessage(plugin.getPersonalPrefix() + p.getName()
-					+ " please wait for this game to end...");
-			kill(p);
-			
-			spec.add(p);
-
-			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin,
-					new Runnable() {
-
-						@Override
-						public void run() {
-							p.teleport(map);
-						}
-
-					}, 1);
-		}
-	}
-
-	public void kill(Player p) {
-		p.teleport(map);
-		p.setAllowFlight(true);
-		p.getInventory().clear();
-		for (Player pl : Bukkit.getOnlinePlayers()) {
-			pl.hidePlayer(p);
-		}
-	}
-
-	public int getPlayers() {
-		int pl = 0;
-
-		for (Player p : Bukkit.getWorld("world").getPlayers()) {
-		//	p.setFoodLevel(20);
-
-			if (p.getGameMode() != GameMode.CREATIVE) {
-				pl++;
-			}
-		}
-
-		return pl;
-	}
-
-	private void handleJoin(Player p) {
-		p.setScoreboard(plugin.board);
-
-		if (p.getGameMode() == GameMode.CREATIVE)
-			return;
-
-		p.teleport(lobby);
-
-		p.setAllowFlight(false);
-		for (Player pl : Bukkit.getOnlinePlayers()) {
-			pl.showPlayer(p);
-			p.showPlayer(pl);
-		}
-
-		p.sendMessage(ChatColor.GREEN + " ");
-		p.sendMessage(plugin.getPersonalPrefix() + "Welcome, " + p.getName()
-				+ ", to Wizardry v. Aplha 0.1!");
-		p.sendMessage(plugin.getPersonalPrefix()
-				+ "Please check out the books for more info :)");
-		p.sendMessage(ChatColor.GREEN + " ");
-
-		p.getInventory().setHeldItemSlot(0);
-		p.getInventory().clear();
-		p.getInventory().setItem(
-				1,
-				new NamedStack(ChatColor.AQUA + "" + ChatColor.BOLD
-						+ "Spellbook", Material.BOOK));
-		p.getInventory().setItem(
-				0,
-				new NamedStack(ChatColor.GREEN + "" + ChatColor.BOLD
-						+ "Infobook", Material.BOOK));
-		p.getInventory().setItem(
-				2,
-				new NamedStack(ChatColor.RED + "" + ChatColor.BOLD
-						+ "Yet-To-Be-Addedbook", Material.BOOK));
-
-		p.getInventory().setItem(
-				8,
-				new NamedStack(ChatColor.GOLD + "" + ChatColor.BOLD
-						+ "Switch Spells", Material.NETHER_STAR));
-		p.getInventory().setItem(
-				7,
-				new NamedStack(ChatColor.GOLD + "" + ChatColor.BOLD
-						+ "Switch Armor", Material.NETHER_STAR));
-
-	}
-
-	private void openSwitchSpells(Player p, SpellSlot slot) {
-		Inventory i = Bukkit
-				.createInventory(null, 9, ChatColor.AQUA + "Spells");
-
-		for (Spell s : SpellLoader.spells.values()) {
-			if (s.getSlot() == slot) {
-				if (s.isUnlockable() && !plugin.sql.handler.hasSpell(p, s))
-					continue;
-				i.addItem(s.getStack());
-			}
-		}
-
-		BasicUtil.open(p, i);
-	}
-
-	private void openSwitchArmor(Player p, int n, String s) {
-		Inventory i = Bukkit.createInventory(null, 9, ChatColor.AQUA + s);
-
-		switch (n) {
-		case 1: {
-			for (hat h : Armor.hat.values()) {
-				if(h.isUnlockable() && !plugin.sql.handler.hasHat(p, h)) continue;
-				i.addItem(h.getStack());
-			}
-		}
-			break;
-		case 2: {
-			for (cape h : Armor.cape.values()) {
-				if(h.isUnlockable() && !plugin.sql.handler.hasCape(p, h)) continue;
-				i.addItem(h.getStack());
-			}
-		}
-			break;
-		case 3: {
-			for (pants h : Armor.pants.values()) {
-				if(h.isUnlockable() && !plugin.sql.handler.hasPants(p, h)) continue;
-				i.addItem(h.getStack());
-			}
-		}
-			break;
-		case 4: {
-			for (boots h : Armor.boots.values()) {
-				if(h.isUnlockable() && !plugin.sql.handler.hasBoots(p, h)) continue;
-				i.addItem(h.getStack());
-			}
-		}
-			break;
-		}
-
-		BasicUtil.open(p, i);
-	}
-
-	private void showSpells(Player p) {
-		Inventory spells = Bukkit.createInventory(null, 27,
-				ChatColor.LIGHT_PURPLE + "Current Spells");
-
-		spells.setItem(0, new NamedStack(ChatColor.AQUA + "Melee Spells",
-				Material.IRON_SWORD));
-		spells.setItem(9, new NamedStack(ChatColor.GREEN + "Stick Spells",
-				Material.STICK));
-		spells.setItem(18, new NamedStack(ChatColor.GOLD + "Wand Spells",
-				Material.GOLD_HOE));
-
-		PlayerDataLoader pdl = new PlayerDataLoader(p);
-
-		pdl.loadData();
-
-		spells.setItem(7, pdl.getPM().getStack());
-		spells.setItem(8, pdl.getSM().getStack());
-		spells.setItem(16, pdl.getPS().getStack());
-		spells.setItem(17, pdl.getSS().getStack());
-		spells.setItem(25, pdl.getPW().getStack());
-		spells.setItem(26, pdl.getSW().getStack());
-
-		BasicUtil.open(p, spells);
-	}
 
 }

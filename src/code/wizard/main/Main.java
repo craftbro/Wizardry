@@ -1,6 +1,8 @@
 package code.wizard.main;
 
 import java.io.File;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
@@ -12,6 +14,8 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -46,8 +50,11 @@ public class Main extends JavaPlugin{
 	public Lobby lobby;
 	public SQLBase sql;
 	public FindManager find;
+	public ServerType type;
 	
 	public static Scoreboard board;
+	
+	private  FileConfiguration settings = null;
 	
 	@Override
 	public void onEnable(){
@@ -155,6 +162,25 @@ public class Main extends JavaPlugin{
 		
 		Config.setFolder(f);
 		
+		File st = new File(this.getDataFolder(), "settings.yml");
+		if(!st.exists())
+			try {
+				st.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		settings = YamlConfiguration.loadConfiguration(st);
+		
+		if(!settings.contains("type")){ settings.set("type", "random"); try {
+			settings.save(st);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}}
+
+		type = ServerType.valueOf(settings.getString("type").toUpperCase());
 	
 		
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){

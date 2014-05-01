@@ -28,7 +28,6 @@ import code.wizard.armor.DStats;
 import code.wizard.effect.CodeEffect;
 import code.wizard.effect.ParticleEffect;
 import code.wizard.item.NamedStack;
-import code.wizard.lobby.LobbyRandom;
 import code.wizard.main.Main;
 import code.wizard.main.Mode;
 import code.wizard.spell.Spell;
@@ -231,12 +230,11 @@ public class Kit {
 			try {
 				CodeEffect.playFirework(p.getWorld(), p.getLocation(), effect);
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			
 		ob.unregister();
-		((LobbyRandom) plugin.lobby).kill(p);
+	 plugin.lobby.kill(p);
 			
 			
 			KitManager.unregister(p);

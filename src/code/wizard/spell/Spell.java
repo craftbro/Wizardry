@@ -1,6 +1,7 @@
 package code.wizard.spell;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,8 +44,12 @@ public class Spell implements Comparable<Spell>, Cloneable{
 	
 	protected int cooldown = 0;
 	
+	String[] formated = null;
+	
 	public Spell(Player p){
 		this.p = p;
+		
+		
 	}
 	
 	/**
@@ -53,6 +58,7 @@ public class Spell implements Comparable<Spell>, Cloneable{
      */
 	public void setPlayer(Player p){
 		this.p = p;
+		formated = format();
 	}
 	
 	/**
@@ -162,10 +168,14 @@ public class Spell implements Comparable<Spell>, Cloneable{
      * Returns the spells itemstack (including lore)
      */
 	public ItemStack getStack(){
+		if(formated == null) formated = format();
+		
+	
+		
 	if(cooldown == 0){
-		return new NamedStack(name, stack.getType(), 1, stack.getData().getData(),  format());
+		return new NamedStack(name, stack.getType(), 1, stack.getData().getData(),  formated);
 	}else{
-		return new NamedStack(name, stack.getType(), cooldown, stack.getData().getData(),  format());
+		return new NamedStack(name, stack.getType(), cooldown, stack.getData().getData(),  formated);
 	}
 	}
 	
