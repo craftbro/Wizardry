@@ -49,12 +49,12 @@ public class SpellBouncySun extends Spell{
 					if (!BasicUtil.isInTeam(e, p)){
 						found = true;
 						BasicUtil.damage(e, p, damage, DamageType.LIGHT);
-						try{
-							CodeEffect.playFirework(ball.getItem().getLocation(), effect);
-						}catch(Exception e1){
-							e1.printStackTrace();
-						}
 					}
+				}
+				try{
+					CodeEffect.playFirework(ball.getItem().getLocation(), effect);
+				}catch(Exception e1){
+					e1.printStackTrace();
 				}
 				if (found){
 					damage = damage == 10 ? 10 : damage - 10;

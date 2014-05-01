@@ -39,6 +39,7 @@ public class SpellLoader {
 		spells.put("Draining Blow", new SpellDrainBlow(null));
 		spells.put("Fire Blast", new SpellFireBlast(null));
 		spells.put("Drain Ball", new SpellDrainer(null));
+		spells.put("Sunny Day", new SpellSunnyDay(null));
 	//	spells.put("Roots", new SpellRoot(null));
 		//spells.put("Mana Sponge", new SpellManaDrain(null));
 	}

@@ -32,7 +32,7 @@ public class SpellHotWater extends Spell{
 		stack = new ItemStack(Material.LAVA_BUCKET);
 		cost = 60;
 		
-		des.add(ChatColor.DARK_AQUA+"Shoots a trail of hot water for "+ChatColor.WHITE+"1.5"+ChatColor.DARK_AQUA+" second that");
+		des.add(ChatColor.DARK_AQUA+"Shoots a trail of hot water for "+ChatColor.WHITE+"2"+ChatColor.DARK_AQUA+" second that");
 		des.add(ChatColor.DARK_AQUA+"deals "+ChatColor.WHITE+"5"+ChatColor.AQUA+" Water "+ChatColor.DARK_AQUA+"damage");
 		des.add(ChatColor.DARK_AQUA+"and"+ChatColor.RED+" Burns"+ChatColor.DARK_AQUA+" the emeny for "+ChatColor.WHITE+"4"+ChatColor.DARK_AQUA+" seconds");
 
@@ -68,33 +68,32 @@ public class SpellHotWater extends Spell{
 								if (!BasicUtil.isInTeam(e, p) && !ticksafe.contains(e)){
 									BasicUtil.damage(e, p, 5, DamageType.WATER);
 									ticksafe.add(e);
+									if (times % 5 == 0){
+										try {
+											CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
+										} catch (Exception e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+										}
+										}
 									if(!safes.contains(e)){
 										BasicUtil.giveCondtition(e, Condition.BURN, 2);
 										safes.add(e);
-										
-										if (times % 4 == 0){
-											try {
-												CodeEffect.playFirework(p.getWorld(), e.getLocation(), effect);
-											} catch (Exception e1) {
-												// TODO Auto-generated catch block
-												e1.printStackTrace();
-											}
 										}
 									}
 							}
 						}
 					}
-					if (length + 1.5 < 15){
-						length += 1.5;
-					} else {
-						length = 15;
-					}
-					
-					if (times >= 15){
-						cancel();
-					}
-					times++;
+				if (length + 2.5 < 16){
+					length += 2.5;
+				} else {
+					length = 16;
 				}
+				
+				if (times >= 20){
+					cancel();
+				}
+				times++;
 			}
 		}.runTaskTimer(Main.getInstance(), 0, 2);
 		
