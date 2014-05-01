@@ -31,10 +31,10 @@ public class SpellDrainBlow extends Spell{
 		
 		name = ChatColor.GREEN+"Draining Blow";
 		stack = new ItemStack(Material.QUARTZ);
-		cost = 80;
+		cost = 75;
 		
 		des.add(ChatColor.DARK_AQUA+"Blows out a wind that drain life");
-		des.add(ChatColor.DARK_AQUA+"if it hits anything it damages them "+ChatColor.WHITE+"50 Air"+ChatColor.DARK_AQUA+" damage");
+		des.add(ChatColor.DARK_AQUA+"if it hits anything it damages them "+ChatColor.WHITE+"65 Air"+ChatColor.DARK_AQUA+" damage");
 		des.add(ChatColor.DARK_AQUA+"when it hits it flies back with the drained life");
 
 		info.put("Range", ChatColor.GREEN+"2.5");
@@ -58,7 +58,7 @@ public class SpellDrainBlow extends Spell{
 			public void run(){
 				if (!rainbow){
 					currLoc.add(vec);
-					vec.multiply(0.94);
+					vec.multiply(0.9475);
 					if (currLoc.getBlock().getType().isSolid() || Math.abs(vec.getX()) <= 0.008 && Math.abs(vec.getY()) <= 0.008 && Math.abs(vec.getZ()) <= 0.008){
 						cancel();
 						try{
@@ -76,7 +76,7 @@ public class SpellDrainBlow extends Spell{
 								e1.printStackTrace();
 							}
 							for (LivingEntity e : list){
-								damage += BasicUtil.damage(e, p, 50, DamageType.AIR);
+								damage += BasicUtil.damage(e, p, 65, DamageType.AIR);
 							}
 							rainbow = true;
 							times = 0;

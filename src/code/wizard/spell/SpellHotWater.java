@@ -56,12 +56,10 @@ public class SpellHotWater extends Spell{
 				List<LivingEntity> ticksafe = new ArrayList<LivingEntity>();
 				Location loc = p.getEyeLocation();
 				Vector vec = p.getLocation().getDirection().normalize().multiply(0.5);
+				p.getWorld().playSound(p.getLocation(), Sound.FIZZ, 0.1F, 2);
 				
 				for(int i=0; i<length; i++){
 					loc.add(vec);
-					if (loc.getBlock().getType().isSolid()){
-						break;
-					} else {
 						ParticleEffect.SPLASH.animateAtLocation(loc, 5, 1);
 						if (times % 2 == 0){
 							ParticleEffect.LAVA.animateAtLocation(loc, 1, 1);
@@ -83,7 +81,6 @@ public class SpellHotWater extends Spell{
 											}
 										}
 									}
-								}
 							}
 						}
 					}
@@ -101,6 +98,5 @@ public class SpellHotWater extends Spell{
 			}
 		}.runTaskTimer(Main.getInstance(), 0, 2);
 		
-		p.getWorld().playSound(p.getLocation(), Sound.FIZZ, 0.1F, 2);
 	}
 }

@@ -32,7 +32,7 @@ public class BasicUtil {
      * @param l The center location
      * @param radius The radius
      */
-	public static List<LivingEntity> getInRadius(Location l, int radius){
+	public static List<LivingEntity> getInRadius(Location l, double radius){
 		List<LivingEntity> near = new ArrayList<LivingEntity>();
 		
 		for(LivingEntity e : l.getWorld().getLivingEntities()) if(e.getLocation().distance(l) <= radius) near.add(e);

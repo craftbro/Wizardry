@@ -22,13 +22,13 @@ public class SpellBouncySun extends Spell{
 		
 		name = ChatColor.GOLD+"Bouncy Sun";
 		stack = new ItemStack(Material.DOUBLE_PLANT);
-		cost = 75;
+		cost = 70;
 		
 		des.add(ChatColor.DARK_AQUA+"Shoots a sun that deals "+ChatColor.WHITE+"70"+ChatColor.GOLD+" Light"+" damage on impact");
 		des.add(ChatColor.DARK_AQUA+"and it bounce up again if it hits and damages again when landing");
 		des.add(ChatColor.DARK_AQUA+"every time it bounce the damage gets reduced by"+ChatColor.WHITE+" 10");
 
-		info.put("Range", ChatColor.GREEN+"4");
+		info.put("Range", ChatColor.GREEN+"4.5");
 		info.put(ChatColor.GREEN+"Note:", "Damage cant go below 10");
 		
 		slot = SpellSlot.PRIMARY_WAND;
@@ -45,7 +45,7 @@ public class SpellBouncySun extends Spell{
 			int damage = 70;
 			public void run() {
 				boolean found = false;
-				for (LivingEntity e : BasicUtil.getInRadius(ball.getItem().getLocation(), 3)){
+				for (LivingEntity e : BasicUtil.getInRadius(ball.getItem().getLocation(), 4.5)){
 					if (!BasicUtil.isInTeam(e, p)){
 						found = true;
 						BasicUtil.damage(e, p, damage, DamageType.LIGHT);
@@ -59,7 +59,7 @@ public class SpellBouncySun extends Spell{
 				if (found){
 					damage = damage == 10 ? 10 : damage - 10;
 					ball.getItem().remove();
-					ball.launch(ball.getItem().getLocation().add(0, 4, 0), new Vector(0, 0.975, 0));
+					ball.launch(ball.getItem().getLocation().add(0, 3, 0), new Vector(0, 0.725, 0));
 				} else {
 					ball.getItem().remove();
 				}
