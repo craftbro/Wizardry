@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -54,15 +55,21 @@ public class SpellSunnyDay extends Spell{
 				if (times >= 280){
 					cancel();
 				} else {
-					for (int i=1;i<30;i++){
-						ParticleEffect.RED_DUST.animateAtLocation(p.getEyeLocation().add(0, i / (1.8 - (times % 2 == 0 ? 0.6 : 0)), 0), 1, 0);
-					}
-					if (times % 4 == 0){
-						if (times % 6 == 0){
-							BasicUtil.damage(p, p, 5, DamageType.LIGHT);
-						} else {
-							BasicUtil.damage(p, p, 5, DamageType.LIGHT, false);
-							p.playSound(p.getLocation(), Sound.HURT_FLESH, 0.9F, (new Random().nextInt(3) / 10 + 0.9F));
+					for (Player p2 : Bukkit.getOnlinePlayers()){
+						if (!Main.getInstance().lobby.spec.contains(p2)){
+							if (!BasicUtil.isInTeam(p2, p)){
+								for (int i=1;i<30;i++){
+									ParticleEffect.RED_DUST.animateAtLocation(p.getEyeLocation().add(0, i / (1.8 - (times % 2 == 0 ? 0.6 : 0)), 0), 1, 0);
+								}
+								if (times % 4 == 0){
+									if (times % 6 == 0){
+										BasicUtil.damage(p, p, 5, DamageType.LIGHT);
+									} else {
+										BasicUtil.damage(p, p, 5, DamageType.LIGHT, false);
+										p.playSound(p.getLocation(), Sound.HURT_FLESH, 0.9F, (new Random().nextInt(3) / 10 + 0.9F));
+									}
+								}
+							}
 						}
 					}
 				}
