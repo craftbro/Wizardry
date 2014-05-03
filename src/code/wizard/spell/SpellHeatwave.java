@@ -37,8 +37,6 @@ public class SpellHeatwave extends Spell{
 	@Override
 	public void cast(){
 		cooldown = 32;
-		BasicUtil.giveCondtition(p, Condition.WEAK, 13);
-		BasicUtil.giveCondtition(p, Condition.BURN, 11);
 					for (Player p2 : Bukkit.getOnlinePlayers()){
 						if (!Main.getInstance().lobby.spec.contains(p2)){
 							if (!BasicUtil.isInTeam(p2, p)){
@@ -47,8 +45,6 @@ public class SpellHeatwave extends Spell{
 							}
 						}
 					}
-					BasicUtil.giveCondtition(p, Condition.WEAK, 13);
-					BasicUtil.giveCondtition(p, Condition.BURN, 11);
 		new BukkitRunnable(){
 			int times = 0;
 			public void run(){
