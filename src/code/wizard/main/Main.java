@@ -1,7 +1,6 @@
 package code.wizard.main;
 
 import java.io.File;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -19,11 +18,13 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
 import code.configtesting.config.Config;
 import code.wizard.effect.CodeEffect;
 import code.wizard.lobby.Lobby;
+import code.wizard.lobby.Lobby1v1;
 import code.wizard.lobby.LobbyRandom;
 import code.wizard.player.Cancels;
 import code.wizard.player.FindManager;
@@ -55,6 +56,7 @@ public class Main extends JavaPlugin{
 	public static Scoreboard board;
 	
 	private  FileConfiguration settings = null;
+	private File st;
 	
 	@Override
 	public void onEnable(){
@@ -82,7 +84,7 @@ public class Main extends JavaPlugin{
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String cmd, String[] args){
-		Player p = (Player)sender;
+		final Player p = (Player)sender;
 		
 		if(p.isOp()){
 		if(cmd.equalsIgnoreCase("wizkit")){
@@ -127,6 +129,63 @@ public class Main extends JavaPlugin{
 					KitManager.getKit(p).health = Integer.parseInt(args[0]);
 				}else if(cmd.equalsIgnoreCase("find")){
 					find.findItem(p);
+				}else if(cmd.equalsIgnoreCase("setMode")){
+					if(args.length != 1){ p.sendMessage(ChatColor.RED+"/setMode [random, onevone]"); return false;}					
+					final String s = args[0];
+					
+					if(!s.contentEquals("random") && !s.contentEquals("onevone")){ p.sendMessage(ChatColor.RED+"/setMode [random, onevone]"); return false;}		
+					
+					p.sendMessage(ChatColor.AQUA+"Are you sure you want to set this servers mode?");
+					p.sendMessage(ChatColor.AQUA+"This will make the server reload and will kick all the players");
+					p.sendMessage(ChatColor.AQUA+"If you're sure, please press shift, if not wait 5 seconds");
+					
+					new BukkitRunnable(){
+
+						int times = 100;
+						
+						@Override
+						public void run() {
+							if(times > 0){
+								
+								if(p.isSneaking()){
+									p.sendMessage(ChatColor.GREEN+"Changeing mode to '"+s+"' in 5 seconds!");
+									p.setSneaking(false);
+									
+									Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable(){
+
+										@Override
+										public void run() {
+											settings.set("type", s);
+											try {
+												settings.save(st);
+											} catch (IOException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+											
+											for(Player p : Bukkit.getOnlinePlayers()){
+												p.kickPlayer("Changeing server mode...");
+											}
+										}
+										
+									}, 100);
+									
+									cancel();
+								}
+								
+								times--;
+							}else{
+								p.sendMessage(ChatColor.RED+"Mode Change timed out");
+								cancel();
+							}
+						}
+						
+					}.runTaskTimer(this, 1, 1);
+				}else if(cmd.equalsIgnoreCase("queue")){
+				Lobby1v1 l1v1 =	(Lobby1v1)lobby;
+				
+				l1v1.addToQueue(p);
+				
 				}
 		
 		
@@ -143,12 +202,10 @@ public class Main extends JavaPlugin{
 		board = Bukkit.getScoreboardManager().getNewScoreboard();
 		
 		km = new KitManager(this);
-		lobby = new LobbyRandom(this);
 		sql = new SQLBase(this);
 		find = new FindManager(this);
 		
 		pm.registerEvents(km , this);
-		pm.registerEvents(lobby , this);
 		pm.registerEvents(new Cancels() , this);
 		pm.registerEvents(new SQLEvents(this) , this);
 		
@@ -171,6 +228,8 @@ public class Main extends JavaPlugin{
 				e.printStackTrace();
 			}
 		
+		this.st = st;
+		
 		settings = YamlConfiguration.loadConfiguration(st);
 		
 		if(!settings.contains("type")){ settings.set("type", "random"); try {
@@ -182,6 +241,15 @@ public class Main extends JavaPlugin{
 
 		type = ServerType.valueOf(settings.getString("type").toUpperCase());
 	
+		
+		switch(type){
+		case RANDOM: 		lobby = new LobbyRandom(this);
+		break;
+		case ONEVONE: 		lobby = new Lobby1v1(this);
+		break;
+		}
+		
+		pm.registerEvents(lobby , this);
 		
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
 

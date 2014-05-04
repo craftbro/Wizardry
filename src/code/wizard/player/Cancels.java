@@ -45,13 +45,13 @@ public class Cancels implements Listener {
 	
 	@EventHandler
 	public void fall(EntityDamageEvent event){
-		if(event.getCause() == DamageCause.FALL || !Lobby.hasStarted()) event.setCancelled(true);
+		if(event.getCause() == DamageCause.FALL || !Main.getInstance().lobby.canBeDamaged(event.getEntity())) event.setCancelled(true);
 	}
 	
 	@EventHandler
 	public void fall(EntityDamageByEntityEvent event){
 		if(event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
-			if(Lobby.hasStarted() && !Main.getInstance().lobby.pperiod){
+			if(Main.getInstance().lobby.canBeDamaged((Player) event.getEntity()) && !Main.getInstance().lobby.pperiod){
 			
 			Player pd = (Player)event.getDamager();
 			Player pe = (Player)event.getEntity();

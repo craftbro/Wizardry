@@ -3,12 +3,14 @@ package code.wizard.lobby;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,26 +34,27 @@ import code.wizard.player.PlayerDataLoader;
 import code.wizard.spell.Spell;
 import code.wizard.spell.SpellLoader;
 import code.wizard.spell.SpellSlot;
+import code.wizard.spell.SpellVictoryBomb;
 import code.wizard.util.BasicUtil;
 
 public class Lobby  implements Listener {
 
 	Main plugin;
 	
-	Location lobby;
+	public Location lobby;
 	
 	public int cc = 60;	
 	public int req = 2;
 	
 	public Mode mode;
 	
+	public static boolean started = false;
+	
 	public List<Player> spec = new ArrayList<Player>();
 	
 
 	public boolean ended = false;
-	
-	public static boolean started = false;
-	
+
 	public int peace = 15;
 	public boolean pperiod = false;
 	
@@ -65,6 +68,11 @@ public class Lobby  implements Listener {
 	
 	public void tick(){};
 	
+	public boolean canBeDamaged(Entity p){
+		return false;
+	}
+	
+	
 	public Location getSpawn(Player p){
 		return null;
 	}
@@ -73,9 +81,32 @@ public class Lobby  implements Listener {
 		return null;
 	}
 	
-	public static boolean hasStarted() {
-		return started;
+	
+	public void giveWin(Player p){
+		int wins = (int) plugin.sql.getData(p, "wins");
+		wins++;
+		plugin.sql.alterData(p, "wins", wins);
+		
+		if(new Random().nextInt(2) == 0) plugin.find.findItem(p);
+		
+		if(wins == 1){
+			plugin.find.giveSpell(p, "winning for the first time", new SpellVictoryBomb(null));
+		}
 	}
+		
+	
+	
+	public void giveLose(Player p){
+		int loses = (int) plugin.sql.getData(p, "loses");
+		loses++;
+		plugin.sql.alterData(p, "loses", loses);
+		
+		if(loses == 1){
+			plugin.find.givePants(p, "losing for the first time", Armor.pants.LOOSERS_PANTS);
+		}
+	}
+
+
 	
 	@EventHandler
 	public void click(InventoryClickEvent event) {
@@ -407,7 +438,7 @@ public class Lobby  implements Listener {
 		}
 	}
 
-	private void showSpells(Player p) {
+	protected void showSpells(Player p) {
 		Inventory spells = Bukkit.createInventory(null, 27,
 				ChatColor.LIGHT_PURPLE + "Current Spells");
 

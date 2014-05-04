@@ -16,6 +16,7 @@ import code.wizard.lobby.Lobby;
 import code.wizard.lobby.LobbyRandom;
 import code.wizard.main.Main;
 import code.wizard.main.Mode;
+import code.wizard.main.ServerType;
 import code.wizard.special.smash;
 
 public class KitManager implements Listener {
@@ -91,7 +92,9 @@ public class KitManager implements Listener {
 	public void tick(){
 		for(Kit kit : kits.values()) kit.tick();
 		
-		if(plugin.lobby.started && !plugin.lobby.pperiod && !plugin.lobby.ended){
+		if(plugin.type == ServerType.RANDOM){
+			LobbyRandom lobby = (LobbyRandom)plugin.lobby;
+		if( lobby.started && !plugin.lobby.pperiod && !plugin.lobby.ended){
 			if(plugin.lobby.mode == Mode.FFA){
 			if(kits.size() == 1){
 				for(Player p : kits.keySet()){
@@ -106,12 +109,16 @@ public class KitManager implements Listener {
 				}
 			}
 		}
+		}
 	}
 	
     public void slowTick() {
     	for(Kit kit : kits.values()) kit.slowTick();
     	
-    	if(!spawned && Lobby.started){
+    	if(plugin.type == ServerType.RANDOM){
+    		LobbyRandom lobby = (LobbyRandom)plugin.lobby;
+    	
+    	if(!spawned && lobby.started){
     	for(Player p  : kits.keySet()){
     		if(low.contains(p)) continue;
     		if(getKit(p).health <= 500) low.add(p);
@@ -120,6 +127,7 @@ public class KitManager implements Listener {
     	if(low.size() == kits.size() && !plugin.lobby.ended && !spawned){
     		new smash().spawn(plugin.lobby.getSmashSpawn());
     		spawned = true;
+    	}
     	}
     	}
 	}
@@ -134,6 +142,7 @@ public class KitManager implements Listener {
 
     @EventHandler
     public void leave(PlayerQuitEvent event){
+    	if(!kits.containsKey(event.getPlayer())) return;
     	getKit(event.getPlayer()).team.players.remove(event.getPlayer());
     	kits.remove(event.getPlayer());
     }

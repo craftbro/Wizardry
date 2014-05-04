@@ -1,6 +1,7 @@
 package code.wizard.lobby;
 
 import java.awt.Toolkit;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,6 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -47,11 +49,8 @@ import code.wizard.util.Condition; //endgame import
 
 public class LobbyRandom extends Lobby{
 
-	
-
-	Main plugin;
-
 	Location map;
+	
 
 	
 
@@ -69,6 +68,18 @@ public class LobbyRandom extends Lobby{
 	}
 	
 
+	public static boolean hasStarted() {
+		return started;
+	}
+	
+	@Override
+	public  boolean canBeDamaged(Entity p){
+		return started;
+	}
+	
+	
+	
+	
 	@Override
 	public void tick() {
 		if (!started) {
@@ -121,29 +132,7 @@ public class LobbyRandom extends Lobby{
 		}
 	}
 	
-	private void giveWin(Player p){
-		int wins = (int) plugin.sql.getData(p, "wins");
-		wins++;
-		plugin.sql.alterData(p, "wins", wins);
-		
-		if(new Random().nextInt(2) == 0) plugin.find.findItem(p);
-		
-		if(wins == 1){
-			plugin.find.giveSpell(p, "winning for the first time", new SpellVictoryBomb(null));
-		}
-	}
-		
 	
-	
-	private void giveLose(Player p){
-		int loses = (int) plugin.sql.getData(p, "loses");
-		loses++;
-		plugin.sql.alterData(p, "loses", loses);
-		
-		if(loses == 1){
-			plugin.find.givePants(p, "losing for the first time", Armor.pants.LOOSERS_PANTS);
-		}
-	}
 
 	public void end(final Player p) {
 		Bukkit.broadcastMessage(plugin.getPrefix() + p.getName() + " Won!");

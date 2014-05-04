@@ -12,3 +12,5 @@ commands:
   smash:
   health:
   find:
+  setMode:
+  queue:
