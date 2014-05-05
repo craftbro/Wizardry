@@ -33,9 +33,9 @@ public class SQLBase {
 	public synchronized static void openConnection(){
 		try{
 			connection = DriverManager
-					.getConnection("jdbc:mysql://db6.hosting2go.nl:42944/wdt", 
-							"m1_87645bc2", 
-							"adB24UFMLY");			
+					.getConnection("jdbc:mysql://127.0.0.1:3306/test", 
+							"root", 
+							"1515Mciscool1515");			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
