@@ -18,6 +18,7 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -194,6 +195,16 @@ public class Kit {
 		} else {
 			p.setWalkSpeed(0.2f);
 			p.removePotionEffect(PotionEffectType.JUMP);
+		}
+		if(conditions.containsKey(Condition.STUN)){
+			p.teleport(p); p.setVelocity(p.getVelocity().setX(0).setZ(0));
+			new BukkitRunnable(){
+				public void run(){
+					if(conditions.containsKey(Condition.STUN)){
+						p.teleport(p); p.setVelocity(p.getVelocity().setX(0).setZ(0));
+					}
+				}
+			}.runTaskLater(plugin, 10);
 		}
 
 		if (p.getLocation().getBlockY() <= 10) {
