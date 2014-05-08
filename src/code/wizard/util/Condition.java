@@ -11,6 +11,7 @@ public enum Condition {
 	OIL(ChatColor.DARK_RED+"Oiled", ChatColor.DARK_RED+"Oiled "+ChatColor.DARK_AQUA+"players can't heal"),
 	TIRED(ChatColor.GRAY+"Tired", ChatColor.GRAY+"Tires "+ChatColor.DARK_AQUA+"players deal half damage"),
 	STUN(ChatColor.YELLOW+"Stunned", ChatColor.YELLOW+"Stunned "+ChatColor.DARK_AQUA+"players stops all the time"),
+	PHYSICALIZE(ChatColor.LIGHT_PURPLE+"Physicalize", ChatColor.LIGHT_PURPLE+"Physicalized "+ChatColor.DARK_AQUA+"players converts all damage taken to "+ChatColor.LIGHT_PURPLE+"Physical"+ChatColor.DARK_AQUA+" damage type"),
 	SUPER(ChatColor.RED+"S"+ChatColor.YELLOW+"u"+ChatColor.GREEN+"p"+ChatColor.AQUA+"e"+ChatColor.LIGHT_PURPLE+"r", 
 			ChatColor.RED+"S"+ChatColor.YELLOW+"u"+ChatColor.GREEN+"p"+ChatColor.AQUA+"e"+ChatColor.LIGHT_PURPLE+"r"+ChatColor.DARK_AQUA+" players deal double damage!"),
 	ENDGAME(ChatColor.BLACK+"Endgame", ChatColor.BLACK+"Endgame"+ChatColor.DARK_AQUA+" doubles mana regeneration, hurts 5 damage every 2 seconds and doubles damage"); //part of Endgame code

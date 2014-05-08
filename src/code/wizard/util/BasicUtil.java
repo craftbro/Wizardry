@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.server.v1_7_R3.ItemSkull;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -103,7 +101,8 @@ public static List<Location> getCircle(Location l, double radius){
 			if(k == null) return 0;
 			
 			
-			
+
+			if(k.conditions.keySet().contains(Condition.PHYSICALIZE)) type = DamageType.PHYSICAL;
 		
 			damage = k.stats.calculate(type, damage);
 			
