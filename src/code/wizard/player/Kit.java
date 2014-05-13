@@ -201,7 +201,7 @@ public class Kit {
 			new BukkitRunnable(){
 				public void run(){
 					if(conditions.containsKey(Condition.STUN)){
-						p.teleport(p); p.setVelocity(p.getVelocity().setX(0).setZ(0));
+						p.teleport(p); p.setVelocity(p.getVelocity().setX(0).setZ(0).setY(p.getVelocity().getY() / 2));
 					}
 				}
 			}.runTaskLater(plugin, 10);
