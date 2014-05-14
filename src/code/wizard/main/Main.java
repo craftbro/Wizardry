@@ -11,6 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -36,6 +37,7 @@ import code.wizard.sql.SQLBase;
 import code.wizard.sql.SQLEvents;
 import code.wizard.util.BasicUtil;
 import code.wizard.util.Condition;
+import code.wizard.util.DamageType;
 
 public class Main extends JavaPlugin{
 
@@ -186,6 +188,24 @@ public class Main extends JavaPlugin{
 				
 				l1v1.addToQueue(p);
 				
+				}else if (cmd.equalsIgnoreCase("explosion")){
+					final String[] fArgs = args;
+					final Location loc = p.getLocation();
+					new BukkitRunnable(){
+						public void run(){
+							if (fArgs.length > 3){
+								BasicUtil.spawnFalseExplosion(loc, p, Float.parseFloat(fArgs[0]), 10, DamageType.PHYSICAL, Boolean.parseBoolean(fArgs[1]), Boolean.parseBoolean(fArgs[2]), Boolean.parseBoolean(fArgs[3]));
+							}else if (fArgs.length > 2){
+								BasicUtil.spawnFalseExplosion(loc, p, Float.parseFloat(fArgs[0]), 10, DamageType.PHYSICAL, Boolean.parseBoolean(fArgs[1]), Boolean.parseBoolean(fArgs[2]), false);
+							}else if (fArgs.length > 1){
+								BasicUtil.spawnFalseExplosion(loc, p, Float.parseFloat(fArgs[0]), 10, DamageType.PHYSICAL, Boolean.parseBoolean(fArgs[1]), false, false);
+							}else if (fArgs.length > 0){
+								BasicUtil.spawnFalseExplosion(loc, p, Float.parseFloat(fArgs[0]), 10, DamageType.PHYSICAL, false, false);
+							}else {
+								BasicUtil.spawnFalseExplosion(loc, p, 5, 10, DamageType.PHYSICAL, false, false);
+							}
+						}
+					}.runTaskLater(this, 60);
 				}
 		
 		

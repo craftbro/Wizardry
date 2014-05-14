@@ -34,12 +34,14 @@ public class SpellShinyUppercut extends Spell{
 		des.add(ChatColor.DARK_AQUA+"throws them up in the air with you");
 
 		info.put(ChatColor.GREEN+"Note", "Damages up to 4 times, depends on when they got into the uppercut");
+		info.put("Cooldown", ChatColor.GREEN+"5 Seconds");
 		
 		slot = SpellSlot.PRIMARY_STICK;
 	}
 	
 	@Override
 	public void cast(){
+		cooldown = 5;
 		p.setVelocity(new Vector(0, 1, 0));
 		new BukkitRunnable() {
 			Location loc = p.getLocation().add(p.getLocation().getDirection().normalize().setY(0));
@@ -63,7 +65,7 @@ public class SpellShinyUppercut extends Spell{
 				ParticleEffect.CRIT.animateAtLocation(loc, 1, 0);
 				ParticleEffect.FIREWORK_SPARK.animateAtLocation(belowLoc, 1, 0);
 				if (times >= 20){
-					p.setVelocity(new Vector(0, 0.000001, 0));
+					p.setVelocity(new Vector(p.getVelocity().getX() / 2, p.getVelocity().getY() * -0.05000000074505806, p.getVelocity().getZ() / 2));
 				} else {
 					p.setVelocity(new Vector(0, p.getVelocity().getY() - 0.026, 0));
 				}

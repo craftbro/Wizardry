@@ -1,14 +1,19 @@
 package code.wizard.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+
+import net.minecraft.server.v1_7_R3.MobEffect;
+import net.minecraft.server.v1_7_R3.PacketPlayOutWorldParticles;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -69,7 +74,7 @@ public static List<Location> getCircle(Location l, double radius){
   * @param damage The damage that should be dealt
   * @param type The type of damage
   */
-	public static double damage(LivingEntity e, Player d, int damage, DamageType type){
+	public static double damage(LivingEntity e, Player d, double damage, DamageType type){
 		return damage(e, d, damage, type, true);
 	}
 
@@ -127,6 +132,11 @@ public static List<Location> getCircle(Location l, double radius){
 			k.damage(damage, hurt);
 			
 		}		else{
+			
+			double dd = damage*100;
+			
+		damage = Math.round(dd)/100;
+		
 			e.damage(damage/10);
 		}
 		
@@ -287,6 +297,12 @@ public static List<Location> getCircle(Location l, double radius){
 	
 	}
 	
+	/**
+	 * Turns an item into a skull with specific owner (probaly broken)
+	 * @param owner the username of the head
+	 * @param skull the item to give skull owner (gets turned into skull)
+	 * @return the same item transformed to the skull
+	 */
 	public static ItemStack setSkullOwner(String owner, ItemStack skull){
 		skull.setType(Material.SKULL_ITEM);
 		skull.setDurability((byte) 3);
@@ -296,4 +312,94 @@ public static List<Location> getCircle(Location l, double radius){
 		return skull;
 	}
 	
+	/**
+	 * Creates a fake explosion that damages
+	 * @param loc the location for the explosion
+	 * @param p the player that caused the explosion (may be null)
+	 * @param radius the radius of the explosion
+	 * @param damage the amount of damage
+	 * @param type the type of damage
+	 * @param fireParticles if the explosion should use fire particles too
+	 * @param damageDecrease if damage should decrese the father away the hit entity is
+	 * @param c the condition to give
+	 * @param duration the duration of the condition (1 = 2 seconds!!!)
+	 * @param damageDecrease if the explosion can damage teammates
+	 * @return a hashmap containing information (key: Living Entity hurt, Damage done)
+	 */
+	public static HashMap<LivingEntity, Double> spawnFalseExplosion(Location loc, Player p, float radius, double damage, DamageType type, boolean fireParticles, boolean damageDecrease, Condition c, int duration, boolean friendlyFire){
+		HashMap<LivingEntity, Double> damaged = new HashMap<LivingEntity, Double>();
+		for (Player p2 : Bukkit.getOnlinePlayers()){
+			if (p2.getLocation().distance(loc) <= radius * 50){
+				((CraftPlayer) p2).getHandle().playerConnection.sendPacket(new PacketPlayOutWorldParticles("largeexplode", (float) loc.getX(), (float) loc.getY(), (float) loc.getZ(), radius/2, radius/2, radius/2, 0.1F, Math.round(radius * 4)));
+				((CraftPlayer) p2).getHandle().playerConnection.sendPacket(new PacketPlayOutWorldParticles("largesmoke", (float) loc.getX(), (float) loc.getY(), (float) loc.getZ(), radius/2+0.1F, radius/2+0.1F, radius/2+0.1F, 0, Math.round(radius * 5)));
+				if (fireParticles){
+					((CraftPlayer) p2).getHandle().playerConnection.sendPacket(new PacketPlayOutWorldParticles("flame", (float) loc.getX(), (float) loc.getY(), (float) loc.getZ(), radius/2+0.1F, radius/2+0.1F, radius/2+0.1F, 0, Math.round(radius * 5)));
+				}
+				((CraftPlayer) p2).getHandle().playerConnection.sendPacket(new PacketPlayOutWorldParticles("explode", (float) loc.getX(), (float) loc.getY(), (float) loc.getZ(), radius/2+0.1F, 0, radius/2+0.1F, 0.2F, Math.round(radius * 6)));
+			}
+		}
+		for (LivingEntity e : getInRadius(loc, radius)){
+			if (!friendlyFire){
+				if (!isInTeam(e, p)){
+					if (damageDecrease){
+						double decreasedDamage = damage / e.getLocation().distance(loc);
+						if (decreasedDamage > damage){
+							decreasedDamage = damage;
+						}
+						damaged.put(e, damage(e, p, decreasedDamage, type, true));
+					} else {
+						damaged.put(e, damage(e, p, damage, type));
+					}
+					if (c != null && duration != 0){
+						giveCondtition(e, c, duration);
+					}
+				}
+			} else {
+				if (damageDecrease){
+					double decreasedDamage = damage / e.getLocation().distance(loc);
+					if (decreasedDamage > damage){
+						decreasedDamage = damage;
+					}
+					damaged.put(e, damage(e, p, decreasedDamage, type, true));
+				} else {
+					damaged.put(e, damage(e, p, damage, type));
+				}
+				if (c != null && duration != 0){
+					giveCondtition(e, c, duration);
+				}
+			}
+		}
+		return damaged;
+	}
+	
+	/**
+	 * Creates a fake explosion that damages
+	 * @param loc the location for the explosion
+	 * @param p the player that caused the explosion (may be null)
+	 * @param radius the radius of the explosion
+	 * @param damage the amount of damage
+	 * @param type the type of damage
+	 * @param fireParticles if the explosion should use fire particles too
+	 * @param damageDecrease if damage should decrese the father away the hit entity is
+	 * @param damageDecrease if the explosion can damage teammates
+	 * @return a hashmap containing information (key: Living Entity hurt, Damage done)
+	 */
+	public static HashMap<LivingEntity, Double> spawnFalseExplosion(Location loc, Player p, float radius, double damage, DamageType type, boolean fireParticles, boolean damageDecrease, boolean friendlyFire){
+		return spawnFalseExplosion(loc, p, radius, damage, type, fireParticles, damageDecrease, null, 0, friendlyFire);
+	}
+	
+	/**
+	 * Creates a fake explosion that damages
+	 * @param loc the location for the explosion
+	 * @param p the player that caused the explosion (may be null)
+	 * @param radius the radius of the explosion
+	 * @param damage the amount of damage
+	 * @param type the type of damage
+	 * @param damageDecrease if damage should decrese the father away the hit entity is
+	 * @param damageDecrease if the explosion can damage teammates
+	 * @return a hashmap containing information (key: Living Entity hurt, Damage done)
+	 */
+	public static HashMap<LivingEntity, Double> spawnFalseExplosion(Location loc, Player p, float radius, double damage, DamageType type, boolean damageDecrease, boolean friendlyFire){
+		return spawnFalseExplosion(loc, p, radius, damage, type, false, damageDecrease, friendlyFire);
+	}
 }
