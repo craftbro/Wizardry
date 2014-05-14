@@ -196,13 +196,13 @@ public class Main extends JavaPlugin{
 							if (fArgs.length > 3){
 								BasicUtil.spawnFalseExplosion(loc, p, Float.parseFloat(fArgs[0]), 10, DamageType.PHYSICAL, Boolean.parseBoolean(fArgs[1]), Boolean.parseBoolean(fArgs[2]), Boolean.parseBoolean(fArgs[3]));
 							}else if (fArgs.length > 2){
-								BasicUtil.spawnFalseExplosion(loc, p, Float.parseFloat(fArgs[0]), 10, DamageType.PHYSICAL, Boolean.parseBoolean(fArgs[1]), Boolean.parseBoolean(fArgs[2]), false);
+								BasicUtil.spawnFalseExplosion(loc, p, Float.parseFloat(fArgs[0]), 10, DamageType.PHYSICAL, Boolean.parseBoolean(fArgs[1]), Boolean.parseBoolean(fArgs[2]), true);
 							}else if (fArgs.length > 1){
-								BasicUtil.spawnFalseExplosion(loc, p, Float.parseFloat(fArgs[0]), 10, DamageType.PHYSICAL, Boolean.parseBoolean(fArgs[1]), false, false);
+								BasicUtil.spawnFalseExplosion(loc, p, Float.parseFloat(fArgs[0]), 10, DamageType.PHYSICAL, Boolean.parseBoolean(fArgs[1]), false, true);
 							}else if (fArgs.length > 0){
-								BasicUtil.spawnFalseExplosion(loc, p, Float.parseFloat(fArgs[0]), 10, DamageType.PHYSICAL, false, false);
+								BasicUtil.spawnFalseExplosion(loc, p, Float.parseFloat(fArgs[0]), 10, DamageType.PHYSICAL, false, true);
 							}else {
-								BasicUtil.spawnFalseExplosion(loc, p, 5, 10, DamageType.PHYSICAL, false, false);
+								BasicUtil.spawnFalseExplosion(loc, p, 5, 10, DamageType.PHYSICAL, false, true);
 							}
 						}
 					}.runTaskLater(this, 60);

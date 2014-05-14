@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
 import org.bukkit.entity.LivingEntity;
@@ -338,6 +339,7 @@ public static List<Location> getCircle(Location l, double radius){
 				((CraftPlayer) p2).getHandle().playerConnection.sendPacket(new PacketPlayOutWorldParticles("explode", (float) loc.getX(), (float) loc.getY(), (float) loc.getZ(), radius/2+0.1F, 0, radius/2+0.1F, 0.2F, Math.round(radius * 6)));
 			}
 		}
+		loc.getWorld().playSound(loc, Sound.EXPLODE, 1.6F, 0);
 		for (LivingEntity e : getInRadius(loc, radius)){
 			if (!friendlyFire){
 				if (!isInTeam(e, p)){
