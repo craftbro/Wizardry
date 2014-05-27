@@ -123,6 +123,8 @@ public static List<Location> getCircle(Location l, double radius){
 				}
 			
 			if(k.conditions.keySet().contains(Condition.WEAK)) damage*=2;
+
+			if(k.conditions.keySet().contains(Condition.HARDEN)) damage-=10;
 			
 			double dd = damage*100;
 			
