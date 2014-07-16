@@ -17,6 +17,14 @@ public class SQLHandler {
 		sql = base;
 	}
 	
+	public int getScore(Player p){
+		return (int) sql.getData(p, "rank");
+	}
+	
+	public void addScore(Player p, int add){
+		sql.alterData(p, "rank", getScore(p)+add);
+	}
+	
 	public void giveSpell(Player p, Spell spell){
 		
 		String back = "";

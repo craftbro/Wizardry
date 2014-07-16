@@ -293,6 +293,8 @@ public class Kit {
 			if (plugin.type != ServerType.ONEVONE) {
 				plugin.lobby.kill(p);
 				plugin.lobby.spec.add(p);
+				plugin.sql.handler.addScore(p, -1);
+				p.sendMessage(plugin.getPersonalPrefix()+ChatColor.RED+"-1 Score for dying!");
 				Bukkit.broadcastMessage(Main.getPrefix() + p.getName() + " died!");
 			} else {
 			    a.kill(p);

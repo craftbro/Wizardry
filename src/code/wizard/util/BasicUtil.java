@@ -9,6 +9,7 @@ import net.minecraft.server.v1_7_R3.MobEffect;
 import net.minecraft.server.v1_7_R3.PacketPlayOutWorldParticles;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,6 +31,8 @@ import code.wizard.player.KitManager;
 import com.dsh105.holoapi.HoloAPI;
 
 public class BasicUtil {
+	
+	protected static HashMap<Player, Player> killers = new HashMap<Player, Player>();
 
 	/**
      * Returns all LivingEntity in a certain radius of a center point
@@ -130,9 +133,16 @@ public static List<Location> getCircle(Location l, double radius){
 			
 		damage = Math.round(dd)/100;
 			
-			
+			if(d != null) killers.put(p,d);
 			
 			k.damage(damage, hurt);
+			
+			if(k.health <= 0){
+				if(killers.containsKey(p)){
+					Main.getInstance().sql.handler.addScore(killers.get(p), 1);
+					killers.get(p).sendMessage(Main.getPersonalPrefix()+ChatColor.GREEN+"+1 Score for killing "+p.getName());
+				}
+			}
 			
 		}		else{
 			

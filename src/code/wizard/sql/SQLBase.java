@@ -206,7 +206,7 @@ openConnection();
 		
 		try {
 			PreparedStatement sql = 
-					connection.prepareStatement("INSERT INTO `wdt` VALUES(?, ?, ?, ?, 0, 0, 0);");
+					connection.prepareStatement("INSERT INTO `wdt` VALUES(?, ?, ?, ?, 0, 0, 0, 100 , 0;");
 			
 			sql.setString(1, p.getUniqueId().toString());
 			sql.setString(2, p.getName());
