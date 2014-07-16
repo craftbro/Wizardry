@@ -2,7 +2,6 @@ package code.wizard.spell;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -83,7 +82,7 @@ public class SpellVBolt extends Spell{
 					}
 					if (!list.isEmpty()){
 						for (LivingEntity e : list){
-							BasicUtil.damage(e, p, 85, DamageType.GROUND);
+							BasicUtil.damage(e, p, 75, DamageType.GROUND);
 						}
 						List<LivingEntity> list2 = new ArrayList<LivingEntity>(list);
 						for (LivingEntity e : currLoc.getWorld().getLivingEntities()) if(e.getEyeLocation().distance(currLoc) <= 5){
@@ -92,10 +91,11 @@ public class SpellVBolt extends Spell{
 						list2.removeAll(list);
 						for (LivingEntity e : list2){
 							if (!BasicUtil.isInTeam(e, p)){
-								BasicUtil.damage(e, p, 20, DamageType.GROUND);
+								BasicUtil.damage(e, p, 15, DamageType.GROUND);
 							}
 						}
 						cancel();
+						times = 360;
 						ParticleEffect.LARGE_EXPLODE.animateAtLocation(currLoc, 5, 1);
 						currLoc.getWorld().playSound(currLoc, Sound.CHICKEN_EGG_POP, 4, 1);
 						try {
