@@ -95,7 +95,7 @@ public class LobbyRandom extends Lobby{
 		} else {
 			//part of Endgame code - start
 			timeRan++; 
-			if (!endgame && timeRan >= (getPlayers() * 2 > 10 ? 10 : getPlayers() * 2)  * 60){
+			if (!endgame && timeRan >= (getPlayers() * 2.3 > 15 ? 15 : getPlayers() * 2.3)  * 60){
 				endgame = true;
 				Bukkit.broadcastMessage(Main.getPrefix()+"The Endgame phase has Started! This match is getting too long");
 				Bukkit.broadcastMessage(Main.getPrefix()+Condition.ENDGAME.getReminder());
