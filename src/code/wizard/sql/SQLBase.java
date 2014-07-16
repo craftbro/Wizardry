@@ -14,7 +14,7 @@ public class SQLBase {
 
 	static Main plugin;
 	
-	private static Connection connection;
+	private static Connection connection = null;
 	public SQLHandler handler;
 	
 	public SQLBase(Main instance){
@@ -31,11 +31,19 @@ public class SQLBase {
 	}
 	
 	public synchronized static void openConnection(){
+	
+		try {
+			if(connection != null && !connection.isClosed()) return;
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		try{
 			connection = DriverManager
-					.getConnection("jdbc:mysql://127.0.0.1:3306/test", 
-							"root", 
-							"1515Mciscool1515");			
+					.getConnection("jdbc:mysql://50.30.42.10:3306/wizard", 
+							"codebro", 
+							"cjode");			
 		}catch(Exception e){
 			e.printStackTrace();
 		}

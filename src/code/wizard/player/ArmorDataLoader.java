@@ -42,6 +42,7 @@ public class ArmorDataLoader {
 	}
 	
 	public Armor.boots getBoots(){
+		if(Armor.boots.valueOf(boots) == null) return Armor.boots.RUNNER_SHOES;
 		return Armor.boots.valueOf(boots);
 	}
 

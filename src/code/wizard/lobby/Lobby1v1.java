@@ -27,176 +27,176 @@ import org.bukkit.inventory.ItemStack;
 import code.wizard.item.NamedStack;
 import code.wizard.main.Main;
 import code.wizard.maps.Arena;
+
 //endgame import
 
-public class Lobby1v1 extends Lobby{
+public class Lobby1v1 extends Lobby {
 
 	Inventory shop;
 	Inventory aShop;
 
-	
 	HashMap<Player, Arena> arenas = new HashMap<Player, Arena>();
-	
+
 	List<Player> queue = new ArrayList<Player>();
-	
 
 	public Lobby1v1(Main instance) {
 		super(instance);
 	}
-	
 
-	public void addToQueue(Player p){
-		if(!queue.contains(p)){
+	public void addToQueue(Player p) {
+		if (!queue.contains(p)) {
 			queue.add(p);
-			p.sendMessage(plugin.getPersonalPrefix()+ChatColor.RED+"Added you to the queue");
-		}else{
+			p.sendMessage(plugin.getPersonalPrefix() + ChatColor.RED
+					+ "Added you to the queue");
+		} else {
 			queue.remove(p);
-			p.sendMessage(plugin.getPersonalPrefix()+ChatColor.RED+"Removed you from the queue");
+			p.sendMessage(plugin.getPersonalPrefix() + ChatColor.RED
+					+ "Removed you from the queue");
 		}
 	}
-	
-	public void addToQueue(Player p, Sign sign){
-		if(!queue.contains(p)){
+
+	public void addToQueue(Player p, Sign sign) {
+		if (!queue.contains(p)) {
 			queue.add(p);
-			p.sendMessage(plugin.getPersonalPrefix()+ChatColor.RED+"Added you to the queue");
-			
-			String[] lines = new String[] {
-				    sign.getLine(0),
-				   "Click to leave",
-				    sign.getLine(2),
-				    sign.getLine(3)
-				};
-				
-				((CraftPlayer)p).sendSignChange(sign.getLocation(), lines);
-			
-		}else{
-			
-			String[] lines = new String[] {
-				    sign.getLine(0),
-				   ChatColor.DARK_GRAY+"Click to join",
-				    sign.getLine(2),
-				    sign.getLine(3)
-				};
-				
-				((CraftPlayer)p).sendSignChange(sign.getLocation(), lines);
-			
+			p.sendMessage(plugin.getPersonalPrefix() + ChatColor.RED
+					+ "Added you to the queue");
+
+			String[] lines = new String[] { sign.getLine(0), "Click to leave",
+					sign.getLine(2), sign.getLine(3) };
+
+			((CraftPlayer) p).sendSignChange(sign.getLocation(), lines);
+
+		} else {
+
+			String[] lines = new String[] { sign.getLine(0),
+					ChatColor.DARK_GRAY + "Click to join", sign.getLine(2),
+					sign.getLine(3) };
+
+			((CraftPlayer) p).sendSignChange(sign.getLocation(), lines);
+
 			queue.remove(p);
-			p.sendMessage(plugin.getPersonalPrefix()+ChatColor.RED+"Removed you from the queue");
+			p.sendMessage(plugin.getPersonalPrefix() + ChatColor.RED
+					+ "Removed you from the queue");
 		}
 	}
-	
+
 	@Override
-	public boolean canBeDamaged(Entity e){
-		
-		if(!(e instanceof Player)) return false;
-		
-		Player p = (Player)e;
-		
-		if(arenas.containsKey(p)){
-			if(!arenas.get(p).pp){
+	public boolean canBeDamaged(Entity e) {
+
+		if (!(e instanceof Player))
+			return false;
+
+		Player p = (Player) e;
+
+		if (arenas.containsKey(p)) {
+			if (!arenas.get(p).pp) {
 				return true;
 			}
 		}
-		
-		
+
 		return false;
 	}
-	
-	public void removeFromList(Player p){
+
+	public void removeFromList(Player p) {
 		arenas.remove(p);
 	}
-	
-	private boolean emptyArena(){
-		
-		for(Arena a : Arena.LIST){
-			if(!a.occupied) return true;
+
+	private boolean emptyArena() {
+
+		for (Arena a : Arena.LIST) {
+			if (!a.occupied)
+				return true;
 		}
-		
+
 		return false;
 	}
-	
-	private boolean isPlaying(Player p){
+
+	private boolean isPlaying(Player p) {
 		return arenas.containsKey(p);
 	}
-	
-	private Arena getEmpty(){
-		
-		for(Arena a : Arena.LIST){
-			if(!a.occupied) return a;
+
+	private Arena getEmpty() {
+
+		for (Arena a : Arena.LIST) {
+			if (!a.occupied)
+				return a;
 		}
-		
+
 		return null;
 	}
-	
-	public Arena getArena(Player p){
+
+	public Arena getArena(Player p) {
 		return arenas.get(p);
 	}
-	
+
 	@EventHandler
-	public void leave(PlayerQuitEvent event){
-		if(queue.contains(event.getPlayer())) queue.remove(event.getPlayer());
+	public void leave(PlayerQuitEvent event) {
+		if (queue.contains(event.getPlayer()))
+			queue.remove(event.getPlayer());
 	}
-	
+
 	@Override
-	public void tick(){
-		
-		for(Player p : Bukkit.getOnlinePlayers()){
-			if(!isPlaying(p)) p.setFoodLevel(20);
+	public void tick() {
+
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			if (!isPlaying(p))
+				p.setFoodLevel(20);
 		}
-		
-		for(Arena a : Arena.LIST){
-			if(a.occupied) a.tick();
+
+		for (Arena a : Arena.LIST) {
+			if (a.occupied)
+				a.tick();
 		}
-		
-		if(!emptyArena()) return;
-		
-		for(final Player p1 : queue){
+
+		if (!emptyArena())
+			return;
+
+		for (final Player p1 : queue) {
 			int index = queue.indexOf(p1);
-			
-			
-			if(queue.size() <= 1) continue;
-			
-		final	Player p2 = queue.get(index+1);
-			
-			final Arena a = getEmpty(); 	
-			
+
+			if (queue.size() <= 1)
+				continue;
+
+			final Player p2 = queue.get(index + 1);
+
+			final Arena a = getEmpty();
+
 			queue.remove(p1);
 			queue.remove(p2);
-			
-			p1.sendMessage(Main.getPersonalPrefix()+"You're playing against "+ChatColor.RED+p2.getName()+ChatColor.GOLD+" in "+ChatColor.GREEN+a.getName());
-			p2.sendMessage(Main.getPersonalPrefix()+"You're playing against "+ChatColor.RED+p1.getName()+ChatColor.GOLD+" in "+ChatColor.GREEN+a.getName());
-			
-			p1.sendMessage(Main.getPersonalPrefix()+"Teleporting in 3 seconds...");
-			p2.sendMessage(Main.getPersonalPrefix()+"Teleporting in 3 seconds...");
-			
-			
-			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
 
-				@Override
-				public void run() {
-					startPlaying(a, p1, p2);	
-				}
-			}, 60);
-			
-			}
+			p1.sendMessage(Main.getPersonalPrefix() + "You're playing against "
+					+ ChatColor.RED + p2.getName() + ChatColor.GOLD + " in "
+					+ ChatColor.GREEN + a.getName());
+			p2.sendMessage(Main.getPersonalPrefix() + "You're playing against "
+					+ ChatColor.RED + p1.getName() + ChatColor.GOLD + " in "
+					+ ChatColor.GREEN + a.getName());
+
+			p1.sendMessage(Main.getPersonalPrefix()
+					+ "Teleporting in 3 seconds...");
+			p2.sendMessage(Main.getPersonalPrefix()
+					+ "Teleporting in 3 seconds...");
+
+			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin,
+					new Runnable() {
+
+						@Override
+						public void run() {
+							startPlaying(a, p1, p2);
+						}
+					}, 60);
+
 		}
-	
-	
-	
-	public void startPlaying(Arena a, Player p1, Player p2){
+	}
+
+	public void startPlaying(Arena a, Player p1, Player p2) {
 		arenas.put(p1, a);
 		arenas.put(p2, a);
 		a.start(p1, p2);
 	}
-	
-
-
-	
 
 	@Override
 	protected void setup() {
 		lobby = new Location(Bukkit.getWorld("world"), 282, 86, -1059);
-		
 
 		shop = Bukkit.createInventory(null, 18, ChatColor.GOLD
 				+ "Switch Spells");
@@ -225,21 +225,20 @@ public class Lobby1v1 extends Lobby{
 				Material.LEATHER_BOOTS));
 
 	}
-	
+
 	@Override
-	public Location getSpawn(Player p){
+	public Location getSpawn(Player p) {
 		return null;
 	}
 
 	@Override
-	public Location getSmashSpawn(){
+	public Location getSmashSpawn() {
 		return null;
 	}
-
 
 	@EventHandler
 	public void MOTD(ServerListPingEvent event) {
-			event.setMotd(Main.getPrefix() + "1V1"+ChatColor.GREEN+" Online");
+		event.setMotd(ChatColor.AQUA+"1V1" + ChatColor.GREEN + " Online");
 	}
 
 	@Override
@@ -252,25 +251,25 @@ public class Lobby1v1 extends Lobby{
 			return;
 		if (p.getGameMode() == GameMode.CREATIVE)
 			return;
-		if(isPlaying(p))
-            return;
-		
+		if (isPlaying(p))
+			return;
+
 		if (a == Action.LEFT_CLICK_AIR || a == Action.LEFT_CLICK_BLOCK)
 			return;
-		
-		if(a == Action.RIGHT_CLICK_BLOCK) {
+
+		if (a == Action.RIGHT_CLICK_BLOCK) {
 			Block b = event.getClickedBlock();
-			
-			if(b.getType() == Material.WALL_SIGN){
-				Sign sign = (Sign)b.getState();
-				
+
+			if (b.getType() == Material.WALL_SIGN) {
+				Sign sign = (Sign) b.getState();
+
 				String s = ChatColor.stripColor(sign.getLine(2));
-				
-				if(s.contentEquals("1v1 queue")){
+
+				if (s.contentEquals("1v1 queue")) {
 					addToQueue(p, sign);
 					return;
 				}
-					
+
 			}
 		}
 
@@ -313,18 +312,16 @@ public class Lobby1v1 extends Lobby{
 					+ "-----------------------------------------------------");
 		}
 			break;
-			
-		
-			case 8: {
-				p.openInventory(shop);
-			}
-				break;
-			case 7: {
-				p.openInventory(aShop);
-			}
-				break;
-			
-	
+
+		case 8: {
+			p.openInventory(shop);
+		}
+			break;
+		case 7: {
+			p.openInventory(aShop);
+		}
+			break;
+
 		}
 	}
 
@@ -334,7 +331,6 @@ public class Lobby1v1 extends Lobby{
 		if (p.getGameMode() == GameMode.CREATIVE)
 			return;
 
-
 		p.setAllowFlight(false);
 		for (Player pl : Bukkit.getOnlinePlayers()) {
 			pl.showPlayer(p);
@@ -343,14 +339,14 @@ public class Lobby1v1 extends Lobby{
 
 		p.sendMessage(ChatColor.GREEN + " ");
 		p.sendMessage(plugin.getPersonalPrefix() + "Welcome, " + p.getName()
-				+ ", to Wizardry v. Alpha 0.2!");
+				+ ", to Wizardry v. Beta 1!");
 		p.sendMessage(plugin.getPersonalPrefix()
 				+ "Please check out the books for more info :)");
 		p.sendMessage(ChatColor.GREEN + " ");
-		
+
 		p.setLevel(0);
 		p.setExp(0);
-		
+
 		p.getEquipment().setHelmet(new ItemStack(Material.AIR));
 		p.getEquipment().setChestplate(new ItemStack(Material.AIR));
 		p.getEquipment().setLeggings(new ItemStack(Material.AIR));
@@ -358,18 +354,18 @@ public class Lobby1v1 extends Lobby{
 
 		p.getInventory().setHeldItemSlot(0);
 		p.getInventory().clear();
-		p.getInventory().setItem(
-				1,
-				new NamedStack(ChatColor.AQUA + "" + ChatColor.BOLD
-						+ "Spellbook", Material.BOOK));
-		p.getInventory().setItem(
-				0,
-				new NamedStack(ChatColor.GREEN + "" + ChatColor.BOLD
-						+ "Infobook", Material.BOOK));
-		p.getInventory().setItem(
-				2,
-				new NamedStack(ChatColor.RED + "" + ChatColor.BOLD
-						+ "Yet-To-Be-Addedbook", Material.BOOK));
+//		p.getInventory().setItem(
+//				1,
+//				new NamedStack(ChatColor.AQUA + "" + ChatColor.BOLD
+//						+ "Spellbook", Material.BOOK));
+//		p.getInventory().setItem(
+//				0,
+//				new NamedStack(ChatColor.GREEN + "" + ChatColor.BOLD
+//						+ "Infobook", Material.BOOK));
+//		p.getInventory().setItem(
+//				2,
+//				new NamedStack(ChatColor.RED + "" + ChatColor.BOLD
+//						+ "Yet-To-Be-Addedbook", Material.BOOK));
 
 		p.getInventory().setItem(
 				8,
@@ -381,10 +377,5 @@ public class Lobby1v1 extends Lobby{
 						+ "Switch Armor", Material.NETHER_STAR));
 
 	}
-
-
-
-
-
 
 }

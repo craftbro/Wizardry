@@ -229,7 +229,11 @@ public class Kit {
 
 	public void tick() {
 		if (health > 0) {
-
+			
+			int h = (int) (health/50 < 1 ? 1 : health/50);
+			
+			p.setHealth(h);
+			
 			loadBoard();
 
 			if (p.getLocation().getBlockY() >= 73 && !p.isOnGround()) {
@@ -503,8 +507,6 @@ public class Kit {
 
 	private void setHealth(Player pl, int sc) {
 
-		plugin.print("Setting team health of: " + pl.getName()
-				+ " in player class:" + p.getName());
 
 		Team t;
 
@@ -518,6 +520,7 @@ public class Kit {
 
 		if (kit == null)
 			return;
+	
 
 		OfflinePlayer pl0;
 
@@ -525,8 +528,12 @@ public class Kit {
 
 		pl0 = Bukkit.getOfflinePlayer(pl.getName());
 
+		
+		if(kit.health <= 0){
+			t.setSuffix(ChatColor.YELLOW + ": " + ChatColor.DARK_PURPLE + "DEAD");
+		}else{		
 		t.setSuffix(ChatColor.YELLOW + ": " + ChatColor.GRAY + kit.health);
-		;
+		}
 
 		t.addPlayer(pl0);
 

@@ -1,9 +1,5 @@
 package code.wizard.lobby;
 
-import java.awt.Toolkit;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
@@ -12,38 +8,26 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Sheep;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.kitteh.tag.TagAPI;
 
-import code.configtesting.config.Config;
 import code.wizard.armor.Armor;
-import code.wizard.armor.Armor.boots;
-import code.wizard.armor.Armor.cape;
-import code.wizard.armor.Armor.hat;
-import code.wizard.armor.Armor.pants;
 import code.wizard.item.NamedStack;
 import code.wizard.main.Main;
 import code.wizard.main.Mode;
 import code.wizard.maps.Map;
 import code.wizard.player.KitManager;
-import code.wizard.player.PlayerDataLoader;
 import code.wizard.player.WizTeam;
 import code.wizard.special.smash;
-import code.wizard.spell.Spell;
-import code.wizard.spell.SpellLoader;
-import code.wizard.spell.SpellSlot;
-import code.wizard.spell.SpellVictoryBomb;
 import code.wizard.util.BasicUtil;
 import code.wizard.util.Condition; //endgame import
 
@@ -106,15 +90,15 @@ public class LobbyRandom extends Lobby{
 			}
 		} else {
 			//part of Endgame code - start
-			timeRan = timeRan + 1; 
-			if (!endgame && timeRan >= (getPlayers() * 3.5 > 21 ? 21 : getPlayers() * 3.5) * 20 * 60){
+			timeRan++; 
+			if (!endgame && timeRan >= (getPlayers() * 2 > 10 ? 10 : getPlayers() * 2)  * 60){
 				endgame = true;
 				Bukkit.broadcastMessage(Main.getPrefix()+"The Endgame phase has Started! This match is getting too long");
 				Bukkit.broadcastMessage(Main.getPrefix()+Condition.ENDGAME.getReminder());
 				for (Player p : Bukkit.getOnlinePlayers()){
 					BasicUtil.giveCondtition(p, Condition.ENDGAME, 999999);
 					if (!spec.contains(p)){
-						plugin.find.giveHat(p, "survived untill endgame", Armor.hat.PATIENCE_MASK);
+						plugin.find.giveHat(p, "surviving untill endgame", Armor.hat.PATIENCE_MASK);
 					}
 				}
 			}
@@ -187,6 +171,8 @@ public class LobbyRandom extends Lobby{
 	}
 
 	private void start() {
+		for(LivingEntity e : map.getWorld().getLivingEntities()) if(e instanceof Sheep) e.remove();
+		
 		ob.unregister();
 		pperiod = true;
 		started = true;
@@ -315,9 +301,9 @@ public class LobbyRandom extends Lobby{
 	@EventHandler
 	public void MOTD(ServerListPingEvent event) {
 		if (!started) {
-			event.setMotd(Main.getPrefix() + "In Lobby");
+			event.setMotd(ChatColor.GREEN+"In Lobby");
 		} else {
-			event.setMotd(Main.getPrefix() + "In Game");
+			event.setMotd(ChatColor.DARK_PURPLE+"In Game");
 		}
 
 	}

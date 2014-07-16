@@ -338,9 +338,7 @@ public class Lobby  implements Listener {
 
 		p.sendMessage(ChatColor.GREEN + " ");
 		p.sendMessage(plugin.getPersonalPrefix() + "Welcome, " + p.getName()
-				+ ", to Wizardry v. Alpha 0.2!");
-		p.sendMessage(plugin.getPersonalPrefix()
-				+ "Please check out the books for more info :)");
+				+ ", to Wizardry v. Beta 1!");
 		p.sendMessage(ChatColor.GREEN + " ");
 		
 		p.setLevel(0);
@@ -353,18 +351,18 @@ public class Lobby  implements Listener {
 
 		p.getInventory().setHeldItemSlot(0);
 		p.getInventory().clear();
-		p.getInventory().setItem(
-				1,
-				new NamedStack(ChatColor.AQUA + "" + ChatColor.BOLD
-						+ "Spellbook", Material.BOOK));
-		p.getInventory().setItem(
-				0,
-				new NamedStack(ChatColor.GREEN + "" + ChatColor.BOLD
-						+ "Infobook", Material.BOOK));
-		p.getInventory().setItem(
-				2,
-				new NamedStack(ChatColor.RED + "" + ChatColor.BOLD
-						+ "Yet-To-Be-Addedbook", Material.BOOK));
+//		p.getInventory().setItem(
+//				1,
+//				new NamedStack(ChatColor.AQUA + "" + ChatColor.BOLD
+//						+ "Spellbook", Material.BOOK));
+//		p.getInventory().setItem(
+//				0,
+//				new NamedStack(ChatColor.GREEN + "" + ChatColor.BOLD
+//						+ "Infobook", Material.BOOK));
+//		p.getInventory().setItem(
+//				2,
+//				new NamedStack(ChatColor.RED + "" + ChatColor.BOLD
+//						+ "Yet-To-Be-Addedbook", Material.BOOK));
 
 		p.getInventory().setItem(
 				8,
