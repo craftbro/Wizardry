@@ -25,6 +25,7 @@ import code.wizard.item.NamedStack;
 import code.wizard.main.Main;
 import code.wizard.main.Mode;
 import code.wizard.maps.Map;
+import code.wizard.player.Kit;
 import code.wizard.player.KitManager;
 import code.wizard.player.WizTeam;
 import code.wizard.special.smash;
@@ -99,13 +100,16 @@ public class LobbyRandom extends Lobby{
 				Bukkit.broadcastMessage(Main.getPrefix()+"The Endgame phase has Started! This match is getting too long");
 				Bukkit.broadcastMessage(Main.getPrefix()+Condition.ENDGAME.getReminder());
 				for (Player p : Bukkit.getOnlinePlayers()){
-					BasicUtil.giveCondtition(p, Condition.ENDGAME, 999999);
+
+					Kit k = KitManager.getKit(p);
+					if(k == null) continue;
+					k.conditions.put(Condition.ENDGAME, 999999);
 					if (!spec.contains(p)){
 						plugin.find.giveHat(p, "surviving untill endgame", Armor.hat.PATIENCE_MASK);
 					}
 				}
 			}
-			//part of Endgame code - start
+			//part of Endgame code - end
 			if (!pperiod)
 				return;
 			if (peace > 0) {
