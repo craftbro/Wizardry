@@ -24,16 +24,16 @@ public class SpellShinyUppercut extends Spell{
 		
 		name = ChatColor.YELLOW+"Shining Uppercut";
 		stack = new ItemStack(Material.GHAST_TEAR);
-		cost = 45;
+		cost = 50;
 		
 		unlockable = true;
 		findable = true;
 		
 		des.add(ChatColor.DARK_AQUA+"Makes you fly up in the air");
-		des.add(ChatColor.DARK_AQUA+"dealing"+ChatColor.WHITE+" 9 "+ChatColor.GOLD+"Light"+ChatColor.DARK_AQUA+" damage to everyone hit and");
+		des.add(ChatColor.DARK_AQUA+"dealing"+ChatColor.WHITE+" 17 "+ChatColor.GOLD+"Light"+ChatColor.DARK_AQUA+" damage to everyone hit and");
 		des.add(ChatColor.DARK_AQUA+"throws them up in the air with you");
 
-		info.put(ChatColor.GREEN+"Note", "Damages up to 4 times, depends on when they got into the uppercut");
+		info.put(ChatColor.GREEN+"Note", "Damages up to 4 times");
 		info.put("Cooldown", ChatColor.GREEN+"5 Seconds");
 		
 		slot = SpellSlot.PRIMARY_STICK;
@@ -50,13 +50,13 @@ public class SpellShinyUppercut extends Spell{
 			int times = 0;
 			List<LivingEntity> safeList = new ArrayList<LivingEntity>();
 			public void run() {
-				for (LivingEntity e : BasicUtil.getInRadius(loc, 2)){
+				for (LivingEntity e : BasicUtil.getInRadius(loc, 2.3)){
 					if (e.getUniqueId() != p.getUniqueId()){
 						e.setVelocity(e.getVelocity().setY((e.getVelocity().getY() / 2.4) + (e.isOnGround() ? 0.6 : 0.098)));
 					}
 					if (!BasicUtil.isInTeam(e, p) && !safeList.contains(e)){
 						safeList.add(e);
-						BasicUtil.damage(e, p, 9, DamageType.LIGHT);
+						BasicUtil.damage(e, p, 17, DamageType.LIGHT);
 					}
 				}
 				belowLoc = loc.clone();
@@ -65,7 +65,7 @@ public class SpellShinyUppercut extends Spell{
 				ParticleEffect.CRIT.animateAtLocation(loc, 1, 0);
 				ParticleEffect.FIREWORK_SPARK.animateAtLocation(belowLoc, 1, 0);
 				if (times >= 20){
-					p.setVelocity(new Vector(p.getVelocity().getX() / 2, p.getVelocity().getY() * -0.05000000074505806, p.getVelocity().getZ() / 2));
+					p.setVelocity(new Vector(p.getVelocity().getX() / 2, p.getVelocity().getY() * -0.05, p.getVelocity().getZ() / 2));
 				} else {
 					p.setVelocity(new Vector(0, p.getVelocity().getY() - 0.026, 0));
 				}

@@ -30,17 +30,17 @@ public class SpellTimedThunder extends Spell{
 		
 		name = ChatColor.YELLOW+"Timed Thunder";
 		stack = new ItemStack(Material.BLAZE_POWDER);
-		cost = 60;
+		cost = 65;
 		
 		unlockable = true;
 		findable = true;
 		
 		des.add(ChatColor.DARK_AQUA+"Shoots out a thunder bomb");
 		des.add(ChatColor.DARK_AQUA+"after"+ChatColor.WHITE+" 0.5 "+ChatColor.DARK_AQUA+" seconds it vanishes");
-		des.add(ChatColor.DARK_AQUA+"use it again to blow it up for "+ChatColor.WHITE+"0"+ChatColor.DARK_AQUA+" mana dealing");
-		des.add(ChatColor.WHITE+"60"+ChatColor.YELLOW+" Lightning "+ChatColor.DARK_AQUA+"damage and "+ChatColor.YELLOW+"Stuns"+ChatColor.DARK_AQUA+" them for "+ChatColor.WHITE+"20"+ChatColor.DARK_AQUA+" seconds");
+		des.add(ChatColor.DARK_AQUA+"use it again to blow it up where it vanished for "+ChatColor.WHITE+"0"+ChatColor.DARK_AQUA+" mana dealing");
+		des.add(ChatColor.WHITE+"60"+ChatColor.YELLOW+" Lightning "+ChatColor.DARK_AQUA+"damage and "+ChatColor.YELLOW+"Stuns"+ChatColor.DARK_AQUA+" them for "+ChatColor.WHITE+"12"+ChatColor.DARK_AQUA+" seconds");
 
-		info.put("Range", ChatColor.GREEN+"4");
+		info.put("Range", ChatColor.GREEN+"4.5");
 		
 		rem.add(Condition.STUN.getReminder());
 		
@@ -53,10 +53,10 @@ public class SpellTimedThunder extends Spell{
 		
 		if (map.containsKey(p.getName())){
 			if (map.get(p.getName()) != null){
-				for (LivingEntity e : BasicUtil.getInRadius(map.get(p.getName()), 4)){
+				for (LivingEntity e : BasicUtil.getInRadius(map.get(p.getName()), 4.5)){
 					if (!BasicUtil.isInTeam(e, p)){
 						BasicUtil.damage(e, p, 60, DamageType.LIGHTNING);
-						BasicUtil.giveCondtition(e, Condition.STUN, 10);
+						BasicUtil.giveCondtition(e, Condition.STUN, 6);
 					}
 				}
 				ParticleEffect particle = ParticleEffect.ANGRY_VILLAGER;

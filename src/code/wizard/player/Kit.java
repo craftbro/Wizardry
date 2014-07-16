@@ -197,11 +197,11 @@ public class Kit {
 			p.removePotionEffect(PotionEffectType.JUMP);
 		}
 		if(conditions.containsKey(Condition.STUN)){
-			p.teleport(p); p.setVelocity(p.getVelocity().setX(0).setZ(0));
+			p.setVelocity(p.getVelocity().setX(0).setZ(0));
 			new BukkitRunnable(){
 				public void run(){
 					if(conditions.containsKey(Condition.STUN)){
-						p.teleport(p); p.setVelocity(p.getVelocity().setX(0).setZ(0).setY(p.getVelocity().getY() / 2));
+						p.setVelocity(p.getVelocity().setX(0).setZ(0).setY(p.getVelocity().getY() / 2));
 					}
 				}
 			}.runTaskLater(plugin, 10);
@@ -248,7 +248,7 @@ public class Kit {
 					if (p.getExp() < 1) {
 						p.setExp(p.getExp()
 								+ regen /* part of Endgame code - start */
-								* (conditions.containsKey(Condition.ENDGAME) ? 2
+								* (conditions.containsKey(Condition.ENDGAME) ? 1.3F
 										: 1)) /* part of Endgame code - end */;
 					}
 					p.setLevel((int) (p.getExp() * 100));
