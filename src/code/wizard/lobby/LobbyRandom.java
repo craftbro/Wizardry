@@ -35,17 +35,17 @@ import code.wizard.util.Condition; //endgame import
 public class LobbyRandom extends Lobby{
 
 	Location map;
-	
 
-	
+
+
 
 	Inventory shop;
 	Inventory aShop;
 
 	Objective ob;
-	
+
 	Objective obr;
-	
+
 	public int timeRan = 0; //part of Endgame code
 	public boolean endgame = false; //part of Endgame code
 	int endDelay = 5;
@@ -53,30 +53,30 @@ public class LobbyRandom extends Lobby{
 	public LobbyRandom(Main instance) {
 		super(instance);
 	}
-	
+
 
 	public static boolean hasStarted() {
 		return started;
 	}
-	
+
 	@Override
 	public  boolean canBeDamaged(Entity p){
 		return started;
 	}
-	
-	
-	
-	
+
+
+
+
 	@Override
 	public void tick() {
 		if (!started) {
 			int count = this.getPlayers();
-			
+
 			for(Player p : Bukkit.getOnlinePlayers()){
 				p.setFoodLevel(20);
 				obr.getScore(p.getName()).setScore(plugin.sql.handler.getScore(p));
 			}
-			
+
 			ob.getScore(
 					Bukkit.getOfflinePlayer(ChatColor.LIGHT_PURPLE + "Starts In"))
 					.setScore(cc);
@@ -122,17 +122,17 @@ public class LobbyRandom extends Lobby{
 
 		}
 	}
-	
-	
+
+
 
 	public void end(final Player p) {
 		Bukkit.broadcastMessage(plugin.getPrefix() + p.getName() + " Won!");
-		
+
 		p.sendMessage(plugin.getPersonalPrefix()+ChatColor.GREEN+"+4 Score for winning!");
 		plugin.sql.handler.addScore(p, 4);
-		
+
 		giveWin(p);
-		
+
 		for (Player pl : Bukkit.getOnlinePlayers()) {
 			if(pl != p && !spec.contains(pl)){
 				giveLose(pl);
@@ -160,7 +160,7 @@ public class LobbyRandom extends Lobby{
 
 		Bukkit.broadcastMessage(plugin.getPrefix() + "Team " + t.getName()
 				+ ChatColor.DARK_PURPLE + " Won!");
-		
+
 		for(Player p : t.players){
 			giveWin(p);
 			p.sendMessage(plugin.getPersonalPrefix()+ChatColor.GREEN+"+4 Score for winning!");
@@ -188,7 +188,7 @@ public class LobbyRandom extends Lobby{
 
 	private void start() {
 		for(LivingEntity e : map.getWorld().getLivingEntities()) if(e instanceof Sheep) e.remove();
-		
+
 		ob.unregister();
 		obr.unregister();
 		pperiod = true;
@@ -246,19 +246,19 @@ public class LobbyRandom extends Lobby{
 
 			p.sendMessage(plugin.getPrefix() + "the " + peace
 					+ " seconds of peace have begun!");
-			
-			
+
+
 		}
-		
+
 		int delay = (new Random().nextInt(3)+3)*20*60;
-		
+
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
 
 			@Override
 			public void run() {
 				new smash().spawn(map);
 			}
-			
+
 		}, delay);
 
 	}
@@ -271,7 +271,7 @@ public class LobbyRandom extends Lobby{
 		obr = plugin.board.registerNewObjective("rank", "rank");
 		obr.setDisplayName(ChatColor.GREEN+"Score: "+ChatColor.GOLD);
 		obr.setDisplaySlot(DisplaySlot.BELOW_NAME);
-		
+
 		ob = plugin.board.registerNewObjective("lobby", "lobby");
 
 		ob.setDisplayName(ChatColor.LIGHT_PURPLE+"Map "+Map.bridge.getName());
@@ -307,7 +307,7 @@ public class LobbyRandom extends Lobby{
 				Material.LEATHER_BOOTS));
 
 	}
-	
+
 	@Override
 	public Location getSpawn(Player p){
 		return map;
@@ -329,9 +329,9 @@ public class LobbyRandom extends Lobby{
 
 	}
 
-	
 
-	
+
+
 
 
 	public int getPlayers() {
@@ -347,13 +347,7 @@ public class LobbyRandom extends Lobby{
 
 		return pl;
 	}
-	
-	@Override
-	protected void handleJoin(Player p){
-		super.handleJoin(p);
-		obr.getScore(p.getName()).setScore(plugin.sql.handler.getScore(p));
-	}
-	
+
 	@EventHandler
 	public void click(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
