@@ -256,7 +256,9 @@ public class LobbyRandom extends Lobby{
 
 			@Override
 			public void run() {
-				new smash().spawn(map);
+				if (!ended){
+					new smash().spawn(map);
+				}
 			}
 
 		}, delay);

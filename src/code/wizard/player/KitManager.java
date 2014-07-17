@@ -97,8 +97,9 @@ public class KitManager implements Listener {
 		if( lobby.started && !plugin.lobby.pperiod && !plugin.lobby.ended){
 			if(plugin.lobby.mode == Mode.FFA){
 			if(kits.size() == 1){
-				for(Player p : kits.keySet()){
+				for(Player p : new HashMap<Player, Kit>(kits).keySet()){
 				((LobbyRandom) plugin.lobby).end(p);
+				break;
 				}
 			}
 			}else{

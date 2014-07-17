@@ -30,7 +30,9 @@ import code.wizard.armor.DStats;
 import code.wizard.effect.CodeEffect;
 import code.wizard.effect.ParticleEffect;
 import code.wizard.item.NamedStack;
+import code.wizard.lobby.Lobby;
 import code.wizard.lobby.Lobby1v1;
+import code.wizard.lobby.LobbyRandom;
 import code.wizard.main.Main;
 import code.wizard.main.Mode;
 import code.wizard.main.ServerType;
@@ -444,6 +446,13 @@ public class Kit {
 			} else {
 				board.resetScores(Bukkit.getOfflinePlayer(c.getName()));
 				conditions.remove(c);
+			}
+			if (plugin.lobby instanceof LobbyRandom){
+				if (((LobbyRandom) plugin.lobby).endgame){
+					if (!conditions.containsKey(Condition.ENDGAME)){
+						conditions.put(Condition.ENDGAME, 999999);
+					}
+				}
 			}
 
 			// if(p.getInventory().getHeldItemSlot() == 6){
