@@ -25,7 +25,7 @@ import code.wizard.item.NamedStack;
 import code.wizard.main.Main;
 import code.wizard.main.Mode;
 import code.wizard.maps.Map;
-
+import code.wizard.player.Kit;
 import code.wizard.player.KitManager;
 import code.wizard.player.WizTeam;
 import code.wizard.special.smash;
