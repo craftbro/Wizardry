@@ -248,7 +248,7 @@ public class Kit {
 					if (p.getExp() < 1) {
 						p.setExp(p.getExp()
 								+ regen /* part of Endgame code - start */
-								* (conditions.containsKey(Condition.ENDGAME) ? 2
+								* (conditions.containsKey(Condition.ENDGAME) ? 1.3F
 										: 1)) /* part of Endgame code - end */;
 					}
 					p.setLevel((int) (p.getExp() * 100));

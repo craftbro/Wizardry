@@ -25,6 +25,7 @@ import code.wizard.item.NamedStack;
 import code.wizard.main.Main;
 import code.wizard.main.Mode;
 import code.wizard.maps.Map;
+
 import code.wizard.player.KitManager;
 import code.wizard.player.WizTeam;
 import code.wizard.special.smash;
@@ -66,7 +67,6 @@ public class LobbyRandom extends Lobby{
 	
 	
 	
-
 	@Override
 	public void tick() {
 		if (!started) {
@@ -74,6 +74,7 @@ public class LobbyRandom extends Lobby{
 			
 			for(Player p : Bukkit.getOnlinePlayers()){
 				p.setFoodLevel(20);
+				obr.getScore(p.getName()).setScore(plugin.sql.handler.getScore(p));
 			}
 			
 			ob.getScore(
@@ -94,18 +95,21 @@ public class LobbyRandom extends Lobby{
 		} else {
 			//part of Endgame code - start
 			timeRan++; 
-			if (!endgame && timeRan >= (getPlayers() * 2 > 10 ? 10 : getPlayers() * 2)  * 60){
+			if (!endgame && timeRan >= (getPlayers() * 2.3 > 15 ? 15 : getPlayers() * 2.3)  * 60){
 				endgame = true;
 				Bukkit.broadcastMessage(Main.getPrefix()+"The Endgame phase has Started! This match is getting too long");
 				Bukkit.broadcastMessage(Main.getPrefix()+Condition.ENDGAME.getReminder());
 				for (Player p : Bukkit.getOnlinePlayers()){
-					BasicUtil.giveCondtition(p, Condition.ENDGAME, 999999);
+
+					Kit k = KitManager.getKit(p);
+					if(k == null) continue;
+					k.conditions.put(Condition.ENDGAME, 999999);
 					if (!spec.contains(p)){
 						plugin.find.giveHat(p, "surviving untill endgame", Armor.hat.PATIENCE_MASK);
 					}
 				}
 			}
-			//part of Endgame code - start
+			//part of Endgame code - end
 			if (!pperiod)
 				return;
 			if (peace > 0) {
