@@ -33,8 +33,8 @@ public class SpellHotWater extends Spell{
 		cost = 60;
 		
 		des.add(ChatColor.DARK_AQUA+"Shoots a trail of hot water for "+ChatColor.WHITE+"2"+ChatColor.DARK_AQUA+" second that");
-		des.add(ChatColor.DARK_AQUA+"deals "+ChatColor.WHITE+"4"+ChatColor.AQUA+" Water "+ChatColor.DARK_AQUA+"damage");
-		des.add(ChatColor.DARK_AQUA+"and"+ChatColor.RED+" Burns"+ChatColor.DARK_AQUA+" the emeny for "+ChatColor.WHITE+"4"+ChatColor.DARK_AQUA+" seconds");
+		des.add(ChatColor.DARK_AQUA+"deals "+ChatColor.WHITE+"5"+ChatColor.AQUA+" Water "+ChatColor.DARK_AQUA+"damage");
+		des.add(ChatColor.DARK_AQUA+"and"+ChatColor.RED+" Burns"+ChatColor.DARK_AQUA+" the emeny for "+ChatColor.WHITE+"6"+ChatColor.DARK_AQUA+" seconds");
 
 		info.put("Range", ChatColor.GREEN+"1.5");
 		
@@ -66,7 +66,7 @@ public class SpellHotWater extends Spell{
 							
 							for (LivingEntity e : loc.getWorld().getLivingEntities()) if(e.getEyeLocation().distance(loc) <= 1.5){
 								if (!BasicUtil.isInTeam(e, p) && !ticksafe.contains(e)){
-									BasicUtil.damage(e, p, 4, DamageType.WATER);
+									BasicUtil.damage(e, p, 5, DamageType.WATER);
 									ticksafe.add(e);
 									if (times % 5 == 0){
 										try {
@@ -77,7 +77,7 @@ public class SpellHotWater extends Spell{
 										}
 										}
 									if(!safes.contains(e)){
-										BasicUtil.giveCondtition(e, Condition.BURN, 2);
+										BasicUtil.giveCondtition(e, Condition.BURN, 3);
 										safes.add(e);
 										}
 									}
