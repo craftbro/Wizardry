@@ -40,11 +40,11 @@ public class SpellFireBlast extends Spell{
 		
 		des.add(ChatColor.DARK_AQUA+"First time used collect power to unleash the spell");
 		des.add(ChatColor.DARK_AQUA+"next time you throw a huge Fireblast dealing");
-		des.add(ChatColor.WHITE+"90"+ChatColor.RED+" Fire"+ChatColor.DARK_AQUA+" damage to everyone it hits");
+		des.add(ChatColor.WHITE+"100"+ChatColor.RED+" Fire"+ChatColor.DARK_AQUA+" damage to everyone it hits");
 		des.add(ChatColor.DARK_AQUA+"and "+ChatColor.RED+"Burns"+ChatColor.DARK_AQUA+" them for "+ChatColor.WHITE+"12"+ChatColor.DARK_AQUA+" seconds");
 
 		info.put("Range", ChatColor.GREEN+"5");
-		info.put(ChatColor.RED+"Note:", "Charging up makes you weak for 8 seconds");
+		info.put(ChatColor.RED+"Note", "Charging up makes you weak for 8 seconds");
 		
 		rem.add(Condition.BURN.getReminder());
 		rem.add(Condition.WEAK.getReminder());
@@ -65,7 +65,7 @@ public class SpellFireBlast extends Spell{
 				public Location currLoc = p.getEyeLocation();
 				public Vector vec = currLoc.getDirection().normalize().multiply(0.7);
 				int times = 0;
-				BlockFace[] faces = new BlockFace[]{BlockFace.UP, BlockFace.DOWN, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST, BlockFace.NORTH};
+				BlockFace[] faces = new BlockFace[]{BlockFace.SELF};
 				public void run(){
 					currLoc.add(vec);
 					if (times >= 400){
@@ -77,7 +77,7 @@ public class SpellFireBlast extends Spell{
 						}
 						for (LivingEntity e : BasicUtil.getInRadius(currLoc, 5)){
 							if (!BasicUtil.isInTeam(e, p)){
-								BasicUtil.damage(e, p, 90, DamageType.FIRE);
+								BasicUtil.damage(e, p, 100, DamageType.FIRE);
 								BasicUtil.giveCondtition(e, Condition.BURN, 6);
 							}
 						}
