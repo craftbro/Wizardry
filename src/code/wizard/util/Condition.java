@@ -15,7 +15,7 @@ public enum Condition {
 	HARDEN(ChatColor.BLUE+"Harden", ChatColor.BLUE+"Hardened "+ChatColor.DARK_AQUA+"players take 10 less damage"),
 	SUPER(ChatColor.RED+"S"+ChatColor.YELLOW+"u"+ChatColor.GREEN+"p"+ChatColor.AQUA+"e"+ChatColor.LIGHT_PURPLE+"r", 
 			ChatColor.RED+"S"+ChatColor.YELLOW+"u"+ChatColor.GREEN+"p"+ChatColor.AQUA+"e"+ChatColor.LIGHT_PURPLE+"r"+ChatColor.DARK_AQUA+" players deal double damage!"),
-	ENDGAME(ChatColor.BLACK+"Endgame", ChatColor.BLACK+"Endgame"+ChatColor.DARK_AQUA+" doubles mana regeneration, hurts 5 damage every 2 seconds and doubles damage"); //part of Endgame code
+	ENDGAME(ChatColor.BLACK+"Endgame", ChatColor.BLACK+"Endgame"+ChatColor.DARK_AQUA+" increases mana regeneration, hurts 5 damage every 2 seconds and doubles damage"); //part of Endgame code
 	
 	String name;
 	String reminder;

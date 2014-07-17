@@ -229,11 +229,9 @@ public class Kit {
 
 	public void tick() {
 		if (health > 0) {
-
 			int h = (int) (health/50 < 1 ? 1 : health/50);
-
 			p.setHealth(h);
-
+			
 			loadBoard();
 
 			if (p.getLocation().getBlockY() >= 73 && !p.isOnGround()) {
