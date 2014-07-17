@@ -66,7 +66,7 @@ public class LobbyRandom extends Lobby{
 	
 	
 	
-	@SuppressWarnings("deprecation")
+
 	@Override
 	public void tick() {
 		if (!started) {
