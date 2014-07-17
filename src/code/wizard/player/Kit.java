@@ -159,6 +159,11 @@ public class Kit {
 
 	public void heal(double h) {
 		if (!conditions.containsKey(Condition.OIL)) {
+			//Part of Endgame code - start
+			if (conditions.containsKey(Condition.ENDGAME)){
+				h /= 1.5;
+			}
+			//Part of Endgame code - end
 			if (health + h > maxHealth)
 				h = maxHealth - health;
 			health += h;
@@ -167,7 +172,7 @@ public class Kit {
 					p.getEyeLocation().subtract(
 							new Random().nextDouble() * 2.0 - 1, 0.36,
 							new Random().nextDouble() * 2.0 - 1), 2,
-					new Vector(0, 0.02, 0), ChatColor.GREEN + "+" + h);
+					new Vector(0, 0.02, 0), ChatColor.DARK_GREEN + "+" + h);
 		} else {
 			HoloAPI.getManager().createSimpleHologram(
 					p.getEyeLocation().subtract(
