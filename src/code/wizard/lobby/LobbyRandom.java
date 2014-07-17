@@ -105,7 +105,7 @@ public class LobbyRandom extends Lobby{
 					if(k == null) continue;
 					k.conditions.put(Condition.ENDGAME, 999999);
 					if (!spec.contains(p)){
-						plugin.find.giveHat(p, "surviving untill endgame", Armor.hat.PATIENCE_MASK);
+						plugin.find.giveHat(p, "being on from start to endgame", Armor.hat.PATIENCE_MASK);
 					}
 				}
 			}
