@@ -322,7 +322,7 @@ public class Lobby  implements Listener {
 		}
 	}
 
-	private void handleJoin(Player p) {
+	protected void handleJoin(Player p) {
 		p.setScoreboard(plugin.board);
 
 		if (p.getGameMode() == GameMode.CREATIVE)

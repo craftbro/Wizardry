@@ -66,6 +66,7 @@ public class LobbyRandom extends Lobby{
 	
 	
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void tick() {
 		if (!started) {
@@ -73,7 +74,6 @@ public class LobbyRandom extends Lobby{
 			
 			for(Player p : Bukkit.getOnlinePlayers()){
 				p.setFoodLevel(20);
-				obr.getScore(p.getName()).setScore(plugin.sql.handler.getScore(p));
 			}
 			
 			ob.getScore(
@@ -342,6 +342,12 @@ public class LobbyRandom extends Lobby{
 		}
 
 		return pl;
+	}
+	
+	@Override
+	protected void handleJoin(Player p){
+		super.handleJoin(p);
+		obr.getScore(p.getName()).setScore(plugin.sql.handler.getScore(p));
 	}
 	
 	@EventHandler
