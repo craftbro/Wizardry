@@ -81,7 +81,7 @@ public class Kit {
 		this.p = p;
 		board = Bukkit.getScoreboardManager().getNewScoreboard();
 		team = t;
-		
+
 		health = plugin.type == ServerType.RANDOM ? 1000 : 600;
 		maxHealth = health;
 	}
@@ -229,11 +229,11 @@ public class Kit {
 
 	public void tick() {
 		if (health > 0) {
-			
+
 			int h = (int) (health/50 < 1 ? 1 : health/50);
-			
+
 			p.setHealth(h);
-			
+
 			loadBoard();
 
 			if (p.getLocation().getBlockY() >= 73 && !p.isOnGround()) {
@@ -272,7 +272,7 @@ public class Kit {
 			}
 
 		} else {
-			
+
 
 			team.players.remove(p);
 
@@ -298,7 +298,7 @@ public class Kit {
 				Bukkit.broadcastMessage(Main.getPrefix() + p.getName() + " died!");
 			} else {
 			    a.kill(p);
-				
+
 			}
 
 		}
@@ -522,7 +522,7 @@ public class Kit {
 
 		if (kit == null)
 			return;
-	
+
 
 		OfflinePlayer pl0;
 
@@ -530,7 +530,7 @@ public class Kit {
 
 		pl0 = Bukkit.getOfflinePlayer(pl.getName());
 
-		
+
 		if(kit.health <= 0){
 			t.setSuffix(ChatColor.YELLOW + ": " + ChatColor.DARK_PURPLE + "DEAD");
 		}else{		
