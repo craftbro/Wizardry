@@ -109,7 +109,8 @@ public static List<Location> getCircle(Location l, double radius){
 			Kit k = KitManager.getKit(p);
 			if(k == null) return 0;
 			
-			
+			double multiply = 1;
+			double divide = 1;
 
 			if(k.conditions.keySet().contains(Condition.PHYSICALIZE)) type = DamageType.PHYSICAL;
 		
@@ -118,16 +119,21 @@ public static List<Location> getCircle(Location l, double radius){
 			if(d != null){
 				Kit k1 = KitManager.getKit(d);
 				if(k1 != null){
-					if(k1.conditions.containsKey(Condition.SUPER)) damage*=2; 
-					if(k1.conditions.containsKey(Condition.TIRED)) damage/=2; 
-					if(k1.conditions.containsKey(Condition.ENDGAME)) damage*=2; //part of Endgame code 
+					if(k1.conditions.containsKey(Condition.SUPER)) multiply+=1; 
+					if(k1.conditions.containsKey(Condition.TIRED)) divide+=1; 
+					if(k1.conditions.containsKey(Condition.ENDGAME)) multiply+=1; //part of Endgame code 
 				}
 				
 				}
 			
-			if(k.conditions.keySet().contains(Condition.WEAK)) damage*=2;
-
-			if(k.conditions.keySet().contains(Condition.HARDEN)) damage-=10;
+			if(k.conditions.keySet().contains(Condition.WEAK)) multiply+=1;
+			
+			damage *= multiply;
+			damage /= divide;
+			
+			if ((damage - 10 < 1 && damage >= 1) == false){
+				if(k.conditions.keySet().contains(Condition.HARDEN)) damage-=10;
+			}
 			
 			double dd = damage*100;
 			
