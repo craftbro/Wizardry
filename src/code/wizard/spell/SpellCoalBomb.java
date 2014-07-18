@@ -68,8 +68,9 @@ final ProjectileBall ball = new ProjectileBall(new ItemStack(Material.COAL));
 		
 				
 				item.remove();
-			
 				
+			
+				return;
 			}
 			
 		});
