@@ -23,6 +23,7 @@ public class ProjectileBall{
 	private int duration = -1;
 	private List<LivingEntity> hit;
 	private boolean timed = false;
+	private boolean dead = false;
 	
 	private Runnable onExplode = new Runnable(){
 
@@ -64,14 +65,19 @@ public class ProjectileBall{
 
 				@Override
 				public void run() {
+					if (dead){
+						cancel();
+						return;
+					}
 					BlockFace[] faces = new BlockFace[]{BlockFace.UP, BlockFace.DOWN, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST, BlockFace.NORTH};
 					
 					for(BlockFace f : faces){
 						Block b = item.getLocation().getBlock().getRelative(f);
 						
-						if(b.getType().isSolid()){
+						if(b.getType().isSolid() && !dead){
 							onExplode.run();
 							cancel();
+							dead = true;
 							break;
 						}
 					}

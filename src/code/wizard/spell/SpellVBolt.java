@@ -26,7 +26,8 @@ import code.wizard.util.BasicUtil;
 import code.wizard.util.DamageType;
 
 public class SpellVBolt extends Spell{
-
+	private boolean dead = false;
+	
 	public SpellVBolt(Player p) {
 		super(p);
 		
@@ -58,6 +59,10 @@ public class SpellVBolt extends Spell{
 			int times = 0;
 			Location currLoc = p.getEyeLocation();
 			public void run(){
+				if (dead){
+					cancel();
+					return;
+				}
 				if (currLoc.getBlock().getType().isSolid()){
 					cancel();
 					try {
@@ -74,26 +79,24 @@ public class SpellVBolt extends Spell{
 					}
 					currLoc = currLoc.add(vec);
 					bolt.move(currLoc);
-					List<LivingEntity> list = new ArrayList<LivingEntity>();
+					LivingEntity hit = null;
 					for (LivingEntity e : currLoc.getWorld().getLivingEntities()) if(e.getEyeLocation().distance(currLoc) <= 2){
 						if (!BasicUtil.isInTeam(e, p)){
-							list.add(e);
+							hit = e;
 						}
 					}
-					if (!list.isEmpty()){
-						for (LivingEntity e : list){
-							BasicUtil.damage(e, p, 75, DamageType.GROUND);
-						}
-						List<LivingEntity> list2 = new ArrayList<LivingEntity>(list);
-						for (LivingEntity e : currLoc.getWorld().getLivingEntities()) if(e.getEyeLocation().distance(currLoc) <= 5){
+					if (hit != null){
+						BasicUtil.damage(hit, p, 75, DamageType.GROUND);
+						List<LivingEntity> list2 = new ArrayList<LivingEntity>();
+						for (LivingEntity e : currLoc.getWorld().getLivingEntities()) if(e.getEyeLocation().distance(hit.getEyeLocation()) <= 5){
 							list2.add(e);
 						}
-						list2.removeAll(list);
 						for (LivingEntity e : list2){
 							if (!BasicUtil.isInTeam(e, p)){
 								BasicUtil.damage(e, p, 15, DamageType.GROUND);
 							}
 						}
+						dead = true;
 						cancel();
 						times = 360;
 						ParticleEffect.LARGE_EXPLODE.animateAtLocation(currLoc, 5, 1);
@@ -104,6 +107,7 @@ public class SpellVBolt extends Spell{
 						} catch (Exception e){
 							
 						}
+						return;
 					} else {
 						if (times >= 360){
 							cancel();
@@ -115,6 +119,8 @@ public class SpellVBolt extends Spell{
 							} catch (Exception e){
 								
 							}
+							dead = true;
+							return;
 						}
 						times++;
 					}
