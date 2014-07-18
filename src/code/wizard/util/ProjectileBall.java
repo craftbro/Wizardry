@@ -41,6 +41,7 @@ public class ProjectileBall{
      * @param v The vector the item is fired with
      */
 	public void launch(final Location l, Vector v){
+		dead = false;
 		stack.setAmount(1);
 		
 		item = l.getWorld().dropItem(l, stack);
