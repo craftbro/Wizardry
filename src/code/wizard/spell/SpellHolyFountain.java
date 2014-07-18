@@ -73,7 +73,7 @@ public class SpellHolyFountain extends Spell{
 				BasicUtil.playEffectInCircle(item.getLocation(), 5, ParticleEffect.SPLASH, 2);
 				
 				item.remove();
-			
+			return;
 				
 			}
 			
